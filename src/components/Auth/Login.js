@@ -1,19 +1,14 @@
-import {useState} from "react";
+import {useState} from 'react';
+import {useHistory} from 'react-router';
 
 import {
-    Box,
-    Button,
-    FormControl,
-    InputAdornment,
-    InputLabel,
-    Link,
-    OutlinedInput,
-    Typography
-} from "@material-ui/core";
+    Box, Button, FormControl, InputAdornment, InputLabel,
+    Link, OutlinedInput, Typography
+} from '@material-ui/core';
 import PersonIcon from '@material-ui/icons/Person';
 import LockIcon from '@material-ui/icons/Lock';
-import {useHistory} from "react-router";
-import {authorization} from "../../Services/Auth";
+
+import {authorization} from '../../Services/Auth';
 
 export default function Login () {
     const [login, setLogin] = useState('');
@@ -21,7 +16,6 @@ export default function Login () {
     const history = useHistory()
 
     function handleClick() {
-        console.log(login, password);
         if (authorization(login, password)) {
             window.localStorage.setItem('auth', 'true');
             history.push('/tasks')
@@ -46,7 +40,6 @@ export default function Login () {
                 p={4}
                 borderRadius={35}
                 width={400}
-                height={400}
             >
                 <Typography
                     align='center'
@@ -71,7 +64,9 @@ export default function Login () {
                         fullWidth
                         variant='outlined'
                     >
-                        <InputLabel>Логин</InputLabel>
+                        <InputLabel>
+                            Логин
+                        </InputLabel>
                         <OutlinedInput
                             value={login}
                             label='Логин'

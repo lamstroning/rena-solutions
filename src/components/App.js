@@ -7,6 +7,7 @@ import {Redirect, Switch} from 'react-router';
 import Header from './common/Header';
 import NotFound from './404';
 import {Box} from "@material-ui/core";
+import CheckList from "./CheckList";
 
 function App() {
   return (
@@ -19,6 +20,10 @@ function App() {
                   </Route>
                   <Route path='/404'>
                       <NotFound/>
+                  </Route>
+                  <Route path='/checklist'>
+                      <Header/>
+                      <CheckList/>
                   </Route>
                   <Route path='*'>
                       <Redirect to='/404'/>
