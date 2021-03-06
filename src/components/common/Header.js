@@ -1,0 +1,76 @@
+import {Box, IconButton, Typography} from '@material-ui/core';
+import SearchIcon from '@material-ui/icons/Search';
+import LibraryBooksIcon from '@material-ui/icons/LibraryBooks';
+import SettingsIcon from '@material-ui/icons/Settings';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+
+import avatar from '../../asetss/images/worker-avatar.jpg';
+
+import {theme} from '../../theme/theme';
+
+export default function Header () {
+    return (
+        <Box
+            p={2}
+            bgcolor={theme.palette.primary.main}
+        >
+            <Box
+                display='flex'
+                justifyContent='space-between'
+                alignItems='center'
+                mx='auto'
+                px={2}
+                maxWidth={theme.size.appWidth}
+            >
+                <Box
+                    alignItems='center'
+                    display='flex'
+                >
+                    <Box
+                        width={50}
+                        height={50}
+                        borderRadius='50%'
+                        overflow='hidden'
+                    >
+                        <img width='100%' height='100%' src={avatar} alt=''/>
+                    </Box>
+                    <Box ml={2} color='white'>
+                        <Typography variant='h5' className='text text_nowrap'>
+                            Иванов А.С.
+                        </Typography>
+                        <Typography variant='h6' className='text text_nowrap'>
+                            Старший инженер
+                        </Typography>
+                    </Box>
+                </Box>
+                <Box
+                    display='flex'
+                    color='white'
+                    fontSize={28}
+                >
+                    {/*Убрать display: none когда будут готовы страницы*/}
+                    <Box display='none'>
+                        <IconButton>
+                            <SearchIcon fontSize='inherit'/>
+                        </IconButton>
+                        <IconButton>
+                            <LibraryBooksIcon fontSize='inherit'/>
+                        </IconButton>
+                        <IconButton>
+                            <SettingsIcon fontSize='inherit'/>
+                        </IconButton>
+                    </Box>
+                    <IconButton
+                        color='inherit'
+                        onClick={() => {
+                            window.localStorage.clear();
+                            window.location.reload();
+                        }}
+                    >
+                        <ExitToAppIcon fontSize='inherit'/>
+                    </IconButton>
+                </Box>
+            </Box >
+        </Box>
+    );
+}

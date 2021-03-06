@@ -379,13 +379,22 @@ module.exports = function (webpackEnv) {
             // smaller than specified limit in bytes as data URLs to avoid requests.
             // A missing `test` is equivalent to a match.
             {
-              test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
-              loader: require.resolve('url-loader'),
+              test: /\.(png|jpg|gif|ico|svg)$/,
+              loader: 'file-loader',
               options: {
-                limit: imageInlineSizeLimit,
-                name: 'static/media/[name].[hash:8].[ext]',
-              },
+                name: '[path][name].[ext]',
+                context: ''
+              }
             },
+            /* {
+               test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
+               loader: require.resolve('url-loader'),
+               options: {
+                 limit: imageInlineSizeLimit,
+                 name: 'static/media/[name].[hash:8].[ext]',
+               },
+            */
+
             // Process application JS with Babel.
             // The preset includes JSX, Flow, TypeScript, and some ESnext features.
             {

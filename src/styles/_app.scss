@@ -1,0 +1,10 @@
+.text {
+  &_overflow {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  &_nowrap {
+    white-space: nowrap;
+  }
+}

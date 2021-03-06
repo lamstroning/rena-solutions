@@ -1,11 +1,31 @@
-import Box from '@material-ui/core/Box';
 import React from 'react';
+
+import '../styles/index.scss';
+import Tasks from "./Tasks";
+import {BrowserRouter, Route} from 'react-router-dom';
+import {Redirect, Switch} from 'react-router';
+import Header from './common/Header';
+import NotFound from './404';
+import {Box} from "@material-ui/core";
 
 function App() {
   return (
-  <Box>
-      xxx
-  </Box>
+      <Box display='flex' flexDirection='column' height={1}>
+          <BrowserRouter>
+              <Switch>
+                  <Route path='/tasks'>
+                      <Header/>
+                      <Tasks/>
+                  </Route>
+                  <Route path='/404'>
+                      <NotFound/>
+                  </Route>
+                  <Route path='*'>
+                      <Redirect to='/404'/>
+                  </Route>
+              </Switch>
+          </BrowserRouter>
+      </Box>
   );
 }
 
