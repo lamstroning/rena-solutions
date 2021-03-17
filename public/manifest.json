@@ -1,11 +1,11 @@
 {
-  "name": "Rena solution",
-  "short_name": "Rena solution",
+  "name": "MRMS Rusroboter ",
+  "short_name": "Rusroboter",
   "theme_color": "#1976d2",
   "background_color": "#fafafa",
   "display": "standalone",
   "scope": "./",
-  "start_url": "./",
+  "start_url": "./login",
   "orientation": "portrait",
   "icons": [
     {
