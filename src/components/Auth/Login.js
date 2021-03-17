@@ -1,5 +1,5 @@
-import {useState} from 'react';
-import {useHistory} from 'react-router';
+import { useState } from 'react';
+import { useHistory } from 'react-router';
 
 import {
     Box, Button, FormControl, InputAdornment, InputLabel,
@@ -8,9 +8,9 @@ import {
 import PersonIcon from '@material-ui/icons/Person';
 import LockIcon from '@material-ui/icons/Lock';
 
-import {authorization} from '../../Services/Auth';
+import { authorization } from '../../Services/Auth';
 
-export default function Login () {
+export default function Login() {
     const [login, setLogin] = useState('');
     const [password, setPassword] = useState('');
     const history = useHistory()
@@ -18,9 +18,9 @@ export default function Login () {
     function handleClick() {
         if (authorization(login, password)) {
             window.localStorage.setItem('auth', 'true');
-            history.push('/tasks')
+            history.push('/mrms/client/tasks')
         } else {
-            alert('Не правильный логн или пароль');
+            alert('Не правильный логин или пароль');
         }
     }
 
@@ -73,7 +73,7 @@ export default function Login () {
                             onChange={event => setLogin(event.currentTarget.value)}
                             startAdornment={
                                 <InputAdornment>
-                                    <PersonIcon color='primary'/>
+                                    <PersonIcon color='primary' />
                                 </InputAdornment>
                             }
                         />
@@ -97,7 +97,7 @@ export default function Login () {
                             onChange={event => setPassword(event.currentTarget.value)}
                             startAdornment={
                                 <InputAdornment>
-                                    <LockIcon color='primary'/>
+                                    <LockIcon color='primary' />
                                 </InputAdornment>
                             }
                         />

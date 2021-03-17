@@ -14,19 +14,19 @@ function App() {
         <Box display='flex' flexDirection='column' height={1}>
             <BrowserRouter>
                 <Switch>
-                    <Route path='/tasks'>
+                    <Route path='/mrms/client/tasks'>
                         <Header />
                         <Tasks />
                     </Route>
-                    <Route path='/404'>
+                    <Route path='/mrms/client/404'>
                         <NotFound />
                     </Route>
-                    <Route path='/checklist'>
+                    <Route path='/mrms/client/checklist'>
                         <Header />
                         <CheckList />
                     </Route>
                     <Route path='*'>
-                        <Redirect to='/404' />
+                        <Redirect to='/mrms/client/404' />
                     </Route>
                 </Switch>
             </BrowserRouter>

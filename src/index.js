@@ -7,6 +7,8 @@ import { MuiThemeProvider } from "@material-ui/core";
 import { theme } from "./theme/theme";
 import Login from "./components/Auth/Login";
 import * as serviceWorker from './serviceWorker';
+import "./styles/index.scss"
+
 
 const PrivateRoute = (props) => {
     const user = window.localStorage.getItem('auth'); // i will fetch token stored in cookie
@@ -23,7 +25,7 @@ ReactDOM.render(
         <MuiThemeProvider theme={theme}>
             <BrowserRouter>
                 <Switch>
-                    <Route exact path='/login'>
+                    <Route exact path='/mrms/client/login'>
                         <Login />
                     </Route>
                     <PrivateRoute />

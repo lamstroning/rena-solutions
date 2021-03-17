@@ -1,6 +1,6 @@
-import {Box, IconButton, Typography} from "@material-ui/core";
+import { Box, IconButton, Typography } from "@material-ui/core";
 import React from "react";
-import {theme} from "../theme/theme";
+import { theme } from "../theme/theme";
 
 import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 
@@ -14,8 +14,8 @@ export default function CheckList() {
             p={4}
             height={1}
         >
-            <IconButton color='primary' href='/tasks'>
-                <KeyboardBackspaceIcon/>
+            <IconButton color='primary' href='/mrms/client/tasks'>
+                <KeyboardBackspaceIcon />
             </IconButton>
             <Typography variant='h1' align='center'>
                 Чек-листы

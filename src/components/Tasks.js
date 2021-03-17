@@ -10,9 +10,9 @@ import {
     TableCell,
     TableRow
 } from "@material-ui/core";
-import React, {useState} from "react";
-import {theme} from "../theme/theme";
-import {useHistory} from "react-router";
+import React, { useState } from "react";
+import { theme } from "../theme/theme";
+import { useHistory } from "react-router";
 
 const CustomSelect = withStyles(theme => ({
     root: {
@@ -57,7 +57,7 @@ export default function Tasks() {
     };
 
     const renderRow = task =>
-        <TableRow key={task.id} onClick={() => history.push('/checklist')}>
+        <TableRow key={task.id} onClick={() => history.push('/mrms/client/checklist')}>
             <TableCell>
                 <Box display='flex' alignItems='center'>
                     <Box
