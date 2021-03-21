@@ -7,19 +7,21 @@ import {
     TableRow,
     Button
 } from "@material-ui/core";
-import React from "react";
-import { theme } from "../theme/theme";
 import { useHistory } from "react-router";
 import { Icon, InlineIcon } from "@iconify/react";
 import swapVertical from "@iconify/icons-mdi/swap-vertical";
 import { FormatBold } from "@material-ui/icons";
+import React from "react";
+import { theme } from "../theme/theme";
 
 const baseDate = new Date(Date.now())
 
-function getOffsetDate(day) {
+function getOffsetDate(day, hour, minutes) {
     var tmpDate = baseDate
     tmpDate.setDate(tmpDate.getDate() - day)
-    return tmpDate.toLocaleString().split(',')[0]
+    tmpDate.setHours(tmpDate.getHours() - hour)
+    tmpDate.setMinutes(tmpDate.getMinutes() - minutes)
+    return tmpDate.toLocaleString().replace(',', ' ')
 }
 
 const tasks = [
@@ -28,7 +30,7 @@ const tasks = [
         number: '000000000053',
         auth: 'Система',
         name: 'PlazMax CNC-2060',
-        date: new Date().toLocaleString().split(',')[0],
+        date: new Date().toLocaleString().replace(',', ' '),
         color: 'red'
     },
     {
@@ -36,7 +38,7 @@ const tasks = [
         number: '000000000046',
         auth: 'Петров А.В.',
         name: 'KUKA KR 10 R9',
-        date: getOffsetDate(1),
+        date: getOffsetDate(1, 2, 27),
         color: 'orange'
     },
     {
@@ -44,7 +46,7 @@ const tasks = [
         number: '000000000011',
         auth: 'Система',
         name: 'PlazMax CNC-2060',
-        date: getOffsetDate(2),
+        date: getOffsetDate(2, 1, 49),
         color: 'green'
     },
 ]
