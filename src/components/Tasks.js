@@ -10,6 +10,16 @@ import {
 import React from "react";
 import { theme } from "../theme/theme";
 import { useHistory } from "react-router";
+import { Icon } from "@iconify/react";
+import swapVertical from "@iconify/icons-mdi/swap-vertical";
+
+const baseDate = new Date(Date.now())
+
+function getOffsetDate(day) {
+    var tmpDate = baseDate
+    tmpDate.setDate(tmpDate.getDate() - day)
+    return tmpDate.toLocaleString().split(',')[0]
+}
 
 const tasks = [
     {
@@ -17,7 +27,7 @@ const tasks = [
         number: '000000000053',
         auth: 'Система',
         name: 'PlazMax CNC-2060',
-        date: '04.03.2021',
+        date: new Date().toLocaleString().split(',')[0],
         color: 'red'
     },
     {
@@ -25,7 +35,7 @@ const tasks = [
         number: '000000000046',
         auth: 'Петров А.В.',
         name: 'KUKA KR 10 R9',
-        date: '04.03.2021',
+        date: getOffsetDate(1),
         color: 'orange'
     },
     {
@@ -33,24 +43,53 @@ const tasks = [
         number: '000000000011',
         auth: 'Система',
         name: 'PlazMax CNC-2060',
-        date: '05.03.2021',
+        date: getOffsetDate(2),
         color: 'green'
     },
 ]
 
+
 export default function Tasks() {
     const history = useHistory();
+    const [sortConfig, setSortConfig] = React.useState(null);
+    let sortedTasks = [...tasks]
+    if (sortConfig !== null) {
+        sortedTasks.sort((a, b) => {
+            if (a[sortConfig.key] < b[sortConfig.key]) {
+                return sortConfig.direction === 'ascending' ? -1 : 1;
+            }
+            if (a[sortConfig.key] > b[sortConfig.key]) {
+                return sortConfig.direction === 'ascending' ? 1 : -1;
+            }
+            return 0;
+        });
+    }
+
+    const requestSort = key => {
+        let direction = 'ascending';
+        if (sortConfig === null) {
+            setSortConfig({ key, direction });
+            return
+        }
+        if (sortConfig.key === key && sortConfig.direction === 'ascending') {
+            direction = 'descending';
+        }
+        setSortConfig({ key, direction });
+    }
 
     const renderRow = task =>
         <TableRow key={task.id}>
             <TableCell>
+                <Box
+                    borderRadius='50%'
+                    width={24}
+                    height={24}
+                    bgcolor={task.color}
+                />
+
+            </TableCell>
+            <TableCell>
                 <Box display='flex' alignItems='center'>
-                    <Box
-                        borderRadius='50%'
-                        width={24}
-                        height={24}
-                        bgcolor={task.color}
-                    />
                     <Box pl={2}>
                         <Box className='text text_overflow'>
                             №{task.number}
@@ -97,7 +136,7 @@ export default function Tasks() {
             width={1}
             maxWidth={theme.size.appWidth}
             px={2}
-            height={1}
+        // height={1}
         >
             <Box
                 display='flex'
@@ -118,19 +157,35 @@ export default function Tasks() {
                     <TableHead>
                         <TableRow>
                             <TableCell>
-                                <Box className='text text_overflow'>
-                                    Номер задания
+
+                            </TableCell>
+                            <TableCell>
+                                <Box display='flex' alignItems='center'>
+
+                                    <Box className='text text_overflow' color='#27927D' fontWeight='bold' fontSize='16px'>
+                                        Номер задания
+                                </Box>
+                                    <Icon icon={swapVertical} style={{ fontSize: '24px', color: '#27927D' }} onClick={() => requestSort('number')} />
                                 </Box>
                             </TableCell>
                             <TableCell>
-                                <Box className='text text_overflow'>
-                                    Автор
+                                <Box display='flex' alignItems='center'>
+
+                                    <Box className='text text_overflow' color='#27927D' fontWeight='bold' fontSize='16px'>
+                                        Автор
                                 </Box>
+                                    <Icon icon={swapVertical} style={{ fontSize: '24px', color: '#27927D' }} onClick={() => requestSort('auth')} />
+                                </Box>
+
                             </TableCell>
                             <TableCell>
-                                <Box className='text text_overflow'>
-                                    Дата
+                                <Box display='flex' alignItems='center'>
+                                    <Box className='text text_overflow' color='#27927D' fontWeight='bold' fontSize='16px'>
+                                        Дата
                                 </Box>
+                                    <Icon icon={swapVertical} style={{ fontSize: '24px', color: '#27927D' }} onClick={() => requestSort('date')} />
+                                </Box>
+
                             </TableCell>
                             <TableCell>
 
@@ -138,10 +193,10 @@ export default function Tasks() {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {tasks.map(renderRow)}
+                        {sortedTasks.map(renderRow)}
                     </TableBody>
                 </Table>
             </Box>
-        </Box>
+        </Box >
     );
 }
