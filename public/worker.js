@@ -18,17 +18,17 @@ self.addEventListener('install', event => {
 
 // Cache and return requests
 self.addEventListener('fetch', event => {
-    event.respondWith(
-        caches.match(event.request)
-            .then(function (response) {
-                // Cache hit - return response
-                if (response) {
-                    return response;
-                }
-                return fetch(event.request);
-            }
-            )
-    );
+    event.respondWith(async function () {
+        try {
+            var res = await fetch(event.request);
+            var cache = await caches.open('cache');
+            cache.put(event.request.url, res.clone());
+            return res;
+        }
+        catch (error) {
+            return caches.match(event.request);
+        }
+    }());
 });
 
 // Update a service worker

@@ -1,63 +1,48 @@
 import {
     Box,
-    withStyles,
-    MenuItem,
-    Select,
-    Typography,
     Table,
     TableHead,
     TableBody,
     TableCell,
-    TableRow
+    TableRow,
+    Button
 } from "@material-ui/core";
-import React, {useState} from "react";
-import {theme} from "../theme/theme";
-import {useHistory} from "react-router";
-
-const CustomSelect = withStyles(theme => ({
-    root: {
-        padding: '12px',
-        border: `2px solid ${theme.palette.primary.main}`,
-        color: theme.palette.primary.main
-    }
-}))(Select)
+import React from "react";
+import { theme } from "../theme/theme";
+import { useHistory } from "react-router";
 
 const tasks = [
     {
         id: 0,
-        number: 1111,
-        auth: 'Сидоров. М.П.',
+        number: '000000000053',
+        auth: 'Система',
         name: 'PlazMax CNC-2060',
         date: '04.03.2021',
         color: 'red'
     },
     {
         id: 1,
-        number: 1112,
-        auth: 'Сидоров. М.П.',
-        name: 'PlazMax CNC-2060',
+        number: '000000000046',
+        auth: 'Петров А.В.',
+        name: 'KUKA KR 10 R9',
         date: '04.03.2021',
-        color: 'green'
+        color: 'orange'
     },
     {
         id: 2,
-        number: 1113,
-        auth: 'Сидоров. М.П.',
+        number: '000000000011',
+        auth: 'Система',
         name: 'PlazMax CNC-2060',
         date: '05.03.2021',
-        color: 'blue'
+        color: 'green'
     },
 ]
 
 export default function Tasks() {
-    const [value, setValue] = useState('default');
     const history = useHistory();
-    const handleChange = (event) => {
-        setValue(event.target.value);
-    };
 
     const renderRow = task =>
-        <TableRow key={task.id} onClick={() => history.push('/checklist')}>
+        <TableRow key={task.id}>
             <TableCell>
                 <Box display='flex' alignItems='center'>
                     <Box
@@ -93,6 +78,17 @@ export default function Tasks() {
                     </Box>
                 </Box>
             </TableCell>
+            <TableCell>
+                <Button
+                    size='medium'
+                    fullWidth
+                    variant='contained'
+                    color='primary'
+                    onClick={() => history.push('/checklist')}
+                >
+                    Просмотр
+                    </Button>
+            </TableCell>
         </TableRow>;
 
     return (
@@ -109,32 +105,14 @@ export default function Tasks() {
                 justifyContent='space-between'
                 py={2}
             >
-                <Typography variant='h5' className='text text_nowrap'>
+                <Box fontWeight="fontWeightBold" fontSize="h5.fontSize" fontFamily="Roboto" m={1}>
                     Задания на ремонт
-                </Typography>
-                <Box
-                    pl={2}
-                    width={300}
-                    maxWidth={1}
-                >
-                    <CustomSelect
-                        fullWidth
-                        color='primary'
-                        variant='outlined'
-                        size='small'
-                        value={value}
-                        onChange={handleChange}
-                    >
-                        <MenuItem value='default'>Статус</MenuItem>
-                        <MenuItem value='number'>Номер задания</MenuItem>
-                        <MenuItem value='auth'>Автор</MenuItem>
-                        <MenuItem value='date'>Дата создания</MenuItem>
-                    </CustomSelect>
                 </Box>
             </Box>
             <Box
                 bgcolor='white'
                 height={1}
+                borderRadius={16}
             >
                 <Table>
                     <TableHead>
@@ -153,6 +131,9 @@ export default function Tasks() {
                                 <Box className='text text_overflow'>
                                     Дата
                                 </Box>
+                            </TableCell>
+                            <TableCell>
+
                             </TableCell>
                         </TableRow>
                     </TableHead>
