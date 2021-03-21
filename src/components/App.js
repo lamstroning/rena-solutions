@@ -27,7 +27,7 @@ function App() {
                     </Route>
                     <Route path='/checklist'>
                         <Header />
-                        <CheckList/>
+                        <CheckList />
                     </Route>
                     <Route path='*'>
                         <Redirect to='/404' />
