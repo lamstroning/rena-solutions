@@ -12,6 +12,7 @@ import { theme } from "../theme/theme";
 import { useHistory } from "react-router";
 import { Icon, InlineIcon } from "@iconify/react";
 import swapVertical from "@iconify/icons-mdi/swap-vertical";
+import { FormatBold } from "@material-ui/icons";
 
 const baseDate = new Date(Date.now())
 
@@ -136,7 +137,7 @@ export default function Tasks() {
             width={1}
             maxWidth={theme.size.appWidth}
             px={2}
-            height={1}
+        // height={1}
         >
             <Box
                 display='flex'
@@ -162,28 +163,28 @@ export default function Tasks() {
                             <TableCell>
                                 <Box display='flex' alignItems='center'>
 
-                                    <Box className='text text_overflow' color='#27927D'>
+                                    <Box className='text text_overflow' color='#27927D' fontWeight='bold' fontSize='16px'>
                                         Номер задания
                                 </Box>
-                                    <Icon icon={swapVertical} style={{ fontSize: '24px' }} onClick={() => requestSort('number')} />
+                                    <Icon icon={swapVertical} style={{ fontSize: '24px', color: '#27927D' }} onClick={() => requestSort('number')} />
                                 </Box>
                             </TableCell>
                             <TableCell>
                                 <Box display='flex' alignItems='center'>
 
-                                    <Box className='text text_overflow' color='#27927D'>
+                                    <Box className='text text_overflow' color='#27927D' fontWeight='bold' fontSize='16px'>
                                         Автор
                                 </Box>
-                                    <Icon icon={swapVertical} style={{ fontSize: '24px' }} onClick={() => requestSort('auth')} />
+                                    <Icon icon={swapVertical} style={{ fontSize: '24px', color: '#27927D' }} onClick={() => requestSort('auth')} />
                                 </Box>
 
                             </TableCell>
                             <TableCell>
                                 <Box display='flex' alignItems='center'>
-                                    <Box className='text text_overflow' color='#27927D'>
+                                    <Box className='text text_overflow' color='#27927D' fontWeight='bold' fontSize='16px'>
                                         Дата
                                 </Box>
-                                    <Icon icon={swapVertical} style={{ fontSize: '24px' }} onClick={() => requestSort('date')} />
+                                    <Icon icon={swapVertical} style={{ fontSize: '24px', color: '#27927D' }} onClick={() => requestSort('date')} />
                                 </Box>
 
                             </TableCell>
