@@ -11,7 +11,11 @@ import CheckList from "./CheckList";
 
 function App() {
     return (
-        <Box display='flex' flexDirection='column' height={1}>
+        <Box
+            display='flex'
+            flexDirection='column'
+            height={1}
+        >
             <BrowserRouter>
                 <Switch>
                     <Route path='/tasks'>
@@ -23,7 +27,7 @@ function App() {
                     </Route>
                     <Route path='/checklist'>
                         <Header />
-                        <CheckList />
+                        <CheckList/>
                     </Route>
                     <Route path='*'>
                         <Redirect to='/404' />
