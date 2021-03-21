@@ -40,8 +40,30 @@ const tasks = [
     },
 ]
 
+
 export default function Tasks() {
     const history = useHistory();
+
+    let sortedTasks = [...tasks]
+
+    const sort = (sortField) => {
+        if (sortField !== null) {
+            console.log(sortField);
+            sortedTasks = []
+            var sortedArray = [];
+            for (var i = 0; i < tasks.length; i++) {
+                // Push each JSON Object entry in array by [value, key]
+                sortedArray.push([tasks[i][sortField], i]);
+            }
+            sortedArray.sort()
+
+            for (var i = 0; i < sortedArray.length; i++) {
+                sortedTasks.push(tasks[sortedArray[i][1]]);
+            }
+
+            console.log(sortedTasks);
+        }
+    };
 
     const renderRow = task =>
         <TableRow key={task.id}>
@@ -127,28 +149,29 @@ export default function Tasks() {
                             </TableCell>
                             <TableCell>
                                 <Box display='flex' alignItems='center'>
-                                    <Icon icon={swapVertical} style={{ fontSize: '24px' }} />
-                                    <Box className='text text_overflow'>
+
+                                    <Box className='text text_overflow' color='#27927D'>
                                         Номер задания
                                 </Box>
+                                    <Icon icon={swapVertical} style={{ fontSize: '24px' }} onClick={() => sort('number')} />
                                 </Box>
                             </TableCell>
                             <TableCell>
                                 <Box display='flex' alignItems='center'>
-                                    <Icon icon={swapVertical} style={{ fontSize: '24px' }} />
-                                    <Box className='text text_overflow'>
+
+                                    <Box className='text text_overflow' color='#27927D'>
                                         Автор
                                 </Box>
+                                    <Icon icon={swapVertical} style={{ fontSize: '24px' }} onClick={() => sort('auth')} />
                                 </Box>
 
                             </TableCell>
                             <TableCell>
                                 <Box display='flex' alignItems='center'>
-                                    <Icon icon={swapVertical} style={{ fontSize: '24px' }} />
-
-                                    <Box className='text text_overflow'>
+                                    <Box className='text text_overflow' color='#27927D'>
                                         Дата
                                 </Box>
+                                    <Icon icon={swapVertical} style={{ fontSize: '24px' }} />
                                 </Box>
 
                             </TableCell>
@@ -158,10 +181,10 @@ export default function Tasks() {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {tasks.map(renderRow)}
+                        {sortedTasks.map(renderRow)}
                     </TableBody>
                 </Table>
             </Box>
-        </Box>
+        </Box >
     );
 }

@@ -6,6 +6,8 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
 import { theme } from '../../theme/theme';
 
+import avatar from '../../asetss/images/worker-avatar.jpg'
+
 const userProfiles = [
     {
         id: 1,
@@ -39,7 +41,7 @@ export default function Header() {
                         borderRadius='50%'
                         overflow='hidden'
                     >
-                        <img width='100%' height='100%' src={userProfiles[0].avatar} alt='' />
+                        <img width='100%' height='100%' src={avatar} alt='' />
                     </Box>
                     <Box ml={2} color='white'>
                         <Typography variant='h5' className='text text_nowrap'>
