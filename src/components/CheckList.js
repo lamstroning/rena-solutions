@@ -39,15 +39,23 @@ export default function CheckList() {
     const [result, setResult] = useState('');
     const [expected, setExpected] = useState('');
 
-    function saveChecklist() {
-        setCheckList(checkList);
+    function saveChecklist(id) {
+        const newCheckList = checkList;
+        newCheckList.splice(id - 1, 1, {
+            id,
+            action,
+            result,
+            expected
+        });
+        setCheckList([...newCheckList]);
     }
 
     function addChecklist() {
+        setEdit(false);
         if (!action && !result && !expected)
             return;
         setCheckList([...checkList, {
-            id: checkList.length,
+            id: checkList.length + 1,
             action,
             result,
             expected
@@ -55,7 +63,6 @@ export default function CheckList() {
         setAction('');
         setResult('');
         setExpected('');
-        setEdit(false);
     }
 
     function newTask() {
@@ -80,7 +87,7 @@ export default function CheckList() {
                 width={64}
                 bgcolor={theme.palette.orange}
             >
-                Контролируеиыетехнологические параметры
+                Контролируемые технологические параметры
             </Box>
             <Box
                 width={1}
@@ -88,8 +95,26 @@ export default function CheckList() {
                 flexDirection='column'
                 overflow='auto'
             >
-                <Box>
+                <Box fontSize={24} p={2}>
                     Задание на ремонт №000000000053
+                </Box>
+                <Box display='flex' justifyContent='space-between' p={2}>
+                    <Box display='flex'>
+                        <Box fontWeight='bold' p={1} lineHeight={1}>
+                            Оборудование
+                        </Box>
+                        <Box display='flex' flexDirection='column' justifyContent='flex-start'>
+                            <Box p={1}>
+                                Шифр: ZZZZXCXXXCC
+                            </Box>
+                            <Box p={1}>
+                                Наименование: Паллетайзер
+                            </Box>
+                        </Box>
+                    </Box>
+                    <Box>
+                        работы начаты: 27.03.2021 10:13:11
+                    </Box>
                 </Box>
                 <TableHeader
                     mt={2}
@@ -121,21 +146,25 @@ export default function CheckList() {
                                         <TextField
                                             value={task.action}
                                             onBlur={() => saveChecklist(task.id)}
-                                            onChange={event => task.action = event.currentTarget.value}
+                                            onFocus={event => {
+                                                setAction(task.action);
+                                                event.currentTarget.value = action;
+                                            }}
+                                            onChange={event => setAction(event.currentTarget.value)}
                                         />
                                     </TableCell>
                                     <TableCell>
                                         <TextField
                                             value={task.expected}
                                             onBlur={() => saveChecklist(task.id)}
-                                            onChange={event => task.expected = event.currentTarget.value}
+                                            onChange={event => setExpected(event.currentTarget.value)}
                                         />
                                     </TableCell>
                                     <TableCell>
                                         <TextField
                                             value={task.result}
                                             onBlur={() => saveChecklist(task.id)}
-                                            onChange={event => task.result = event.currentTarget.value}
+                                            onChange={event => setResult(event.currentTarget.value)}
                                         />
                                     </TableCell>
                                 </TableRow>
