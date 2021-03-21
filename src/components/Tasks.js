@@ -10,6 +10,8 @@ import {
 import React from "react";
 import { theme } from "../theme/theme";
 import { useHistory } from "react-router";
+import { Icon, InlineIcon } from "@iconify/react";
+import swapVertical from "@iconify/icons-mdi/swap-vertical";
 
 const tasks = [
     {
@@ -44,13 +46,16 @@ export default function Tasks() {
     const renderRow = task =>
         <TableRow key={task.id}>
             <TableCell>
+                <Box
+                    borderRadius='50%'
+                    width={24}
+                    height={24}
+                    bgcolor={task.color}
+                />
+
+            </TableCell>
+            <TableCell>
                 <Box display='flex' alignItems='center'>
-                    <Box
-                        borderRadius='50%'
-                        width={24}
-                        height={24}
-                        bgcolor={task.color}
-                    />
                     <Box pl={2}>
                         <Box className='text text_overflow'>
                             №{task.number}
@@ -118,19 +123,34 @@ export default function Tasks() {
                     <TableHead>
                         <TableRow>
                             <TableCell>
-                                <Box className='text text_overflow'>
-                                    Номер задания
+
+                            </TableCell>
+                            <TableCell>
+                                <Box display='flex' alignItems='center'>
+                                    <Icon icon={swapVertical} style={{ fontSize: '24px' }} />
+                                    <Box className='text text_overflow'>
+                                        Номер задания
+                                </Box>
                                 </Box>
                             </TableCell>
                             <TableCell>
-                                <Box className='text text_overflow'>
-                                    Автор
+                                <Box display='flex' alignItems='center'>
+                                    <Icon icon={swapVertical} style={{ fontSize: '24px' }} />
+                                    <Box className='text text_overflow'>
+                                        Автор
                                 </Box>
+                                </Box>
+
                             </TableCell>
                             <TableCell>
-                                <Box className='text text_overflow'>
-                                    Дата
+                                <Box display='flex' alignItems='center'>
+                                    <Icon icon={swapVertical} style={{ fontSize: '24px' }} />
+
+                                    <Box className='text text_overflow'>
+                                        Дата
                                 </Box>
+                                </Box>
+
                             </TableCell>
                             <TableCell>
 
