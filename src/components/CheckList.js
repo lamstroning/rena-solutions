@@ -10,29 +10,24 @@ import 'react-html5-camera-photo/build/css/index.css';
 
 import {
     Box, Table, TableBody, TableCell, TableHead, TableRow, withStyles, Button, IconButton,
-    Dialog, DialogTitle, DialogContent
+    Dialog, DialogTitle, DialogContent, MenuItem
 } from '@material-ui/core';
 
 import { theme } from '../theme/theme';
+import {SmallSelect} from '../theme/SmallSelect';
 
 const checkList = [
     {
-        id: 0,
-        action: '',
-        expected: '',
-        result: null
-    },
-    {
         id: 1,
-        action: '',
-        expected: '',
-        result: null
+        action: 'Проверить питание',
+        expected: 'Есть',
+        result: ''
     },
     {
         id: 2,
-        action: '',
-        expected: '',
-        result: null
+        action: 'Замерить напряжение',
+        expected: '220В',
+        result: ''
     }
 ]
 
@@ -236,7 +231,9 @@ export default function CheckList() {
                         <TableBody >
                             {checkList.map(task =>
                                 <TableRow key={task.id}>
-                                    <TableCell className={classes.tableRightBorder}>{task.id}</TableCell>
+                                    <TableCell className={classes.tableRightBorder}>
+                                        {task.id}
+                                    </TableCell>
                                     <TableCell className={classes.tableRightBorder}>
                                         {task.action}
                                     </TableCell>
@@ -244,12 +241,20 @@ export default function CheckList() {
                                         {task.expected}
                                     </TableCell>
                                     <TableCell className={classes2.tableRightBorder}>
-                                        {task.result}
+                                        <SmallSelect
+                                            fullWidth
+                                            variant='outlined'
+                                            value={task.result}
+                                        >
+                                            <MenuItem value=''>Выберите значение</MenuItem>
+                                            <MenuItem>true</MenuItem>
+                                            <MenuItem>false</MenuItem>
+                                        </SmallSelect>
                                     </TableCell>
                                 </TableRow>
                             )}
                             <TableRow>
-                                <TableCell />
+                                <TableCell/>
                                 <TableCell>
                                 </TableCell>
                                 <TableCell>
