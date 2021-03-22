@@ -1,27 +1,21 @@
+import {useState} from 'react';
+
 import {
-    Box,
-    Table,
-    TableHead,
-    TableBody,
-    TableCell,
-    TableRow,
-    Button
-} from "@material-ui/core";
-import { useHistory } from "react-router";
-import { Icon, InlineIcon } from "@iconify/react";
-import swapVertical from "@iconify/icons-mdi/swap-vertical";
-import { FormatBold } from "@material-ui/icons";
-import React from "react";
-import { theme } from "../theme/theme";
+    Box, Table, TableHead, TableBody, TableCell, TableRow, Button
+} from '@material-ui/core';
+import {useHistory} from 'react-router';
+import {Icon} from '@iconify/react';
+import swapVertical from '@iconify/icons-mdi/swap-vertical';
+import {theme}  from '../theme/theme';
 
 const baseDate = new Date(Date.now())
 
 function getOffsetDate(day, hour, minutes) {
-    var tmpDate = baseDate
-    tmpDate.setDate(tmpDate.getDate() - day)
-    tmpDate.setHours(tmpDate.getHours() - hour)
-    tmpDate.setMinutes(tmpDate.getMinutes() - minutes)
-    return tmpDate.toLocaleString().replace(',', ' ')
+    const tmpDate = baseDate
+    tmpDate.setDate(tmpDate.getDate() - day);
+    tmpDate.setHours(tmpDate.getHours() - hour);
+    tmpDate.setMinutes(tmpDate.getMinutes() - minutes);
+    return tmpDate.toLocaleString().replace(',', ' ');
 }
 
 const tasks = [
@@ -57,7 +51,7 @@ const tasks = [
 
 export default function Tasks() {
     const history = useHistory();
-    const [sortConfig, setSortConfig] = React.useState(null);
+    const [sortConfig, setSortConfig] = useState(null);
     let sortedTasks = [...tasks]
     if (sortConfig !== null) {
         sortedTasks.sort((a, b) => {

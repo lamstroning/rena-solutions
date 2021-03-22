@@ -1,22 +1,34 @@
-import React, { useEffect, useState } from 'react';
-import { useLocation } from "react-router-dom";
+import {useEffect} from 'react';
+import {useLocation} from "react-router-dom";
 import draft from '../asetss/images/draft-icon.png';
 import scrap from '../asetss/images/scrap.png';
 
 import {
-    Box,
-    Table,
-    TableBody,
-    TableCell,
-    TableHead,
-    TableRow,
-    TextField,
-    Typography,
-    withStyles,
-    Button
+    Box, Table, TableBody, TableCell, TableHead, TableRow, withStyles, Button
 } from '@material-ui/core';
 
 import { theme } from '../theme/theme';
+
+const checkList = [
+    {
+        id: 0,
+        action: '',
+        expected: '',
+        result: null
+    },
+    {
+        id: 1,
+        action: '',
+        expected: '',
+        result: null
+    },
+    {
+        id: 2,
+        action: '',
+        expected: '',
+        result: null
+    }
+]
 
 const TableHeader = withStyles(theme => ({
     root: {
@@ -39,45 +51,10 @@ const StyledTableHead = withStyles(theme => ({
 
 export default function CheckList() {
     const location = useLocation();
-    const [checkList, setCheckList] = useState([]);
-    const [edit, setEdit] = useState(false);
-    const [action, setAction] = useState('');
-    const [result, setResult] = useState('');
-    const [expected, setExpected] = useState('');
 
     useEffect(() => {
         console.log(location.state); // result: 'some_value'
     }, [location]);
-
-    function saveChecklist(id) {
-        const newCheckList = checkList;
-        newCheckList.splice(id - 1, 1, {
-            id,
-            action,
-            result,
-            expected
-        });
-        setCheckList([...newCheckList]);
-    }
-
-    function addChecklist() {
-        setEdit(false);
-        if (!action && !result && !expected)
-            return;
-        setCheckList([...checkList, {
-            id: checkList.length + 1,
-            action,
-            result,
-            expected
-        }]);
-        setAction('');
-        setResult('');
-        setExpected('');
-    }
-
-    function newTask() {
-        setEdit(true);
-    }
 
     return (
         <Box
@@ -106,9 +83,12 @@ export default function CheckList() {
                 flexDirection='column'
                 overflow='auto'
             >
-
-                <Box display='flex' justifyContent="space-between" p='3'>
-                    <Box display="flex">
+                <Box
+                    display='flex'
+                    justifyContent='space-between'
+                    p={3}
+                >
+                    <Box display='flex'>
                         <Box m={1} p={1}>
                             <img src={draft} alt='' />
                         </Box>
@@ -117,7 +97,7 @@ export default function CheckList() {
                         </Box>
 
                     </Box>
-                    <Box display="flex" p={1}>
+                    <Box display='flex' p={1}>
                         <Box m={1} >
                             <img src={scrap} alt='' />
                         </Box>
@@ -129,14 +109,12 @@ export default function CheckList() {
                             style={{ width: '138px', height: '41px' }}
                         >
                             Заполнен
-                            </Button>
-
+                        </Button>
                     </Box>
-
                 </Box>
                 <Box display='flex' justifyContent='space-between' fontSize={18} p={2}>
                     <Box display='flex' >
-                        <Box width='40px'></Box>
+                        <Box width={40}/>
                         <Box fontWeight='bold' p={1} lineHeight={1}>
                             Оборудование
                         </Box>
@@ -148,7 +126,6 @@ export default function CheckList() {
                                 Наименование: {location.state.name}
                             </Box>
                         </Box>
-
                     </Box>
                     <Box>
                         Работы начаты: {new Date().toLocaleString().replace(',', ' ')}
@@ -158,8 +135,8 @@ export default function CheckList() {
                     mt={2}
                     p={4}
                 >
-                    <Box fontWeight="fontWeightBold" fontSize="24px" m={1} align='center'>
-                        Выполняемые работы
+                <Box fontWeight="fontWeightBold" fontSize="24px" m={1} align='center'>
+                    Выполняемые работы
                 </Box>
                 </TableHeader>
                 <Box
@@ -179,63 +156,29 @@ export default function CheckList() {
                         <TableBody >
                             {checkList.map(task =>
                                 <TableRow key={task.id}>
-                                    <TableCell>{task.id}</TableCell>
                                     <TableCell>
-                                        <TextField
-                                            value={task.action}
-                                            onBlur={() => saveChecklist(task.id)}
-                                            onFocus={event => {
-                                                setAction(task.action);
-                                                event.currentTarget.value = action;
-                                            }}
-                                            onChange={event => setAction(event.currentTarget.value)}
-                                        />
+                                        {task.id}
                                     </TableCell>
                                     <TableCell>
-                                        <TextField
-                                            value={task.expected}
-                                            onBlur={() => saveChecklist(task.id)}
-                                            onChange={event => setExpected(event.currentTarget.value)}
-                                        />
+                                        {task.action}
                                     </TableCell>
                                     <TableCell>
-                                        <TextField
-                                            value={task.result}
-                                            onBlur={() => saveChecklist(task.id)}
-                                            onChange={event => setResult(event.currentTarget.value)}
-                                        />
+                                        {task.expected}
+                                    </TableCell>
+                                    <TableCell>
+                                        {task.result}
                                     </TableCell>
                                 </TableRow>
                             )}
-                            <TableRow onClick={newTask}>
-                                <TableCell />
+                            <TableRow>
+                                <TableCell/>
                                 <TableCell>
-                                    <TextField
-                                        onBlur={addChecklist}
-                                        onChange={event => setAction(event.currentTarget.value)}
-                                    />
                                 </TableCell>
                                 <TableCell>
-                                    <TextField
-                                        onBlur={addChecklist}
-                                        onChange={event => setExpected(event.currentTarget.value)}
-                                    />
                                 </TableCell>
                                 <TableCell>
-                                    <TextField
-                                        onBlur={addChecklist}
-                                        onChange={event => setResult(event.currentTarget.value)}
-                                    />
                                 </TableCell>
                             </TableRow>
-                            {edit &&
-                                <TableRow onClick={newTask}>
-                                    <TableCell />
-                                    <TableCell />
-                                    <TableCell />
-                                    <TableCell />
-                                </TableRow>
-                            }
                         </TableBody>
                     </Table>
                 </Box>

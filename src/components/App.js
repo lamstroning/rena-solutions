@@ -18,19 +18,22 @@ function App() {
         >
             <BrowserRouter>
                 <Switch>
-                    <Route path='/tasks'>
-                        <Header />
-                        <Tasks />
+                    <Route exact path='/'>
+                        <Redirect to='/tasks'/>
                     </Route>
-                    <Route path='/404'>
-                        <NotFound />
+                    <Route path='/tasks'>
+                        <Header/>
+                        <Tasks/>
                     </Route>
                     <Route path='/checklist'>
-                        <Header />
-                        <CheckList />
+                        <Header/>
+                        <CheckList/>
+                    </Route>
+                    <Route path='/404'>
+                        <NotFound/>
                     </Route>
                     <Route path='*'>
-                        <Redirect to='/404' />
+                        <Redirect to='/404'/>
                     </Route>
                 </Switch>
             </BrowserRouter>
