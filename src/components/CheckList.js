@@ -1,8 +1,36 @@
 import React, {useState} from 'react';
 
-import {Box, Table, TableBody, TableCell, TableHead, TableRow, TextField, Typography} from '@material-ui/core';
+import {
+    Box,
+    Table,
+    TableBody,
+    TableCell,
+    TableHead,
+    TableRow,
+    TextField,
+    Typography,
+    withStyles
+} from '@material-ui/core';
 
 import {theme} from '../theme/theme';
+
+const TableHeader = withStyles(theme => ({
+    root: {
+        borderTopLeftRadius: 24,
+        borderTopRightRadius: 24,
+        backgroundColor: theme.palette.darkGreen,
+        color: 'white'
+    }
+}))(Box);
+
+const StyledTableHead = withStyles(theme => ({
+    root: {
+        '& th': {
+            backgroundColor: theme.palette.darkGreen,
+            color: 'white'
+        }
+    }
+}))(TableHead);
 
 export default function CheckList() {
     const [checkList, setCheckList] = useState([]);
@@ -11,11 +39,23 @@ export default function CheckList() {
     const [result, setResult] = useState('');
     const [expected, setExpected] = useState('');
 
-    function saveChecklist() {
+    function saveChecklist(id) {
+        const newCheckList = checkList;
+        newCheckList.splice(id - 1, 1, {
+            id,
+            action,
+            result,
+            expected
+        });
+        setCheckList([...newCheckList]);
+    }
+
+    function addChecklist() {
+        setEdit(false);
         if (!action && !result && !expected)
             return;
         setCheckList([...checkList, {
-            id: checkList.length,
+            id: checkList.length + 1,
             action,
             result,
             expected
@@ -23,7 +63,6 @@ export default function CheckList() {
         setAction('');
         setResult('');
         setExpected('');
-        setEdit(false);
     }
 
     function newTask() {
@@ -33,87 +72,135 @@ export default function CheckList() {
     return (
         <Box
             display='flex'
-            flexDirection='column'
-            overflow='auto'
             mx='auto'
-            bgcolor='white'
-            width={1}
+            overflow='auto'
             maxWidth={theme.size.appWidth}
-            p={4}
+            width={1}
             height={1}
         >
-            <Typography variant='h1' align='center'>
-                Чек-листы
-            </Typography>
-            <Typography align='right' color='primary'>
-                Черновик
-            </Typography>
-            <Box mt={2} p={4}>
-                <Typography variant='h2' align='center'>
-                    выполняемые работы
-                </Typography>
+            <Box
+                display='flex'
+                alignItems='center'
+                justifyContent='center'
+                className='text text_vertical'
+                color='white'
+                width={64}
+                bgcolor={theme.palette.orange}
+            >
+                Контролируемые технологические параметры
             </Box>
-            <Box overflow='auto'>
-                <Table stickyHeader>
-                    <TableHead>
-                        <TableRow>
-                            <TableCell colSpan={4} align='center'>
-                                выполняемые работы
-                            </TableCell>
-                        </TableRow>
-                        <TableRow>
-                            <TableCell>N/N</TableCell>
-                            <TableCell>Действия</TableCell>
-                            <TableCell>Ожидаемый результат</TableCell>
-                            <TableCell>Фактический результат</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {checkList.map(task =>
-                            <TableRow key={task.id}>
-                                <TableCell>{task.id}</TableCell>
+            <Box
+                width={1}
+                display='flex'
+                flexDirection='column'
+                overflow='auto'
+            >
+                <Box fontSize={24} p={2}>
+                    Задание на ремонт №000000000053
+                </Box>
+                <Box display='flex' justifyContent='space-between' p={2}>
+                    <Box display='flex'>
+                        <Box fontWeight='bold' p={1} lineHeight={1}>
+                            Оборудование
+                        </Box>
+                        <Box display='flex' flexDirection='column' justifyContent='flex-start'>
+                            <Box p={1}>
+                                Шифр: ZZZZXCXXXCC
+                            </Box>
+                            <Box p={1}>
+                                Наименование: Паллетайзер
+                            </Box>
+                        </Box>
+                    </Box>
+                    <Box>
+                        работы начаты: 27.03.2021 10:13:11
+                    </Box>
+                </Box>
+                <TableHeader
+                    mt={2}
+                    p={4}
+                >
+                    <Typography variant='h2' align='center'>
+                        выполняемые работы
+                    </Typography>
+                </TableHeader>
+                <Box
+                    flex={1}
+                    overflow='auto'
+                    bgcolor='white'
+                >
+                    <Table stickyHeader>
+                        <StyledTableHead>
+                            <TableRow>
+                                <TableCell>N/N</TableCell>
+                                <TableCell>Действия</TableCell>
+                                <TableCell>Ожидаемый результат</TableCell>
+                                <TableCell>Фактический результат</TableCell>
+                            </TableRow>
+                        </StyledTableHead>
+                        <TableBody>
+                            {checkList.map(task =>
+                                <TableRow key={task.id}>
+                                    <TableCell>{task.id}</TableCell>
+                                    <TableCell>
+                                        <TextField
+                                            value={task.action}
+                                            onBlur={() => saveChecklist(task.id)}
+                                            onFocus={event => {
+                                                setAction(task.action);
+                                                event.currentTarget.value = action;
+                                            }}
+                                            onChange={event => setAction(event.currentTarget.value)}
+                                        />
+                                    </TableCell>
+                                    <TableCell>
+                                        <TextField
+                                            value={task.expected}
+                                            onBlur={() => saveChecklist(task.id)}
+                                            onChange={event => setExpected(event.currentTarget.value)}
+                                        />
+                                    </TableCell>
+                                    <TableCell>
+                                        <TextField
+                                            value={task.result}
+                                            onBlur={() => saveChecklist(task.id)}
+                                            onChange={event => setResult(event.currentTarget.value)}
+                                        />
+                                    </TableCell>
+                                </TableRow>
+                            )}
+                            <TableRow onClick={newTask}>
+                                <TableCell/>
                                 <TableCell>
-                                    <TextField value={task.action}/>
+                                    <TextField
+                                        onBlur={addChecklist}
+                                        onChange={event => setAction(event.currentTarget.value)}
+                                    />
                                 </TableCell>
                                 <TableCell>
-                                    <TextField value={task.expected}/>
+                                    <TextField
+                                        onBlur={addChecklist}
+                                        onChange={event => setExpected(event.currentTarget.value)}
+                                    />
                                 </TableCell>
                                 <TableCell>
-                                    <TextField value={task.result}/>
+                                    <TextField
+                                        onBlur={addChecklist}
+                                        onChange={event => setResult(event.currentTarget.value)}
+                                    />
                                 </TableCell>
                             </TableRow>
-                        )}
-                        <TableRow onClick={newTask}>
-                            <TableCell/>
-                            <TableCell>
-                                <TextField
-                                    onBlur={saveChecklist}
-                                    onChange={event => setAction(event.currentTarget.value)}
-                                />
-                            </TableCell>
-                            <TableCell>
-                                <TextField
-                                    onBlur={saveChecklist}
-                                    onChange={event => setExpected(event.currentTarget.value)}
-                                />
-                            </TableCell>
-                            <TableCell>
-                                <TextField
-                                onBlur={saveChecklist}
-                                onChange={event => setResult(event.currentTarget.value)}
-                            />
-                            </TableCell>
-                        </TableRow>
-                        {edit &&
+                            {edit &&
                             <TableRow onClick={newTask}>
                                 <TableCell/>
                                 <TableCell/>
                                 <TableCell/>
                                 <TableCell/>
                             </TableRow>
-                        }
-                    </TableBody>
-                </Table>
+                            }
+                        </TableBody>
+                    </Table>
+                </Box>
             </Box>
         </Box>
     );

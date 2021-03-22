@@ -9,7 +9,9 @@ export const theme = createMuiTheme({
         },
         secondary: {
             main: deepOrange[900]
-        }
+        },
+        darkGreen: '#335251',
+        orange: '#F29545'
     },
     size: {
         appWidth: 1024
