@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from "react-router-dom";
 import draft from '../asetss/images/draft-icon.png';
+import scrap from '../asetss/images/scrap.png';
 
 import {
     Box,
@@ -31,7 +32,7 @@ const StyledTableHead = withStyles(theme => ({
         '& th': {
             backgroundColor: theme.palette.darkGreen,
             color: 'white',
-            borderBottom: 'thick solid #FFFFF'
+            fontSize: "18px"
         }
     }
 }))(TableHead);
@@ -106,28 +107,32 @@ export default function CheckList() {
                 overflow='auto'
             >
 
-                <Box display='flex' p='3' paddingTop='20px'>
-                    <Box width='20px'></Box>
-                    <Box style={{ paddingTop: '20px' }}>
-                        <img src={draft} alt='' />
-                    </Box>
-                    <Box fontSize={24} p={2}>
-                        Задание на ремонт №{location.state.number}
-                    </Box>
-                    <Box p={1} display='flex' justifyContent="flex-end">
-                        <Box >
-                            <Button
-                                size='medium'
-                                variant='contained'
-                                color='primary'
-
-                                style={{ width: '138px', height: '41px' }}
-                            >
-                                Заполнен
-                    </Button>
-
+                <Box display='flex' justifyContent="space-between" p='3'>
+                    <Box display="flex">
+                        <Box m={1} p={1}>
+                            <img src={draft} alt='' />
                         </Box>
+                        <Box fontSize={24} p={2}>
+                            Задание на ремонт №{location.state.number}
+                        </Box>
+
                     </Box>
+                    <Box display="flex" p={1}>
+                        <Box m={1} >
+                            <img src={scrap} alt='' />
+                        </Box>
+                        <Button
+                            size='medium'
+                            variant='contained'
+                            color='primary'
+
+                            style={{ width: '138px', height: '41px' }}
+                        >
+                            Заполнен
+                            </Button>
+
+                    </Box>
+
                 </Box>
                 <Box display='flex' justifyContent='space-between' fontSize={18} p={2}>
                     <Box display='flex' >
