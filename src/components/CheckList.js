@@ -1,4 +1,5 @@
-import React, {useState} from 'react';
+import React, { useEffect, useState } from 'react';
+import { useLocation } from "react-router-dom";
 
 import {
     Box,
@@ -12,7 +13,7 @@ import {
     withStyles
 } from '@material-ui/core';
 
-import {theme} from '../theme/theme';
+import { theme } from '../theme/theme';
 
 const TableHeader = withStyles(theme => ({
     root: {
@@ -33,11 +34,16 @@ const StyledTableHead = withStyles(theme => ({
 }))(TableHead);
 
 export default function CheckList() {
+    const location = useLocation();
     const [checkList, setCheckList] = useState([]);
     const [edit, setEdit] = useState(false);
     const [action, setAction] = useState('');
     const [result, setResult] = useState('');
     const [expected, setExpected] = useState('');
+
+    useEffect(() => {
+        console.log(location.state); // result: 'some_value'
+    }, [location]);
 
     function saveChecklist(id) {
         const newCheckList = checkList;
@@ -77,6 +83,7 @@ export default function CheckList() {
             maxWidth={theme.size.appWidth}
             width={1}
             height={1}
+            fontFamily="Roboto"
         >
             <Box
                 display='flex'
@@ -96,7 +103,7 @@ export default function CheckList() {
                 overflow='auto'
             >
                 <Box fontSize={24} p={2}>
-                    Задание на ремонт №000000000053
+                    Задание на ремонт №{location.state.number}
                 </Box>
                 <Box display='flex' justifyContent='space-between' p={2}>
                     <Box display='flex'>
@@ -105,15 +112,15 @@ export default function CheckList() {
                         </Box>
                         <Box display='flex' flexDirection='column' justifyContent='flex-start'>
                             <Box p={1}>
-                                Шифр: ZZZZXCXXXCC
+                                Шифр: {location.state.code}
                             </Box>
                             <Box p={1}>
-                                Наименование: Паллетайзер
+                                Наименование: {location.state.name}
                             </Box>
                         </Box>
                     </Box>
                     <Box>
-                        работы начаты: 27.03.2021 10:13:11
+                        работы начаты: {new Date().toLocaleString().replace(',', ' ')}
                     </Box>
                 </Box>
                 <TableHeader
@@ -170,7 +177,7 @@ export default function CheckList() {
                                 </TableRow>
                             )}
                             <TableRow onClick={newTask}>
-                                <TableCell/>
+                                <TableCell />
                                 <TableCell>
                                     <TextField
                                         onBlur={addChecklist}
@@ -191,12 +198,12 @@ export default function CheckList() {
                                 </TableCell>
                             </TableRow>
                             {edit &&
-                            <TableRow onClick={newTask}>
-                                <TableCell/>
-                                <TableCell/>
-                                <TableCell/>
-                                <TableCell/>
-                            </TableRow>
+                                <TableRow onClick={newTask}>
+                                    <TableCell />
+                                    <TableCell />
+                                    <TableCell />
+                                    <TableCell />
+                                </TableRow>
                             }
                         </TableBody>
                     </Table>

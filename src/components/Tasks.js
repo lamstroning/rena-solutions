@@ -30,11 +30,8 @@ const tasks = [
         number: '000000000053',
         auth: 'Система',
         name: 'PlazMax CNC-2060',
-<<<<<<< HEAD
+        code: '98235-ZY',
         date: new Date().toLocaleString().replace(',', ' '),
-=======
-        date: new Date().toLocaleString().split(',')[0],
->>>>>>> b871992ad3d8dd6345d8630050bcf31be459da41
         color: 'red'
     },
     {
@@ -42,11 +39,8 @@ const tasks = [
         number: '000000000046',
         auth: 'Петров А.В.',
         name: 'KUKA KR 10 R9',
-<<<<<<< HEAD
+        code: '35663-KL',
         date: getOffsetDate(1, 2, 27),
-=======
-        date: getOffsetDate(1),
->>>>>>> b871992ad3d8dd6345d8630050bcf31be459da41
         color: 'orange'
     },
     {
@@ -54,11 +48,8 @@ const tasks = [
         number: '000000000011',
         auth: 'Система',
         name: 'PlazMax CNC-2060',
-<<<<<<< HEAD
+        code: '23664-OP',
         date: getOffsetDate(2, 1, 49),
-=======
-        date: getOffsetDate(2),
->>>>>>> b871992ad3d8dd6345d8630050bcf31be459da41
         color: 'green'
     },
 ]
@@ -138,7 +129,7 @@ export default function Tasks() {
                     fullWidth
                     variant='contained'
                     color='primary'
-                    onClick={() => history.push('/checklist')}
+                    onClick={() => history.push('/checklist', task)}
                 >
                     Просмотр
                     </Button>
@@ -188,34 +179,28 @@ export default function Tasks() {
 
                                     <Box className='text text_overflow' color='#27927D' fontWeight='bold' fontSize='16px'>
                                         Автор
-<<<<<<< HEAD
                                 </Box>
                                     <Icon icon={swapVertical} style={{ fontSize: '24px', color: '#27927D' }} onClick={() => requestSort('auth')} />
                                 </Box>
-=======
-                                </Box>
-                        <Icon icon={swapVertical} style={{ fontSize: '24px', color: '#27927D' }} onClick={() => requestSort('auth')} />
-                                </Box>
->>>>>>> b871992ad3d8dd6345d8630050bcf31be459da41
 
                             </TableCell>
-                <TableCell>
-                    <Box display='flex' alignItems='center'>
-                        <Box className='text text_overflow' color='#27927D' fontWeight='bold' fontSize='16px'>
-                            Дата
+                            <TableCell>
+                                <Box display='flex' alignItems='center'>
+                                    <Box className='text text_overflow' color='#27927D' fontWeight='bold' fontSize='16px'>
+                                        Дата
                                 </Box>
-                        <Icon icon={swapVertical} style={{ fontSize: '24px', color: '#27927D' }} onClick={() => requestSort('date')} />
-                    </Box>
+                                    <Icon icon={swapVertical} style={{ fontSize: '24px', color: '#27927D' }} onClick={() => requestSort('date')} />
+                                </Box>
 
-                </TableCell>
-                <TableCell>
+                            </TableCell>
+                            <TableCell>
 
-                </TableCell>
+                            </TableCell>
                         </TableRow>
                     </TableHead>
-        <TableBody>
-            {sortedTasks.map(renderRow)}
-        </TableBody>
+                    <TableBody>
+                        {sortedTasks.map(renderRow)}
+                    </TableBody>
                 </Table >
             </Box >
         </Box >
