@@ -1,12 +1,12 @@
 import React from 'react';
+import {BrowserRouter, Route} from 'react-router-dom';
+import {Redirect, Switch} from 'react-router';
 
 import '../styles/index.scss';
 import Tasks from "./Tasks";
-import { BrowserRouter, Route } from 'react-router-dom';
-import { Redirect, Switch } from 'react-router';
 import Header from './common/Header';
 import NotFound from './404';
-import { Box } from "@material-ui/core";
+import {Box} from '@material-ui/core';
 import CheckList from "./CheckList";
 
 function App() {

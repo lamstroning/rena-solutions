@@ -1,12 +1,12 @@
-import { useState } from 'react';
+import {useState} from 'react';
 
 import {
     Box, Table, TableHead, TableBody, TableCell, TableRow, Button
 } from '@material-ui/core';
-import { useHistory } from 'react-router';
-import { Icon } from '@iconify/react';
+import {useHistory} from 'react-router';
+import {Icon} from '@iconify/react';
 import swapVertical from '@iconify/icons-mdi/swap-vertical';
-import { theme } from '../theme/theme';
+import {theme}  from '../theme/theme';
 
 const baseDate = new Date(Date.now())
 
@@ -39,15 +39,6 @@ const tasks = [
     },
     {
         id: 2,
-        number: '000000000045',
-        auth: 'Лавров Г.А.',
-        name: 'KUKA 5 ARC',
-        code: '789697-ZZ',
-        date: getOffsetDate(1, 2, 27),
-        color: 'orange'
-    },
-    {
-        id: 3,
         number: '000000000011',
         auth: 'Система',
         name: 'PlazMax CNC-2060',
