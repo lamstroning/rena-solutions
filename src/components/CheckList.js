@@ -1,11 +1,16 @@
-import {useEffect} from 'react';
-import {useLocation} from "react-router-dom";
+import { useEffect, useState } from 'react';
+import { useLocation } from "react-router-dom";
 import draft from '../asetss/images/draft-icon.png';
 import scrap from '../asetss/images/scrap.png';
 import { makeStyles } from '@material-ui/styles';
+import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
+import AddPhotoAlternateIcon from '@material-ui/icons/AddPhotoAlternate';
+import Camera from 'react-html5-camera-photo';
+import 'react-html5-camera-photo/build/css/index.css';
 
 import {
-    Box, Table, TableBody, TableCell, TableHead, TableRow, withStyles, Button
+    Box, Table, TableBody, TableCell, TableHead, TableRow, withStyles, Button, IconButton,
+    Dialog, DialogTitle, DialogContent
 } from '@material-ui/core';
 
 import { theme } from '../theme/theme';
@@ -82,7 +87,34 @@ const useStyles2 = makeStyles(theme => ({
     },
 }));
 
+function SimpleDialog(props) {
+    const { onClose, selectedValue, open } = props;
+
+    const handleClose = () => {
+        onClose(selectedValue);
+    };
+
+    const handleListItemClick = (value) => {
+        onClose(value);
+    };
+
+    return (
+        <Dialog onClose={handleClose} aria-labelledby="simple-dialog-title" open={open}>
+            <DialogTitle id="simple-dialog-title">Прикрепить файл</DialogTitle>
+            <DialogContent dividers alignItems='center'>
+                <IconButton color="primary" aria-label="upload picture" component="span">
+                    <AddAPhotoIcon />
+                </IconButton>
+                <IconButton color="primary" aria-label="upload picture" component="span">
+                    <AddPhotoAlternateIcon />
+                </IconButton>
+            </DialogContent>
+        </Dialog>
+    );
+}
+
 export default function CheckList() {
+    const [open, setOpen] = useState(false);
     const location = useLocation();
 
     const classes = useStyles();
@@ -92,6 +124,14 @@ export default function CheckList() {
     useEffect(() => {
         console.log(location.state); // result: 'some_value'
     }, [location]);
+
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = (value) => {
+        setOpen(false);
+    };
 
     return (
         <Box
@@ -135,23 +175,26 @@ export default function CheckList() {
 
                     </Box>
                     <Box display='flex' p={1}>
-                        <Box m={1} >
-                            <img src={scrap} alt='' />
-                        </Box>
-                        <Button
-                            size='medium'
-                            variant='contained'
-                            color='primary'
+                        <Box>
+                            <IconButton aria-label="scrap" onClick={handleClickOpen}><img src={scrap} alt='' /></IconButton>
 
-                            style={{ width: '138px', height: '41px' }}
-                        >
-                            Заполнен
+                        </Box>
+                        <Box p={1}>
+                            <Button
+                                size='medium'
+                                variant='contained'
+                                color='primary'
+
+                                style={{ width: '138px', height: '41px' }}
+                            >
+                                Заполнен
                         </Button>
+                        </Box>
                     </Box>
                 </Box>
                 <Box display='flex' justifyContent='space-between' fontSize={18} p={2}>
                     <Box display='flex' >
-                        <Box width={40}/>
+                        <Box width={40} />
                         <Box fontWeight='bold' p={1} lineHeight={1}>
                             Оборудование
                         </Box>
@@ -172,8 +215,8 @@ export default function CheckList() {
                     mt={2}
                     p={4}
                 >
-                <Box fontWeight="fontWeightBold" fontSize="24px" m={1} align='center'>
-                    Выполняемые работы
+                    <Box fontWeight="fontWeightBold" fontSize="24px" m={1} align='center'>
+                        Выполняемые работы
                 </Box>
                 </TableHeader>
                 <Box
@@ -206,7 +249,7 @@ export default function CheckList() {
                                 </TableRow>
                             )}
                             <TableRow>
-                                <TableCell/>
+                                <TableCell />
                                 <TableCell>
                                 </TableCell>
                                 <TableCell>
@@ -218,6 +261,7 @@ export default function CheckList() {
                     </Table>
                 </Box>
             </Box>
+            <SimpleDialog open={open} onClose={handleClose} />
         </Box >
     );
 }
