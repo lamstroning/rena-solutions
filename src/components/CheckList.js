@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from "react-router-dom";
+import draft from '../asetss/images/draft-icon.png';
 
 import {
     Box,
@@ -10,7 +11,8 @@ import {
     TableRow,
     TextField,
     Typography,
-    withStyles
+    withStyles,
+    Button
 } from '@material-ui/core';
 
 import { theme } from '../theme/theme';
@@ -28,7 +30,8 @@ const StyledTableHead = withStyles(theme => ({
     root: {
         '& th': {
             backgroundColor: theme.palette.darkGreen,
-            color: 'white'
+            color: 'white',
+            borderBottom: 'thick solid #FFFFF'
         }
     }
 }))(TableHead);
@@ -102,11 +105,33 @@ export default function CheckList() {
                 flexDirection='column'
                 overflow='auto'
             >
-                <Box fontSize={24} p={2}>
-                    Задание на ремонт №{location.state.number}
+
+                <Box display='flex' p='3' paddingTop='20px'>
+                    <Box width='20px'></Box>
+                    <Box style={{ paddingTop: '20px' }}>
+                        <img src={draft} alt='' />
+                    </Box>
+                    <Box fontSize={24} p={2}>
+                        Задание на ремонт №{location.state.number}
+                    </Box>
+                    <Box p={1} display='flex' justifyContent="flex-end">
+                        <Box >
+                            <Button
+                                size='medium'
+                                variant='contained'
+                                color='primary'
+
+                                style={{ width: '138px', height: '41px' }}
+                            >
+                                Заполнен
+                    </Button>
+
+                        </Box>
+                    </Box>
                 </Box>
-                <Box display='flex' justifyContent='space-between' p={2}>
-                    <Box display='flex'>
+                <Box display='flex' justifyContent='space-between' fontSize={18} p={2}>
+                    <Box display='flex' >
+                        <Box width='40px'></Box>
                         <Box fontWeight='bold' p={1} lineHeight={1}>
                             Оборудование
                         </Box>
@@ -118,23 +143,24 @@ export default function CheckList() {
                                 Наименование: {location.state.name}
                             </Box>
                         </Box>
+
                     </Box>
                     <Box>
-                        работы начаты: {new Date().toLocaleString().replace(',', ' ')}
+                        Работы начаты: {new Date().toLocaleString().replace(',', ' ')}
                     </Box>
                 </Box>
                 <TableHeader
                     mt={2}
                     p={4}
                 >
-                    <Typography variant='h2' align='center'>
-                        выполняемые работы
-                    </Typography>
+                    <Box fontWeight="fontWeightBold" fontSize="24px" m={1} align='center'>
+                        Выполняемые работы
+                </Box>
                 </TableHeader>
                 <Box
                     flex={1}
                     overflow='auto'
-                    bgcolor='white'
+                    bgcolor='#F2F2F2'
                 >
                     <Table stickyHeader>
                         <StyledTableHead>
@@ -145,7 +171,7 @@ export default function CheckList() {
                                 <TableCell>Фактический результат</TableCell>
                             </TableRow>
                         </StyledTableHead>
-                        <TableBody>
+                        <TableBody >
                             {checkList.map(task =>
                                 <TableRow key={task.id}>
                                     <TableCell>{task.id}</TableCell>
@@ -209,6 +235,6 @@ export default function CheckList() {
                     </Table>
                 </Box>
             </Box>
-        </Box>
+        </Box >
     );
 }
