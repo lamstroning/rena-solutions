@@ -87,28 +87,62 @@ const useStyles2 = makeStyles(theme => ({
     },
 }));
 
-function SimpleDialog(props) {
+function CameraDialog(props) {
     const { onClose, selectedValue, open } = props;
 
     const handleClose = () => {
         onClose(selectedValue);
     };
 
-    const handleListItemClick = (value) => {
-        onClose(value);
+    function handleTakePhoto(dataUri) {
+        // Do stuff with the photo...
+        console.log('takePhoto');
+    }
+
+    return (
+        <Dialog onClose={handleClose} aria-labelledby="simple-dialog-title" open={open} display='flex'>
+            <DialogTitle id="simple-dialog-title">Фото с камеры</DialogTitle>
+            <DialogContent dividers alignItems='center'>
+                <Camera isMaxResolution={{ width: 320, height: 240 }}
+                    onTakePhoto={(dataUri) => { handleTakePhoto(dataUri); }}
+                />
+            </DialogContent>
+        </Dialog>
+    );
+}
+
+function SimpleDialog(props) {
+    const [open2, setOpen2] = useState(false);
+    const { onClose, selectedValue, open } = props;
+
+    const handleClose = () => {
+        onClose(selectedValue);
     };
+
+    const handleClickOpen2 = () => {
+        setOpen2(true);
+    };
+
+    const handleClose2 = (value) => {
+        setOpen2(false);
+    };
+
 
     return (
         <Dialog onClose={handleClose} aria-labelledby="simple-dialog-title" open={open}>
             <DialogTitle id="simple-dialog-title">Прикрепить файл</DialogTitle>
-            <DialogContent dividers alignItems='center'>
-                <IconButton color="primary" aria-label="upload picture" component="span">
-                    <AddAPhotoIcon />
-                </IconButton>
-                <IconButton color="primary" aria-label="upload picture" component="span">
-                    <AddPhotoAlternateIcon />
-                </IconButton>
+            <DialogContent dividers>
+                <Box display='flex' alignContent='center'>
+                    <IconButton color="primary" aria-label="upload picture" component="span" onClick={handleClickOpen2}>
+                        <AddAPhotoIcon />
+                    </IconButton>
+                    <IconButton color="primary" aria-label="upload picture" component="span">
+                        <AddPhotoAlternateIcon />
+                    </IconButton>
+
+                </Box>
             </DialogContent>
+            <CameraDialog open={open2} onClose={handleClose2} />
         </Dialog>
     );
 }
