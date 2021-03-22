@@ -2,6 +2,7 @@ import {useEffect} from 'react';
 import {useLocation} from "react-router-dom";
 import draft from '../asetss/images/draft-icon.png';
 import scrap from '../asetss/images/scrap.png';
+import { makeStyles } from '@material-ui/styles';
 
 import {
     Box, Table, TableBody, TableCell, TableHead, TableRow, withStyles, Button
@@ -49,8 +50,44 @@ const StyledTableHead = withStyles(theme => ({
     }
 }))(TableHead);
 
+
+const useStylesHeder = makeStyles(theme => ({
+    root: {},
+    tableRightBorder: {
+        borderWidth: 0,
+        borderRightWidth: 1,
+        borderColor: 'white',
+        borderStyle: 'solid',
+    },
+}));
+
+const useStyles = makeStyles(theme => ({
+    root: {},
+    tableRightBorder: {
+        borderWidth: 0,
+        borderRightWidth: 1,
+        borderBottomWidth: 1,
+        borderColor: 'black',
+        borderStyle: 'solid',
+    },
+}));
+
+const useStyles2 = makeStyles(theme => ({
+    root: {},
+    tableRightBorder: {
+        borderWidth: 0,
+        borderBottomWidth: 1,
+        borderColor: 'black',
+        borderStyle: 'solid',
+    },
+}));
+
 export default function CheckList() {
     const location = useLocation();
+
+    const classes = useStyles();
+    const classes2 = useStyles2();
+    const classesHeader = useStylesHeder();
 
     useEffect(() => {
         console.log(location.state); // result: 'some_value'
@@ -147,25 +184,23 @@ export default function CheckList() {
                     <Table stickyHeader>
                         <StyledTableHead>
                             <TableRow>
-                                <TableCell>N/N</TableCell>
-                                <TableCell>Действия</TableCell>
-                                <TableCell>Ожидаемый результат</TableCell>
+                                <TableCell className={classesHeader.tableRightBorder}>N/N</TableCell>
+                                <TableCell className={classesHeader.tableRightBorder}>Действия</TableCell>
+                                <TableCell className={classesHeader.tableRightBorder}>Ожидаемый результат</TableCell>
                                 <TableCell>Фактический результат</TableCell>
                             </TableRow>
                         </StyledTableHead>
                         <TableBody >
                             {checkList.map(task =>
                                 <TableRow key={task.id}>
-                                    <TableCell>
-                                        {task.id}
-                                    </TableCell>
-                                    <TableCell>
+                                    <TableCell className={classes.tableRightBorder}>{task.id}</TableCell>
+                                    <TableCell className={classes.tableRightBorder}>
                                         {task.action}
                                     </TableCell>
-                                    <TableCell>
+                                    <TableCell className={classes.tableRightBorder}>
                                         {task.expected}
                                     </TableCell>
-                                    <TableCell>
+                                    <TableCell className={classes2.tableRightBorder}>
                                         {task.result}
                                     </TableCell>
                                 </TableRow>
