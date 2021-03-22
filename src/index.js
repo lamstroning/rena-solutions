@@ -2,13 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/App';
 import { Redirect, Switch } from 'react-router'
-import { BrowserRouter, Route } from "react-router-dom";
-import { MuiThemeProvider } from "@material-ui/core";
-import { theme } from "./theme/theme";
-import Login from "./components/Auth/Login";
+import { BrowserRouter, Route } from 'react-router-dom';
+import { MuiThemeProvider } from '@material-ui/core';
+import { theme } from './theme/theme';
+import Login from './components/Auth/Login';
 import * as serviceWorker from './serviceWorker';
 
-const PrivateRoute = (props) => {
+const PrivateRoute = () => {
     const user = window.localStorage.getItem('auth'); // i will fetch token stored in cookie
     if (user === 'true')
         return <Route path='/'>
