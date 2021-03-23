@@ -1,20 +1,21 @@
 import { useEffect, useState } from 'react';
 import { useLocation } from "react-router-dom";
+
+import {
+    Box, Table, TableBody, TableCell, TableHead, TableRow, withStyles, Button, IconButton,
+    Dialog, DialogTitle, DialogContent, MenuItem
+} from '@material-ui/core';
+
 import draft from '../asetss/images/draft-icon.png';
 import scrap from '../asetss/images/scrap.png';
-import { makeStyles } from '@material-ui/styles';
 import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
 import AddPhotoAlternateIcon from '@material-ui/icons/AddPhotoAlternate';
 import Camera from 'react-html5-camera-photo';
 import 'react-html5-camera-photo/build/css/index.css';
 
-import {
-    Box, Table, TableBody, TableCell, TableHead, TableRow, withStyles, Button, IconButton,
-    Dialog, DialogTitle, DialogContent, MenuItem, Drawer
-} from '@material-ui/core';
-
 import { theme } from '../theme/theme';
 import {SmallSelect} from '../theme/SmallSelect';
+import {StyledDrawer} from '../theme/Drawer';
 
 const checkList = [
     {
@@ -45,42 +46,10 @@ const StyledTableHead = withStyles(theme => ({
         '& th': {
             backgroundColor: theme.palette.darkGreen,
             color: 'white',
-            fontSize: "18px"
+            fontSize: 18
         }
     }
 }))(TableHead);
-
-
-const useStylesHeder = makeStyles(theme => ({
-    root: {},
-    tableRightBorder: {
-        borderWidth: 0,
-        borderRightWidth: 1,
-        borderColor: 'white',
-        borderStyle: 'solid',
-    },
-}));
-
-const useStyles = makeStyles(theme => ({
-    root: {},
-    tableRightBorder: {
-        borderWidth: 0,
-        borderRightWidth: 1,
-        borderBottomWidth: 1,
-        borderColor: 'black',
-        borderStyle: 'solid',
-    },
-}));
-
-const useStyles2 = makeStyles(theme => ({
-    root: {},
-    tableRightBorder: {
-        borderWidth: 0,
-        borderBottomWidth: 1,
-        borderColor: 'black',
-        borderStyle: 'solid',
-    },
-}));
 
 function CameraDialog(props) {
     const { onClose, selectedValue, open } = props;
@@ -118,8 +87,6 @@ function SimpleDialog(props) {
         setOpen2(true);
     };
 
-
-
     return (
         <Dialog onClose={handleClose} aria-labelledby="simple-dialog-title" open={open}>
             <DialogTitle id="simple-dialog-title">Прикрепить файл</DialogTitle>
@@ -131,7 +98,6 @@ function SimpleDialog(props) {
                     <IconButton color="primary" aria-label="upload picture" component="span">
                         <AddPhotoAlternateIcon />
                     </IconButton>
-
                 </Box>
             </DialogContent>
             <CameraDialog open={open2} onClose={() => setOpen2(false)} />
@@ -144,10 +110,6 @@ export default function CheckList() {
     const [openDrawer, setOpenDrawer] = useState(false);
     const location = useLocation();
 
-    const classes = useStyles();
-    const classes2 = useStyles2();
-    const classesHeader = useStylesHeder();
-
     useEffect(() => {
         console.log(location.state); // result: 'some_value'
     }, [location]);
@@ -156,9 +118,21 @@ export default function CheckList() {
         setOpen(true);
     };
 
-    const handleClose = (value) => {
-        setOpen(false);
-    };
+    const renderEquipmentInfo= () =>
+        <Box display='flex' >
+            <Box width={40} />
+            <Box fontWeight='bold' p={1} lineHeight={1}>
+                Оборудование
+            </Box>
+            <Box display='flex' flexDirection='column' justifyContent='flex-start'>
+                <Box p={1}>
+                    Шифр: {location.state.code}
+                </Box>
+                <Box p={1}>
+                    Наименование: {location.state.name}
+                </Box>
+            </Box>
+        </Box>;
 
     return (
         <Box
@@ -170,9 +144,17 @@ export default function CheckList() {
             height={1}
             fontFamily="Roboto"
         >
-            <Drawer open={openDrawer} onClose={() => setOpenDrawer(false)}>
-                xxxx
-            </Drawer>
+            <StyledDrawer
+                open={openDrawer}
+                onClose={() => setOpenDrawer(false)}
+            >
+                <Box>
+                    {renderEquipmentInfo()}
+                </Box>
+                <Box mt={10} fontSize={20} fontWeight='bold'>
+                    Контролируемые технологические параметры
+                </Box>
+            </StyledDrawer>
             <Box
                 display='flex'
                 alignItems='center'
@@ -211,8 +193,9 @@ export default function CheckList() {
                     </Box>
                     <Box display='flex' p={1}>
                         <Box>
-                            <IconButton aria-label="scrap" onClick={handleClickOpen}><img src={scrap} alt='' /></IconButton>
-
+                            <IconButton aria-label="scrap" onClick={handleClickOpen}>
+                                <img src={scrap} alt='' />
+                            </IconButton>
                         </Box>
                         <Box p={1}>
                             <Button
@@ -228,20 +211,7 @@ export default function CheckList() {
                     </Box>
                 </Box>
                 <Box display='flex' justifyContent='space-between' fontSize={18} p={2}>
-                    <Box display='flex' >
-                        <Box width={40} />
-                        <Box fontWeight='bold' p={1} lineHeight={1}>
-                            Оборудование
-                        </Box>
-                        <Box display='flex' flexDirection='column' justifyContent='flex-start'>
-                            <Box p={1}>
-                                Шифр: {location.state.code}
-                            </Box>
-                            <Box p={1}>
-                                Наименование: {location.state.name}
-                            </Box>
-                        </Box>
-                    </Box>
+                    {renderEquipmentInfo()}
                     <Box>
                         Работы начаты: {new Date().toLocaleString().replace(',', ' ')}
                     </Box>
@@ -262,25 +232,25 @@ export default function CheckList() {
                     <Table stickyHeader>
                         <StyledTableHead>
                             <TableRow>
-                                <TableCell className={classesHeader.tableRightBorder}>N/N</TableCell>
-                                <TableCell className={classesHeader.tableRightBorder}>Действия</TableCell>
-                                <TableCell className={classesHeader.tableRightBorder}>Ожидаемый результат</TableCell>
+                                <TableCell className='border border_white border_right border_bottom'>N/N</TableCell>
+                                <TableCell className='border border_white border_right border_bottom'>Действия</TableCell>
+                                <TableCell className='border border_white border_right border_bottom'>Ожидаемый результат</TableCell>
                                 <TableCell>Фактический результат</TableCell>
                             </TableRow>
                         </StyledTableHead>
                         <TableBody >
                             {checkList.map(task =>
                                 <TableRow key={task.id}>
-                                    <TableCell className={classes.tableRightBorder}>
+                                    <TableCell className='border border_right border_bottom'>
                                         {task.id}
                                     </TableCell>
-                                    <TableCell className={classes.tableRightBorder}>
+                                    <TableCell className='border border_right border_bottom'>
                                         {task.action}
                                     </TableCell>
-                                    <TableCell className={classes.tableRightBorder}>
+                                    <TableCell className='border border_right border_bottom'>
                                         {task.expected}
                                     </TableCell>
-                                    <TableCell className={classes2.tableRightBorder}>
+                                    <TableCell className='border border_right border_bottom'>
                                         <SmallSelect
                                             fullWidth
                                             variant='outlined'
@@ -297,7 +267,7 @@ export default function CheckList() {
                     </Table>
                 </Box>
             </Box>
-            <SimpleDialog open={open} onClose={handleClose} />
+            <SimpleDialog open={open} onClose={() => setOpen(false)} />
         </Box >
     );
 }
