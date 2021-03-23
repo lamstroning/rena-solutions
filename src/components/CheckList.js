@@ -21,14 +21,12 @@ const checkList = [
     {
         id: 1,
         action: 'Проверить питание',
-        expected: 'Есть',
-        result: ''
+        expected: 'Есть'
     },
     {
         id: 2,
         action: 'Замерить напряжение',
-        expected: '220В',
-        result: ''
+        expected: '220В'
     }
 ]
 
@@ -106,6 +104,7 @@ function SimpleDialog(props) {
 }
 
 export default function CheckList() {
+    const [result, setResult] = useState(['default', 'default']);
     const [open, setOpen] = useState(false);
     const [openDrawer, setOpenDrawer] = useState(false);
     const location = useLocation();
@@ -142,7 +141,6 @@ export default function CheckList() {
             maxWidth={theme.size.appWidth}
             width={1}
             height={1}
-            fontFamily="Roboto"
         >
             <StyledDrawer
                 open={openDrawer}
@@ -193,17 +191,16 @@ export default function CheckList() {
                     </Box>
                     <Box display='flex' p={1}>
                         <Box>
-                            <IconButton aria-label="scrap" onClick={handleClickOpen}>
+                            <IconButton aria-label='scrap' onClick={handleClickOpen}>
                                 <img src={scrap} alt='' />
                             </IconButton>
                         </Box>
-                        <Box p={1}>
+                        <Box p={1} width={140} height={40}>
                             <Button
+                                className='button button_full'
                                 size='medium'
                                 variant='contained'
                                 color='primary'
-
-                                style={{ width: '138px', height: '41px' }}
                             >
                                 Заполнен
                         </Button>
@@ -220,9 +217,14 @@ export default function CheckList() {
                     mt={2}
                     p={4}
                 >
-                    <Box fontWeight="fontWeightBold" fontSize="24px" m={1} align='center'>
+                    <Box
+                        fontWeight='fontWeightBold'
+                        align='center'
+                        fontSize={24}
+                        m={1}
+                    >
                         Выполняемые работы
-                </Box>
+                    </Box>
                 </TableHeader>
                 <Box
                     flex={1}
@@ -252,13 +254,17 @@ export default function CheckList() {
                                     </TableCell>
                                     <TableCell className='border border_right border_bottom'>
                                         <SmallSelect
+                                            onChange={event => {
+                                                result[task.id - 1] = event.target.value;
+                                                setResult([...result]);
+                                            }}
                                             fullWidth
                                             variant='outlined'
-                                            value={task.result}
+                                            value={result[task.id - 1]}
                                         >
-                                            <MenuItem value=''>Выберите значение</MenuItem>
-                                            <MenuItem>true</MenuItem>
-                                            <MenuItem>false</MenuItem>
+                                            <MenuItem value='default' disabled>Выберите значение</MenuItem>
+                                            <MenuItem value='ok'>Есть</MenuItem>
+                                            <MenuItem value='ko'>Нет</MenuItem>
                                         </SmallSelect>
                                     </TableCell>
                                 </TableRow>
