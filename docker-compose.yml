@@ -4,9 +4,9 @@ services:
   mrms-client:
     build: ./
     image: lamstroning/mrms-front
-    # volumes:
-    #   - ".:/app"
-    #   - "/app/node_modules"
+    volumes:
+      - ".:/app"
+      - "/app/node_modules"
     ports:
       - "3000:3000"
     stdin_open: true
