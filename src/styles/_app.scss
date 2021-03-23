@@ -5,6 +5,14 @@
     white-space: nowrap;
   }
 
+  &_lowercase {
+    text-transform: lowercase;
+  }
+
+  &_white {
+    color: white;
+  }
+
   &_nowrap {
     white-space: nowrap;
   }

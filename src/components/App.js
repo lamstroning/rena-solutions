@@ -1,7 +1,6 @@
 import React from 'react';
-import { BrowserRouter, Route, useLocation } from 'react-router-dom';
+import { BrowserRouter, Route } from 'react-router-dom';
 import { Redirect, Switch } from 'react-router';
-
 import '../styles/index.scss';
 import Tasks from "./Tasks";
 import Header from './common/Header';
@@ -10,8 +9,6 @@ import { Box } from '@material-ui/core';
 import CheckList from "./CheckList";
 
 function App() {
-    const location = useLocation();
-    console.log(location.pathname)
     return (
         <Box
             display='flex'
