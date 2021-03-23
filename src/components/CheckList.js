@@ -14,7 +14,7 @@ import {
 } from '@material-ui/core';
 
 import { theme } from '../theme/theme';
-import {SmallSelect} from '../theme/SmallSelect';
+import { SmallSelect } from '../theme/SmallSelect';
 
 const checkList = [
     {
@@ -97,10 +97,13 @@ function CameraDialog(props) {
     return (
         <Dialog onClose={handleClose} aria-labelledby="simple-dialog-title" open={open} display='flex'>
             <DialogTitle id="simple-dialog-title">Фото с камеры</DialogTitle>
-            <DialogContent dividers alignItems='center'>
-                <Camera isMaxResolution={{ width: 320, height: 240 }}
-                    onTakePhoto={(dataUri) => { handleTakePhoto(dataUri); }}
-                />
+            <DialogContent dividers >
+                <Box display='flex' alignContent='center'>
+                    <Camera isMaxResolution={{ width: 320, height: 240 }}
+                        onTakePhoto={(dataUri) => { handleTakePhoto(dataUri); }}
+                    />
+
+                </Box>
             </DialogContent>
         </Dialog>
     );
@@ -287,8 +290,8 @@ export default function CheckList() {
                                             value={task.result}
                                         >
                                             <MenuItem value=''>Выберите значение</MenuItem>
-                                            <MenuItem>true</MenuItem>
-                                            <MenuItem>false</MenuItem>
+                                            <MenuItem>Есть</MenuItem>
+                                            <MenuItem>Нет</MenuItem>
                                         </SmallSelect>
                                     </TableCell>
                                 </TableRow>
