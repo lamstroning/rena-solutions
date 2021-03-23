@@ -22,20 +22,18 @@ const PrivateRoute = () => {
 }
 
 ReactDOM.render(
-    <React.StrictMode>
-        <StylesProvider injectFirst>
-            <MuiThemeProvider theme={theme}>
-                <BrowserRouter basename={process.env.PUBLIC_URL}>
-                    <Switch>
-                        <Route exact path='/login'>
-                            <Login />
-                        </Route>
-                        <PrivateRoute />
-                    </Switch>
-                </BrowserRouter>
-            </MuiThemeProvider>
-        </StylesProvider>
-    </React.StrictMode>,
+    <StylesProvider injectFirst>
+        <MuiThemeProvider theme={theme}>
+            <BrowserRouter basename={process.env.PUBLIC_URL}>
+                <Switch>
+                    <Route exact path='/login'>
+                        <Login />
+                    </Route>
+                    <PrivateRoute />
+                </Switch>
+            </BrowserRouter>
+        </MuiThemeProvider>
+    </StylesProvider>,
     document.getElementById('root')
 );
 
