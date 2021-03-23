@@ -21,7 +21,7 @@ const PrivateRoute = () => {
 ReactDOM.render(
     <React.StrictMode>
         <MuiThemeProvider theme={theme}>
-            <BrowserRouter>
+            <BrowserRouter basename={process.env.PUBLIC_URL}>
                 <Switch>
                     <Route exact path='/login'>
                         <Login />
