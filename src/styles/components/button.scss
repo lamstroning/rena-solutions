@@ -1,0 +1,14 @@
+.button {
+  &_full {
+    width: 100%;
+    height: 100%;
+  }
+
+  &_white {
+    color: white;
+  }
+
+  &_vertical > span{
+    writing-mode: tb-rl;
+  }
+}

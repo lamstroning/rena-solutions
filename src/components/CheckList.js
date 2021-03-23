@@ -10,7 +10,7 @@ import 'react-html5-camera-photo/build/css/index.css';
 
 import {
     Box, Table, TableBody, TableCell, TableHead, TableRow, withStyles, Button, IconButton,
-    Dialog, DialogTitle, DialogContent, MenuItem
+    Dialog, DialogTitle, DialogContent, MenuItem, Drawer
 } from '@material-ui/core';
 
 import { theme } from '../theme/theme';
@@ -89,7 +89,7 @@ function CameraDialog(props) {
         onClose(selectedValue);
     };
 
-    function handleTakePhoto(dataUri) {
+    function handleTakePhoto() {
         // Do stuff with the photo...
         console.log('takePhoto');
     }
@@ -118,9 +118,6 @@ function SimpleDialog(props) {
         setOpen2(true);
     };
 
-    const handleClose2 = (value) => {
-        setOpen2(false);
-    };
 
 
     return (
@@ -137,13 +134,14 @@ function SimpleDialog(props) {
 
                 </Box>
             </DialogContent>
-            <CameraDialog open={open2} onClose={handleClose2} />
+            <CameraDialog open={open2} onClose={() => setOpen2(false)} />
         </Dialog>
     );
 }
 
 export default function CheckList() {
     const [open, setOpen] = useState(false);
+    const [openDrawer, setOpenDrawer] = useState(false);
     const location = useLocation();
 
     const classes = useStyles();
@@ -172,16 +170,24 @@ export default function CheckList() {
             height={1}
             fontFamily="Roboto"
         >
+            <Drawer open={openDrawer} onClose={() => setOpenDrawer(false)}>
+                xxxx
+            </Drawer>
             <Box
                 display='flex'
                 alignItems='center'
                 justifyContent='center'
-                className='text text_vertical'
                 color='white'
                 width={64}
                 bgcolor={theme.palette.orange}
             >
-                Контролируемые технологические параметры
+                <Button
+                    fullWidth
+                    className='button button_white button_vertical button_full'
+                    onClick={() => setOpenDrawer(true)}
+                >
+                    Контролируемые технологические параметры
+                </Button>
             </Box>
             <Box
                 width={1}
@@ -287,15 +293,6 @@ export default function CheckList() {
                                     </TableCell>
                                 </TableRow>
                             )}
-                            <TableRow>
-                                <TableCell/>
-                                <TableCell>
-                                </TableCell>
-                                <TableCell>
-                                </TableCell>
-                                <TableCell>
-                                </TableCell>
-                            </TableRow>
                         </TableBody>
                     </Table>
                 </Box>
