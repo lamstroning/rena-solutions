@@ -189,6 +189,44 @@ export default function CheckList() {
                 <Box mt={10} fontSize={20} fontWeight='bold'>
                     Контролируемые технологические параметры
                 </Box>
+                <Box
+                    fontWeight='bold'
+                    color='white'
+                    bgcolor={theme.palette.darkGreen}
+                    p={2}
+                    borderRadius={24}
+                >
+                    <Table>
+                        <TableRow>
+                            <TableCell>
+                                Название
+                            </TableCell>
+                            <TableCell>
+                                Текущее значение
+                            </TableCell>
+                        </TableRow>
+                        <TableRow style={{backgroundColor: 'white', color: 'black'}}>
+                            <TableCell>
+                                Скорость вращения
+                            </TableCell>
+                            <TableCell>
+                                190rpm
+                            </TableCell>
+                        </TableRow>
+                        <TableRow style={{backgroundColor: 'white', color: 'black'}}>
+                            <TableCell>Напряжение</TableCell>
+                            <TableCell>220В</TableCell>
+                        </TableRow>
+                        <TableRow style={{backgroundColor: 'white', color: 'black'}}>
+                            <TableCell>Название</TableCell>
+                            <TableCell>Текущее значение</TableCell>
+                        </TableRow>
+                        <TableRow style={{backgroundColor: 'white', color: 'black'}}>
+                            <TableCell>Название</TableCell>
+                            <TableCell>Текущее значение</TableCell>
+                        </TableRow>
+                    </Table>
+                </Box>
             </StyledDrawer>
             <Box
                 display='flex'
