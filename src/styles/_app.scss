@@ -21,3 +21,21 @@
     writing-mode: tb-rl;
   }
 }
+
+.border {
+  border-color: black;
+  border-style: solid;
+  border-width: 0;
+
+  &_white {
+    border-color: white;
+  }
+
+  &_bottom {
+    border-bottom-width: 1px;
+  }
+
+  &_right {
+    border-right-width: 1px;
+  }
+}
