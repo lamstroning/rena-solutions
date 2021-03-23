@@ -1,9 +1,10 @@
+import React from 'react';
 import { useEffect, useState } from 'react';
 import { useLocation } from "react-router-dom";
 
 import {
     Box, Table, TableBody, TableCell, TableHead, TableRow, withStyles, Button, IconButton,
-    Dialog, DialogTitle, DialogContent, MenuItem
+    Dialog, DialogTitle, DialogContent, MenuItem, TextField
 } from '@material-ui/core';
 
 import draft from '../asetss/images/draft-icon.png';
@@ -26,8 +27,14 @@ const checkList = [
     },
     {
         id: 2,
-        action: 'Замерить напряжение',
+        action: 'Замерить напряжение на входе',
         expected: '220В',
+        result: ''
+    },
+    {
+        id: 3,
+        action: 'Проверить исправность предохранителя',
+        expected: 'Исправен',
         result: ''
     }
 ]
@@ -112,6 +119,31 @@ export default function CheckList() {
     const [open, setOpen] = useState(false);
     const [openDrawer, setOpenDrawer] = useState(false);
     const location = useLocation();
+
+    const [rule1, setRule1] = React.useState('')
+    const [rule2, setRule2] = React.useState('')
+    const [rule3, setRule3] = React.useState('')
+    const [rules, setRules] = React.useState([checkList[0]])
+
+    const handleChange1 = (event) => {
+        setRule1(event.target.value);
+        if (event.target.value === 'yes') {
+            console.log('first rule yes')
+            setRules([checkList[0], checkList[1]])
+        }
+    };
+
+    const handleChange2 = (event) => {
+        setRule2(event.target.value);
+        if (event.target.value > '240') {
+            console.log('second rule yes')
+            setRules([checkList[0], checkList[1], checkList[2]])
+        }
+    };
+
+    const handleChange3 = (event) => {
+        setRule3(event.target.value);
+    };
 
     useEffect(() => {
         console.log(location.state); // result: 'some_value'
@@ -242,7 +274,7 @@ export default function CheckList() {
                             </TableRow>
                         </StyledTableHead>
                         <TableBody >
-                            {checkList.map(task =>
+                            {rules.map(task =>
                                 <TableRow key={task.id}>
                                     <TableCell className='border border_right border_bottom'>
                                         {task.id}
@@ -254,15 +286,32 @@ export default function CheckList() {
                                         {task.expected}
                                     </TableCell>
                                     <TableCell className='border border_right border_bottom'>
-                                        <SmallSelect
-                                            fullWidth
-                                            variant='outlined'
-                                            value={task.result}
-                                        >
-                                            <MenuItem value=''>Выберите значение</MenuItem>
-                                            <MenuItem>Есть</MenuItem>
-                                            <MenuItem>Нет</MenuItem>
-                                        </SmallSelect>
+                                        {task.id === 1 ?
+                                            <SmallSelect
+                                                fullWidth
+                                                variant='outlined'
+                                                value={rule1}
+                                                onChange={handleChange1}
+
+                                            >
+                                                <MenuItem value='yes'>Есть</MenuItem>
+                                                <MenuItem value='no'>Нет</MenuItem>
+                                            </SmallSelect> : <React.Fragment ></React.Fragment>
+                                        }
+                                        {task.id === 2 ?
+                                            <TextField id="outlined-basic" label="Значение" variant="outlined" onChange={handleChange2} /> : <React.Fragment ></React.Fragment>
+                                        }
+                                        {task.id === 3 ?
+                                            <SmallSelect
+                                                fullWidth
+                                                variant='outlined'
+                                                value={rule3}
+                                                onChange={handleChange3}
+                                            >
+                                                <MenuItem value='good'>Исправен</MenuItem>
+                                                <MenuItem value='bad'>Не исправен</MenuItem>
+                                            </SmallSelect> : <React.Fragment ></React.Fragment>
+                                        }
                                     </TableCell>
                                 </TableRow>
                             )}

@@ -1,12 +1,12 @@
-import {useState} from 'react';
+import { useState } from 'react';
 
 import {
     Box, Table, TableHead, TableBody, TableCell, TableRow, Button
 } from '@material-ui/core';
-import {useHistory} from 'react-router';
-import {Icon} from '@iconify/react';
+import { useHistory } from 'react-router';
+import { Icon } from '@iconify/react';
 import swapVertical from '@iconify/icons-mdi/swap-vertical';
-import {theme}  from '../theme/theme';
+import { theme } from '../theme/theme';
 
 const baseDate = new Date(Date.now())
 
@@ -46,6 +46,16 @@ const tasks = [
         date: getOffsetDate(2, 1, 49),
         color: 'green'
     },
+    {
+        id: 3,
+        number: '000000000044',
+        auth: 'Система',
+        name: 'KUKA 5 ARC',
+        code: '23664-OP',
+        date: getOffsetDate(2, 1, 37),
+        color: 'orange'
+    },
+
 ]
 
 
