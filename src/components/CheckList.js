@@ -71,10 +71,11 @@ function CameraDialog(props) {
     }
 
     return (
-        <Dialog onClose={handleClose} aria-labelledby="simple-dialog-title" open={open} display='flex'>
+        <Dialog onClose={handleClose} aria-labelledby="simple-dialog-title" open={open} fullWidth={true}
+            maxWidth="xl">
             <DialogTitle id="simple-dialog-title">Фото с камеры</DialogTitle>
             <DialogContent dividers >
-                <Box display='flex' alignContent='center'>
+                <Box display="flex" justifyContent="center">
                     <Camera isMaxResolution={{ width: 320, height: 240 }}
                         onTakePhoto={(dataUri) => { handleTakePhoto(dataUri); }}
                     />
@@ -101,7 +102,7 @@ function SimpleDialog(props) {
         <Dialog onClose={handleClose} aria-labelledby="simple-dialog-title" open={open}>
             <DialogTitle id="simple-dialog-title">Прикрепить файл</DialogTitle>
             <DialogContent dividers>
-                <Box display='flex' alignContent='center'>
+                <Box display="flex" justifyContent="center">
                     <IconButton color="primary" aria-label="upload picture" component="span" onClick={handleClickOpen2}>
                         <AddAPhotoIcon />
                     </IconButton>
@@ -116,6 +117,8 @@ function SimpleDialog(props) {
 }
 
 export default function CheckList() {
+    const [lock, setLock] = useState(false);
+
     const [open, setOpen] = useState(false);
     const [openDrawer, setOpenDrawer] = useState(false);
     const location = useLocation();
@@ -130,12 +133,14 @@ export default function CheckList() {
         if (event.target.value === 'yes') {
             console.log('first rule yes')
             setRules([checkList[0], checkList[1]])
+        } else {
+            setRules([checkList[0]])
         }
     };
 
     const handleChange2 = (event) => {
         setRule2(event.target.value);
-        if (event.target.value > '240') {
+        if (event.target.value > 240) {
             console.log('second rule yes')
             setRules([checkList[0], checkList[1], checkList[2]])
         }
@@ -151,6 +156,10 @@ export default function CheckList() {
 
     const handleClickOpen = () => {
         setOpen(true);
+    };
+
+    const handleClickLock = () => {
+        setLock(true);
     };
 
     const renderEquipmentInfo = () =>
@@ -233,15 +242,17 @@ export default function CheckList() {
                             </IconButton>
                         </Box>
                         <Box p={1}>
-                            <Button
-                                size='medium'
-                                variant='contained'
-                                color='primary'
-
-                                style={{ width: '138px', height: '41px' }}
-                            >
-                                Заполнен
-                        </Button>
+                            {!lock ?
+                                <Button
+                                    size='medium'
+                                    variant='contained'
+                                    color='primary'
+                                    onClick={handleClickLock}
+                                    style={{ width: '138px', height: '41px' }}
+                                >
+                                    Заполнен
+                        </Button> : <React.Fragment ></React.Fragment>
+                            }
                         </Box>
                     </Box>
                 </Box>
@@ -292,6 +303,7 @@ export default function CheckList() {
                                                 variant='outlined'
                                                 value={rule1}
                                                 onChange={handleChange1}
+                                                disabled={lock}
 
                                             >
                                                 <MenuItem value='yes'>Есть</MenuItem>
@@ -299,7 +311,13 @@ export default function CheckList() {
                                             </SmallSelect> : <React.Fragment ></React.Fragment>
                                         }
                                         {task.id === 2 ?
-                                            <TextField id="outlined-basic" label="Значение" variant="outlined" onChange={handleChange2} /> : <React.Fragment ></React.Fragment>
+                                            <TextField
+                                                id="outlined-basic"
+                                                label="Значение"
+                                                variant="outlined"
+                                                onChange={handleChange2}
+                                                disabled={lock}
+                                            /> : <React.Fragment ></React.Fragment>
                                         }
                                         {task.id === 3 ?
                                             <SmallSelect
@@ -307,6 +325,7 @@ export default function CheckList() {
                                                 variant='outlined'
                                                 value={rule3}
                                                 onChange={handleChange3}
+                                                disabled={lock}
                                             >
                                                 <MenuItem value='good'>Исправен</MenuItem>
                                                 <MenuItem value='bad'>Не исправен</MenuItem>
