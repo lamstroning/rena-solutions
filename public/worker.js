@@ -1,7 +1,25 @@
 var CACHE_NAME = 'pwa-task-manager';
 var urlsToCache = [
-    '/',
-    '/completed'
+    './',
+    './completed',
+    'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap',
+    'https://sqsinformatique.com/mrms/client/static/js/bundle.js',
+    'https://sqsinformatique.com/mrms/client/static/js/0.chunk.js',
+    'https://sqsinformatique.com/mrms/client/static/js/main.chunk.js',
+    'https://sqsinformatique.com/mrms/client/src/styles/index.scss',
+    'https://sqsinformatique.com/mrms/client/favicon.ico',
+    'https://sqsinformatique.com/mrms/client/manifest.json',
+    'https://sqsinformatique.com/mrms/client/logo192.png',
+    'https://fonts.gstatic.com/s/roboto/v20/KFOmCnqEu92Fr1Mu4mxK.woff2',
+    'https://fonts.gstatic.com/s/roboto/v20/KFOlCnqEu92Fr1MmEU9fBBc4.woff2',
+    'https://fonts.gstatic.com/s/roboto/v20/KFOlCnqEu92Fr1MmEU9fABc4EsA.woff2',
+    'https://sqsinformatique.com/mrms/client/src/asetss/images/login-background.png',
+    'https://fonts.gstatic.com/s/roboto/v20/KFOmCnqEu92Fr1Mu5mxKOzY.woff2',
+    'https://sqsinformatique.com/mrms/client/src/asetss/images/worker-avatar.jpg',
+    'https://fonts.gstatic.com/s/roboto/v20/KFOlCnqEu92Fr1MmWUlfBBc4.woff2',
+    'https://fonts.gstatic.com/s/roboto/v20/KFOlCnqEu92Fr1MmWUlfABc4EsA.woff2',
+    'https://sqsinformatique.com/mrms/client/src/asetss/images/scrap.png',
+    'https://sqsinformatique.com/mrms/client/src/asetss/images/draft-icon.png'
 ];
 
 // Install a service worker

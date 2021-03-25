@@ -195,7 +195,7 @@ export default function CheckList() {
                 <Box>
                     {renderEquipmentInfo()}
                 </Box>
-                <Box mt={10} fontSize={20} fontWeight='bold'>
+                <Box mt={10} p={1} fontSize={20} fontWeight='bold'>
                     Контролируемые технологические параметры
                 </Box>
                 <Box
@@ -214,29 +214,26 @@ export default function CheckList() {
                                 Текущее значение
                             </TableCell>
                         </TableRow>
-                        <TableRow style={{backgroundColor: 'white', color: 'black'}}>
+                        <TableRow style={{ backgroundColor: 'white', color: 'black' }}>
                             <TableCell>
-                                Скорость вращения
+                                Ток
                             </TableCell>
                             <TableCell>
-                                190rpm
+                                15А
                             </TableCell>
                         </TableRow>
-                        <TableRow style={{backgroundColor: 'white', color: 'black'}}>
+                        <TableRow style={{ backgroundColor: 'white', color: 'black' }}>
                             <TableCell>Напряжение</TableCell>
                             <TableCell>220В</TableCell>
                         </TableRow>
-                        <TableRow style={{backgroundColor: 'white', color: 'black'}}>
-                            <TableCell>Название</TableCell>
-                            <TableCell>Текущее значение</TableCell>
-                        </TableRow>
-                        <TableRow style={{backgroundColor: 'white', color: 'black'}}>
-                            <TableCell>Название</TableCell>
-                            <TableCell>Текущее значение</TableCell>
+                        <TableRow style={{ backgroundColor: 'white', color: 'black' }}>
+                            <TableCell>Код ошибки</TableCell>
+                            <TableCell>43ef</TableCell>
                         </TableRow>
                     </Table>
                 </Box>
             </StyledDrawer>
+            <Box></Box>
             <Box
                 display='flex'
                 alignItems='center'
