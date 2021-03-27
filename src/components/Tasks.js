@@ -99,7 +99,7 @@ export default function Tasks() {
             {sort.name}
             <Box width={20} display='flex' alignItems='center'>
                 {sortConfig.key === sort.key &&
-                <ExpandLessIcon className={`icon icon_sort ${sortConfig.ascending ? '' : 'icon_flip'}`}/>
+                <ExpandLessIcon className={`icon ${sortConfig.ascending ? '' : 'icon_flip'}`}/>
                 }
             </Box>
         </Button>;

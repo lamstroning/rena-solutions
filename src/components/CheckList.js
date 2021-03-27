@@ -1,29 +1,30 @@
-import React from 'react';
+import React, {useRef} from 'react';
 import { useEffect, useState } from 'react';
 import { useLocation } from "react-router-dom";
 
 import {
-    Box, Table, TableBody, TableCell, TableHead, TableRow, withStyles, Button, IconButton,
-    Dialog, DialogTitle, DialogContent, MenuItem, TextField
+    Box, Table, TableBody, TableCell, TableHead, TableRow, withStyles, Button, IconButton, Drawer,
+    Dialog, DialogTitle, DialogContent, MenuItem, TextField, ListItemIcon, Menu, Link
 } from '@material-ui/core';
 
-import draft from '../asetss/images/draft-icon.png';
-import scrap from '../asetss/images/scrap.png';
+import AttachFileIcon from '@material-ui/icons/AttachFile'
 import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
 import AddPhotoAlternateIcon from '@material-ui/icons/AddPhotoAlternate';
+import EditIcon from '@material-ui/icons/Edit';
+
 import Camera from 'react-html5-camera-photo';
 import 'react-html5-camera-photo/build/css/index.css';
 
 import { theme } from '../theme/theme';
 import { SmallSelect } from '../theme/SmallSelect';
-import { StyledDrawer } from '../theme/Drawer';
+import CloseIcon from '@material-ui/icons/Close';
 
 const checkList = [
     {
         id: 1,
         action: 'Проверить питание',
         expected: 'Есть',
-        result: '',
+        result: true,
         field: 'select',
         selectItems: [
             'Есть',
@@ -70,11 +71,7 @@ const StyledTableHead = withStyles(theme => ({
 }))(TableHead);
 
 function CameraDialog(props) {
-    const { onClose, selectedValue, open } = props;
-
-    const handleClose = () => {
-        onClose(selectedValue);
-    };
+    const {onClose, selectedValue} = props;
 
     function handleTakePhoto() {
         // Do stuff with the photo...
@@ -82,8 +79,12 @@ function CameraDialog(props) {
     }
 
     return (
-        <Dialog onClose={handleClose} open={open} fullWidth={true}
-            maxWidth='xl'>
+        <Dialog
+            onClose={onClose}
+            fullWidth
+            open={true}
+            maxWidth='xl'
+        >
             <DialogTitle>Фото с камеры</DialogTitle>
             <DialogContent dividers >
                 <Box display='flex' justifyContent='center'>
@@ -97,33 +98,113 @@ function CameraDialog(props) {
     );
 }
 
-function SimpleDialog(props) {
-    const [open2, setOpen2] = useState(false);
-    const { onClose, selectedValue, open } = props;
+function EquipmentInfo ({code, name}) {
+    return (
+        <Box display='flex'>
+            <Box width={40}/>
+            <Box fontWeight='bold' p={1} lineHeight={1}>
+                Оборудование
+            </Box>
+            <Box display='flex' flexDirection='column' justifyContent='flex-start'>
+                <Box p={1}>
+                    Шифр: {code}
+                </Box>
+                <Box p={1}>
+                    Наименование: {name}
+                </Box>
+            </Box>
+        </Box>
+    );
+}
+function OpenDrawer({code, name, onClose}) {
+    return (
+        <Drawer
+            classes={{paper: 'checklist__drawer'}}
+            open={true}
+            onClose={onClose}
+        >
+            <Box display='flex' justifyContent='flex-end'>
+                <IconButton
+                    size='small'
+                    onClick={onClose}
+                >
+                    <CloseIcon/>
+                </IconButton>
+            </Box>
+            <EquipmentInfo code={code} name={name}/>
+            <Box mt={10} p={1} fontSize={20} fontWeight='bold'>
+                Контролируемые технологические параметры
+            </Box>
+            <Box
+                fontWeight='bold'
+                color='white'
+                bgcolor={theme.palette.darkGreen}
+                p={2}
+                borderRadius={24}
+            >
+                <Table>
+                    <TableRow>
+                        <TableCell>
+                            Название
+                        </TableCell>
+                        <TableCell>
+                            Текущее значение
+                        </TableCell>
+                    </TableRow>
+                    <TableRow style={{ backgroundColor: 'white', color: 'black' }}>
+                        <TableCell>
+                            Ток
+                        </TableCell>
+                        <TableCell>
+                            15А
+                        </TableCell>
+                    </TableRow>
+                    <TableRow style={{ backgroundColor: 'white', color: 'black' }}>
+                        <TableCell>Напряжение</TableCell>
+                        <TableCell>220В</TableCell>
+                    </TableRow>
+                    <TableRow style={{ backgroundColor: 'white', color: 'black' }}>
+                        <TableCell>Код ошибки</TableCell>
+                        <TableCell>43ef</TableCell>
+                    </TableRow>
+                </Table>
+            </Box>
+        </Drawer>
+    );
+}
 
-    const handleClose = () => {
-        onClose(selectedValue);
-    };
-
-    const handleClickOpen2 = () => {
-        setOpen2(true);
-    };
+function SimpleDialog({onClose, anchor}) {
+    const [open, setOpen] = useState(false);
+    const inputFile = useRef(null);
 
     return (
-        <Dialog onClose={handleClose} aria-labelledby='simple-dialog-title' open={open}>
-            <DialogTitle id='simple-dialog-title'>Прикрепить файл</DialogTitle>
-            <DialogContent dividers>
-                <Box display='flex' justifyContent='center'>
-                    <IconButton color='primary' aria-label='upload picture' component='span' onClick={handleClickOpen2}>
-                        <AddAPhotoIcon />
-                    </IconButton>
-                    <IconButton color='primary' aria-label='upload picture' component='span'>
-                        <AddPhotoAlternateIcon />
-                    </IconButton>
-                </Box>
-            </DialogContent>
-            <CameraDialog open={open2} onClose={() => setOpen2(false)} />
-        </Dialog>
+        <>
+            <Menu
+                anchorEl={anchor}
+                keepMounted
+                open={true}
+                onClose={onClose}
+            >
+                <MenuItem onClick={() => setOpen(true)}>
+                    <ListItemIcon>
+                        <AddAPhotoIcon fontSize='small'/>
+                    </ListItemIcon>
+                    Включить камеру
+                </MenuItem>
+                <MenuItem onClick={() => inputFile.current.click()}>
+                    <ListItemIcon>
+                        <AddPhotoAlternateIcon/>
+                    </ListItemIcon>
+                    <Box display='none'>
+                        <input type='file' ref={inputFile}/>
+                    </Box>
+                    выбрать из галереи
+                </MenuItem>
+            </Menu>
+            {open &&
+                <CameraDialog onClose={() => setOpen(false)}/>
+            }
+        </>
     );
 }
 
@@ -195,34 +276,23 @@ export default function CheckList() {
         console.log(location.state); // result: 'some_value'
     }, [location]);
 
-    const handleClickOpen = () => {
-        setOpen(true);
-    };
-
-    const handleClickLock = () => {
-        setLock(true);
-    };
-
-    const renderEquipmentInfo = () =>
-        <Box display='flex' >
-            <Box width={40} />
-            <Box fontWeight='bold' p={1} lineHeight={1}>
-                Оборудование
-            </Box>
-            <Box display='flex' flexDirection='column' justifyContent='flex-start'>
-                <Box p={1}>
-                    Шифр: {location.state.code}
-                </Box>
-                <Box p={1}>
-                    Наименование: {location.state.name}
-                </Box>
-            </Box>
-        </Box>;
-
     if (!location.state)
-        return null;
+        return (
+            <Box
+                className='title title_center'
+                display='flex'
+                justifyContent='center'
+                py={3}
+            >
+                Заявка не выбрана
+                <Box px={2}>
+                    <Link href='/tasks'>Список задач</Link>
+                </Box>
+            </Box>
+        );
     return (
         <Box
+            className='checklist'
             display='flex'
             mx='auto'
             overflow='auto'
@@ -230,51 +300,7 @@ export default function CheckList() {
             width={1}
             height={1}
         >
-            <StyledDrawer
-                open={openDrawer}
-                onClose={() => setOpenDrawer(false)}
-            >
-                <Box>
-                    {renderEquipmentInfo()}
-                </Box>
-                <Box mt={10} p={1} fontSize={20} fontWeight='bold'>
-                    Контролируемые технологические параметры
-                </Box>
-                <Box
-                    fontWeight='bold'
-                    color='white'
-                    bgcolor={theme.palette.darkGreen}
-                    p={2}
-                    borderRadius={24}
-                >
-                    <Table>
-                        <TableRow>
-                            <TableCell>
-                                Название
-                            </TableCell>
-                            <TableCell>
-                                Текущее значение
-                            </TableCell>
-                        </TableRow>
-                        <TableRow style={{ backgroundColor: 'white', color: 'black' }}>
-                            <TableCell>
-                                Ток
-                            </TableCell>
-                            <TableCell>
-                                15А
-                            </TableCell>
-                        </TableRow>
-                        <TableRow style={{ backgroundColor: 'white', color: 'black' }}>
-                            <TableCell>Напряжение</TableCell>
-                            <TableCell>220В</TableCell>
-                        </TableRow>
-                        <TableRow style={{ backgroundColor: 'white', color: 'black' }}>
-                            <TableCell>Код ошибки</TableCell>
-                            <TableCell>43ef</TableCell>
-                        </TableRow>
-                    </Table>
-                </Box>
-            </StyledDrawer>
+
             <Box
                 display='flex'
                 alignItems='center'
@@ -290,6 +316,13 @@ export default function CheckList() {
                 >
                     Контролируемые технологические параметры
                 </Button>
+                {openDrawer &&
+                    <OpenDrawer
+                        code={location.state.code}
+                        onClose={() => setOpenDrawer(false)}
+                        name={location.state.name}
+                    />
+                }
             </Box>
             <Box
                 width={1}
@@ -302,38 +335,52 @@ export default function CheckList() {
                     justifyContent='space-between'
                     p={3}
                 >
-                    <Box display='flex'>
-                        <Box m={1} p={1}>
-                            <img src={draft} alt='' />
-                        </Box>
-                        <Box fontSize={24} p={2}>
+                    <Box
+                        display='flex'
+                        alignItems='center'
+                    >
+                        <EditIcon className='icon icon_border icon_medium' color='primary'/>
+                        <Box className='title' px={2}>
                             Задание на ремонт №{location.state.number}
                         </Box>
 
                     </Box>
-                    <Box display='flex' p={1}>
-                        <Box>
-                            <IconButton aria-label='scrap' onClick={handleClickOpen}>
-                                <img src={scrap} alt='' />
+                    <Box display='flex' alignItems='center'>
+                        <Box px={2}>
+                            <IconButton
+                                color='primary'
+                                onClick={event => setOpen(event.currentTarget)}
+                            >
+                                <AttachFileIcon className='icon icon_medium icon_deg45'/>
                             </IconButton>
                         </Box>
-                        <Box p={1}>
-                            {!lock ?
-                                <Button
-                                    size='medium'
-                                    variant='contained'
-                                    color='primary'
-                                    onClick={handleClickLock}
-                                    style={{ width: '138px', height: '41px' }}
-                                >
-                                    Заполнен
-                        </Button> : <React.Fragment ></React.Fragment>
-                            }
+                        <Box
+                            height={40}
+                            width={140}
+                        >
+                            <Button
+                                className='button button_full'
+                                variant='contained'
+                                color='primary'
+                                onClick={() => setLock(true)}
+                                disabled={lock}
+                            >
+                                {lock ? 'Заполнен' : 'Заполнить'}
+                            </Button>
+                        </Box>
+                        <Box px={2}>
+                            <IconButton
+                                title='Назад'
+                                color='primary'
+                                href='/tasks'
+                            >
+                                <CloseIcon className='icon icon_border icon_medium' color='primary'/>
+                            </IconButton>
                         </Box>
                     </Box>
                 </Box>
                 <Box display='flex' justifyContent='space-between' fontSize={18} p={2}>
-                    {renderEquipmentInfo()}
+                    <EquipmentInfo code={location.state.code} name={location.state.name}/>
                     <Box>
                         Работы начаты: {new Date().toLocaleString().replace(',', ' ')}
                     </Box>
@@ -370,24 +417,25 @@ export default function CheckList() {
                             </TableRow>
                         </StyledTableHead>
                         <TableBody >
-                            {rules.map(task =>
-                                <TableRow key={task.id}>
-                                    <TableCell className='border border_right border_bottom'>
-                                        {task.id}
-                                    </TableCell>
-                                    <TableCell className='border border_right border_bottom'>
-                                        {task.action}
-                                    </TableCell>
-                                    <TableCell className='border border_right border_bottom'>
-                                        {task.expected}
-                                    </TableCell>
-                                    <TableCell className='border border_right border_bottom'>
-                                        <RenderField
-                                            task={task}
-                                            onChange={handleChange1}
-                                            disabled={lock}
-                                        />
-                                        {task.id === 1 ?
+                            {checkList.map(task =>
+                                task.result &&
+                                    <TableRow key={task.id}>
+                                        <TableCell className='border border_right border_bottom'>
+                                            {task.id}
+                                        </TableCell>
+                                        <TableCell className='border border_right border_bottom'>
+                                            {task.action}
+                                        </TableCell>
+                                        <TableCell className='border border_right border_bottom'>
+                                            {task.expected}
+                                        </TableCell>
+                                        <TableCell className='border border_right border_bottom'>
+                                            <RenderField
+                                                task={task}
+                                                onChange={handleChange1}
+                                                disabled={lock}
+                                            />
+                                            {/*{task.id === 1 ?
                                             <SmallSelect
                                                 fullWidth
                                                 variant='outlined'
@@ -420,15 +468,18 @@ export default function CheckList() {
                                                 <MenuItem value='good'>Исправен</MenuItem>
                                                 <MenuItem value='bad'>Не исправен</MenuItem>
                                             </SmallSelect> :  <></>
-                                        }
-                                    </TableCell>
-                                </TableRow>
+                                        }*/}
+                                        </TableCell>
+                                    </TableRow>
                             )}
                         </TableBody>
                     </Table>
                 </Box>
             </Box>
-            <SimpleDialog open={open} onClose={() => setOpen(false)} />
+            {
+                open &&
+                    <SimpleDialog anchor={open} onClose={() => setOpen(null)}/>
+            }
         </Box >
     );
 }

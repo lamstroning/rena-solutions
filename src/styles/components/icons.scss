@@ -3,7 +3,24 @@
     transform: rotate(180deg);
   }
 
-  &_sort {
+  &_big {
+    font-size: 36px;
+  }
+
+  &_medium {
+    font-size: 28px;
+  }
+
+  &_small {
     font-size: 18px;
+  }
+
+  &_deg45 {
+    transform: rotate(45deg);
+  }
+
+  &_border {
+    border: 3px solid var(--color-primary);
+    border-radius: 6px;
   }
 }
