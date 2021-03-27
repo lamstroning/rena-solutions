@@ -1,10 +1,10 @@
-import React, {useRef} from 'react';
+import {useRef} from 'react';
 import { useEffect, useState } from 'react';
 import { useLocation } from "react-router-dom";
 
 import {
     Box, Table, TableBody, TableCell, TableHead, TableRow, withStyles, Button, IconButton, Drawer,
-    Dialog, DialogTitle, DialogContent, MenuItem, TextField, ListItemIcon, Menu, Link
+    Dialog, DialogTitle, DialogContent, MenuItem, TextField, ListItemIcon, Menu, Link, Select
 } from '@material-ui/core';
 
 import AttachFileIcon from '@material-ui/icons/AttachFile'
@@ -15,8 +15,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import Camera from 'react-html5-camera-photo';
 import 'react-html5-camera-photo/build/css/index.css';
 
-import { theme } from '../theme/theme';
-import { SmallSelect } from '../theme/SmallSelect';
+import {theme} from '../theme/theme';
 import CloseIcon from '@material-ui/icons/Close';
 
 const checkList = [
@@ -24,7 +23,7 @@ const checkList = [
         id: 1,
         action: 'Проверить питание',
         expected: 'Есть',
-        result: true,
+        result: 'Есть',
         field: 'select',
         selectItems: [
             'Есть',
@@ -35,14 +34,14 @@ const checkList = [
         id: 2,
         action: 'Замерить напряжение на входе',
         expected: '220В',
-        result: '',
-        field: 'text'
+        result: 250,
+        field: 'number'
     },
     {
         id: 3,
         action: 'Проверить исправность предохранителя',
         expected: 'Исправен',
-        result: '',
+        result: 'Исправен',
         field: 'select',
         selectItems: [
             'Исправен',
@@ -132,7 +131,7 @@ function OpenDrawer({code, name, onClose}) {
                 </IconButton>
             </Box>
             <EquipmentInfo code={code} name={name}/>
-            <Box mt={10} p={1} fontSize={20} fontWeight='bold'>
+            <Box mt={5} py={5} className='title'>
                 Контролируемые технологические параметры
             </Box>
             <Box
@@ -144,12 +143,8 @@ function OpenDrawer({code, name, onClose}) {
             >
                 <Table>
                     <TableRow>
-                        <TableCell>
-                            Название
-                        </TableCell>
-                        <TableCell>
-                            Текущее значение
-                        </TableCell>
+                        <TableCell>Название</TableCell>
+                        <TableCell>Текущее значение</TableCell>
                     </TableRow>
                     <TableRow style={{ backgroundColor: 'white', color: 'black' }}>
                         <TableCell>
@@ -209,24 +204,32 @@ function SimpleDialog({onClose, anchor}) {
 }
 
 function RenderField({task, onChange, ...props}) {
+    const [value, setValue] = useState('');
+
     if (task.field === 'select')
         return (
-            <SmallSelect
+            <Select
+                classes={{root: 'select'}}
                 fullWidth
                 variant='outlined'
-                onChange={onChange}
+                onChange={event => onChange(task, event.target.value)}
                 {...props}
             >
                 {task.selectItems.map(selectItem =>
                     <MenuItem value={selectItem}>{selectItem}</MenuItem>
                 )}
-            </SmallSelect>
+            </Select>
         );
     return (
         <TextField
+            fullWidth
+            value={value}
+            type={task.field}
+            size='small'
             label='Значение'
             variant='outlined'
-            onChange={onChange}
+            onChange={event => setValue(event.currentTarget.value)}
+            onBlur={() => onChange(task, value)}
             {...props}
         />
     );
@@ -234,47 +237,17 @@ function RenderField({task, onChange, ...props}) {
 
 export default function CheckList() {
     const [lock, setLock] = useState(false);
-
     const [open, setOpen] = useState(false);
+    const [step, setStep] = useState(1);
     const [openDrawer, setOpenDrawer] = useState(false);
     const location = useLocation();
 
-    const [rule1, setRule1] = React.useState('');
-    const [rule2, setRule2] = React.useState('');
-    const [rule3, setRule3] = React.useState('');
-    const [rules, setRules] = React.useState([checkList[0]]);
-
-    const handleChange = event => {
-        const newRule = event.target.value;
-        setRules(event.target.value);
-
+    const handleChange = (task, value) => {
+        if (task.field == 'number' && task.result <= +value)
+            setStep(step + 1);
+        else if (task.result == value)
+            setStep(step + 1);
     };
-
-    const handleChange1 = (event) => {
-        setRule1(event.target.value);
-        if (event.target.value === 'yes') {
-            console.log('first rule yes')
-            setRules([checkList[0], checkList[1]])
-        } else {
-            setRules([checkList[0]])
-        }
-    };
-
-    const handleChange2 = (event) => {
-        setRule2(event.target.value);
-        if (event.target.value > 240) {
-            console.log('second rule yes')
-            setRules([checkList[0], checkList[1], checkList[2]])
-        }
-    };
-
-    const handleChange3 = (event) => {
-        setRule3(event.target.value);
-    };
-
-    useEffect(() => {
-        console.log(location.state); // result: 'some_value'
-    }, [location]);
 
     if (!location.state)
         return (
@@ -417,8 +390,8 @@ export default function CheckList() {
                             </TableRow>
                         </StyledTableHead>
                         <TableBody >
-                            {checkList.map(task =>
-                                task.result &&
+                            {checkList.map((task, index) =>
+                                index < step &&
                                     <TableRow key={task.id}>
                                         <TableCell className='border border_right border_bottom'>
                                             {task.id}
@@ -432,43 +405,9 @@ export default function CheckList() {
                                         <TableCell className='border border_right border_bottom'>
                                             <RenderField
                                                 task={task}
-                                                onChange={handleChange1}
-                                                disabled={lock}
+                                                onChange={handleChange}
+                                                disabled={lock || step - 1 > index}
                                             />
-                                            {/*{task.id === 1 ?
-                                            <SmallSelect
-                                                fullWidth
-                                                variant='outlined'
-                                                value={rule1}
-                                                onChange={handleChange1}
-                                                disabled={lock}
-
-                                            >
-                                                <MenuItem value='yes'>Есть</MenuItem>
-                                                <MenuItem value='no'>Нет</MenuItem>
-                                            </SmallSelect> : <></>
-                                        }
-                                        {task.id === 2 ?
-                                            <TextField
-                                                label='Значение'
-                                                variant='outlined'
-                                                value={rule2}
-                                                onChange={handleChange2}
-                                                disabled={lock}
-                                            /> : <></>
-                                        }
-                                        {task.id === 3 ?
-                                            <SmallSelect
-                                                fullWidth
-                                                variant='outlined'
-                                                value={rule3}
-                                                onChange={handleChange3}
-                                                disabled={lock}
-                                            >
-                                                <MenuItem value='good'>Исправен</MenuItem>
-                                                <MenuItem value='bad'>Не исправен</MenuItem>
-                                            </SmallSelect> :  <></>
-                                        }*/}
                                         </TableCell>
                                     </TableRow>
                             )}
