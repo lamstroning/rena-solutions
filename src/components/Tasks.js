@@ -3,9 +3,10 @@ import { useState } from 'react';
 import {
     Box, Table, TableHead, TableBody, TableCell, TableRow, Button
 } from '@material-ui/core';
+
+import ExpandLessIcon from '@material-ui/icons/ExpandLess'
+
 import { useHistory } from 'react-router';
-import { Icon } from '@iconify/react';
-import swapVertical from '@iconify/icons-mdi/swap-vertical';
 import { theme } from '../theme/theme';
 
 const baseDate = new Date(Date.now())
@@ -17,6 +18,21 @@ function getOffsetDate(day, hour, minutes) {
     tmpDate.setMinutes(tmpDate.getMinutes() - minutes);
     return tmpDate.toLocaleString().replace(',', ' ');
 }
+
+const tableHeader = [
+    {
+        key: 'number',
+        name: 'Номер задания'
+    },
+    {
+        key: 'auth',
+        name: 'Автор'
+    },
+    {
+        key: 'date',
+        name: 'Дата'
+    }
+]
 
 const tasks = [
     {
@@ -54,37 +70,48 @@ const tasks = [
         code: '23664-OP',
         date: getOffsetDate(2, 1, 37),
         color: 'orange'
-    },
-
+    }
 ]
 
 
 export default function Tasks() {
     const history = useHistory();
-    const [sortConfig, setSortConfig] = useState(null);
+    const [sortConfig, setSortConfig] = useState({});
     let sortedTasks = [...tasks]
     if (sortConfig !== null) {
         sortedTasks.sort((a, b) => {
             if (a[sortConfig.key] < b[sortConfig.key]) {
-                return sortConfig.direction === 'ascending' ? -1 : 1;
+                return sortConfig.ascending ? -1 : 1;
             }
             if (a[sortConfig.key] > b[sortConfig.key]) {
-                return sortConfig.direction === 'ascending' ? 1 : -1;
+                return sortConfig.ascending ? 1 : -1;
             }
             return 0;
         });
     }
 
+    const sortButton = sort =>
+        <Button
+            color='primary'
+            className='button button_hover'
+            onClick={() => requestSort(sort.key)}
+        >
+            {sort.name}
+            <Box width={20} display='flex' alignItems='center'>
+                {sortConfig.key === sort.key &&
+                <ExpandLessIcon className={`icon icon_sort ${sortConfig.ascending ? '' : 'icon_flip'}`}/>
+                }
+            </Box>
+        </Button>;
+
+
     const requestSort = key => {
-        let direction = 'ascending';
-        if (sortConfig === null) {
-            setSortConfig({ key, direction });
-            return
-        }
-        if (sortConfig.key === key && sortConfig.direction === 'ascending') {
-            direction = 'descending';
-        }
-        setSortConfig({ key, direction });
+        if (sortConfig.key == key && !sortConfig.ascending)
+            setSortConfig({});
+        else if (sortConfig.key == key)
+            setSortConfig({key, ascending: !sortConfig.ascending});
+        else
+            setSortConfig({key, ascending: true});
     }
 
     const renderRow = task =>
@@ -146,15 +173,15 @@ export default function Tasks() {
             width={1}
             maxWidth={theme.size.appWidth}
             px={2}
-        // height={1}
         >
             <Box
                 display='flex'
                 alignItems='center'
                 justifyContent='space-between'
-                py={2}
+                pt={6}
+                pb={4}
             >
-                <Box fontWeight="fontWeightBold" fontSize="h5.fontSize" fontFamily="Roboto" m={1}>
+                <Box className='title'>
                     Задания на ремонт
                 </Box>
             </Box>
@@ -166,40 +193,13 @@ export default function Tasks() {
                 <Table>
                     <TableHead>
                         <TableRow>
-                            <TableCell>
-
-                            </TableCell>
-                            <TableCell>
-                                <Box display='flex' alignItems='center'>
-
-                                    <Box className='text text_overflow' color='#27927D' fontWeight='bold' fontSize='16px'>
-                                        Номер задания
-                                </Box>
-                                    <Icon icon={swapVertical} style={{ fontSize: '24px', color: '#27927D' }} onClick={() => requestSort('number')} />
-                                </Box>
-                            </TableCell>
-                            <TableCell>
-                                <Box display='flex' alignItems='center'>
-
-                                    <Box className='text text_overflow' color='#27927D' fontWeight='bold' fontSize='16px'>
-                                        Автор
-                                </Box>
-                                    <Icon icon={swapVertical} style={{ fontSize: '24px', color: '#27927D' }} onClick={() => requestSort('auth')} />
-                                </Box>
-
-                            </TableCell>
-                            <TableCell>
-                                <Box display='flex' alignItems='center'>
-                                    <Box className='text text_overflow' color='#27927D' fontWeight='bold' fontSize='16px'>
-                                        Дата
-                                </Box>
-                                    <Icon icon={swapVertical} style={{ fontSize: '24px', color: '#27927D' }} onClick={() => requestSort('date')} />
-                                </Box>
-
-                            </TableCell>
-                            <TableCell>
-
-                            </TableCell>
+                            <TableCell/>
+                            {tableHeader.map(sort =>
+                                <TableCell>
+                                    {sortButton(sort)}
+                                </TableCell>
+                            )}
+                            <TableCell/>
                         </TableRow>
                     </TableHead>
                     <TableBody>

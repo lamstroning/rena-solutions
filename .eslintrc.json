@@ -1,0 +1,11 @@
+{
+    "rules":{
+        "jsx-quotes": [
+            1,
+            "prefer-single"
+        ],
+        "eqeqeq": "off",
+        "comma-dangle": "error"
+    },
+    "parser": "babel-eslint"
+}

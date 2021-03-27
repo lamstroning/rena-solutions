@@ -3,7 +3,6 @@ import SearchIcon from '@material-ui/icons/Search';
 import LibraryBooksIcon from '@material-ui/icons/LibraryBooks';
 import SettingsIcon from '@material-ui/icons/Settings';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import { useHistory } from 'react-router';
 
 import { theme } from '../../theme/theme';
 
@@ -14,13 +13,11 @@ const userProfiles = [
         id: 1,
         userName: 'Иванов П.С.',
         position: 'Инженер-механик',
-        avatar: '/src/asetss/images/worker-avatar.jpg',
-    },
+        avatar: '/src/assets/images/worker-avatar.jpg'
+    }
 ]
 
 export default function Header() {
-    const history = useHistory();
-
     return (
         <Box
             p={2}

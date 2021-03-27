@@ -3,7 +3,7 @@ body {
 	padding: 0;
 	height: 100vh;
 	background-color: #E5E5E5;
-	font-family: 'Roboto';
+	font-family: 'Roboto', sans-serif;
 }
 * {
 	box-sizing: border-box;
@@ -14,4 +14,20 @@ body {
 
 .vertical {
 	transform: rotate(90deg);
+}
+
+.table {
+	&__name {
+		width: 200px
+	}
+
+	&__id {
+		text-align: center;
+		width: 50px
+	}
+}
+
+.title {
+	font-size: 24px;
+	font-weight: 500;
 }

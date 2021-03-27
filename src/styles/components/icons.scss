@@ -1,0 +1,9 @@
+.icon {
+  &_flip {
+    transform: rotate(180deg);
+  }
+
+  &_sort {
+    font-size: 18px;
+  }
+}

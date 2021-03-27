@@ -8,7 +8,7 @@ import {
 import PersonIcon from '@material-ui/icons/Person';
 import LockIcon from '@material-ui/icons/Lock';
 
-import {authorization} from '../../Services/Auth';
+import authorization from '../../Services/Auth';
 
 export default function Login () {
     const [login, setLogin] = useState('');

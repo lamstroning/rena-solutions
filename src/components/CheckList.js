@@ -23,19 +23,30 @@ const checkList = [
         id: 1,
         action: 'Проверить питание',
         expected: 'Есть',
-        result: ''
+        result: '',
+        field: 'select',
+        selectItems: [
+            'Есть',
+            'Нет'
+        ]
     },
     {
         id: 2,
         action: 'Замерить напряжение на входе',
         expected: '220В',
-        result: ''
+        result: '',
+        field: 'text'
     },
     {
         id: 3,
         action: 'Проверить исправность предохранителя',
         expected: 'Исправен',
-        result: ''
+        result: '',
+        field: 'select',
+        selectItems: [
+            'Исправен',
+            'Не исправен'
+        ]
     }
 ]
 
@@ -71,11 +82,11 @@ function CameraDialog(props) {
     }
 
     return (
-        <Dialog onClose={handleClose} aria-labelledby="simple-dialog-title" open={open} fullWidth={true}
-            maxWidth="xl">
-            <DialogTitle id="simple-dialog-title">Фото с камеры</DialogTitle>
+        <Dialog onClose={handleClose} open={open} fullWidth={true}
+            maxWidth='xl'>
+            <DialogTitle>Фото с камеры</DialogTitle>
             <DialogContent dividers >
-                <Box display="flex" justifyContent="center">
+                <Box display='flex' justifyContent='center'>
                     <Camera isMaxResolution={{ width: 320, height: 240 }}
                         onTakePhoto={(dataUri) => { handleTakePhoto(dataUri); }}
                     />
@@ -99,20 +110,44 @@ function SimpleDialog(props) {
     };
 
     return (
-        <Dialog onClose={handleClose} aria-labelledby="simple-dialog-title" open={open}>
-            <DialogTitle id="simple-dialog-title">Прикрепить файл</DialogTitle>
+        <Dialog onClose={handleClose} aria-labelledby='simple-dialog-title' open={open}>
+            <DialogTitle id='simple-dialog-title'>Прикрепить файл</DialogTitle>
             <DialogContent dividers>
-                <Box display="flex" justifyContent="center">
-                    <IconButton color="primary" aria-label="upload picture" component="span" onClick={handleClickOpen2}>
+                <Box display='flex' justifyContent='center'>
+                    <IconButton color='primary' aria-label='upload picture' component='span' onClick={handleClickOpen2}>
                         <AddAPhotoIcon />
                     </IconButton>
-                    <IconButton color="primary" aria-label="upload picture" component="span">
+                    <IconButton color='primary' aria-label='upload picture' component='span'>
                         <AddPhotoAlternateIcon />
                     </IconButton>
                 </Box>
             </DialogContent>
             <CameraDialog open={open2} onClose={() => setOpen2(false)} />
         </Dialog>
+    );
+}
+
+function RenderField({task, onChange, ...props}) {
+    if (task.field === 'select')
+        return (
+            <SmallSelect
+                fullWidth
+                variant='outlined'
+                onChange={onChange}
+                {...props}
+            >
+                {task.selectItems.map(selectItem =>
+                    <MenuItem value={selectItem}>{selectItem}</MenuItem>
+                )}
+            </SmallSelect>
+        );
+    return (
+        <TextField
+            label='Значение'
+            variant='outlined'
+            onChange={onChange}
+            {...props}
+        />
     );
 }
 
@@ -123,10 +158,16 @@ export default function CheckList() {
     const [openDrawer, setOpenDrawer] = useState(false);
     const location = useLocation();
 
-    const [rule1, setRule1] = React.useState('')
-    const [rule2, setRule2] = React.useState('')
-    const [rule3, setRule3] = React.useState('')
-    const [rules, setRules] = React.useState([checkList[0]])
+    const [rule1, setRule1] = React.useState('');
+    const [rule2, setRule2] = React.useState('');
+    const [rule3, setRule3] = React.useState('');
+    const [rules, setRules] = React.useState([checkList[0]]);
+
+    const handleChange = event => {
+        const newRule = event.target.value;
+        setRules(event.target.value);
+
+    };
 
     const handleChange1 = (event) => {
         setRule1(event.target.value);
@@ -178,6 +219,8 @@ export default function CheckList() {
             </Box>
         </Box>;
 
+    if (!location.state)
+        return null;
     return (
         <Box
             display='flex'
@@ -186,7 +229,6 @@ export default function CheckList() {
             maxWidth={theme.size.appWidth}
             width={1}
             height={1}
-            fontFamily="Roboto"
         >
             <StyledDrawer
                 open={openDrawer}
@@ -233,7 +275,6 @@ export default function CheckList() {
                     </Table>
                 </Box>
             </StyledDrawer>
-            <Box></Box>
             <Box
                 display='flex'
                 alignItems='center'
@@ -272,7 +313,7 @@ export default function CheckList() {
                     </Box>
                     <Box display='flex' p={1}>
                         <Box>
-                            <IconButton aria-label="scrap" onClick={handleClickOpen}>
+                            <IconButton aria-label='scrap' onClick={handleClickOpen}>
                                 <img src={scrap} alt='' />
                             </IconButton>
                         </Box>
@@ -301,7 +342,7 @@ export default function CheckList() {
                     mt={2}
                     p={4}
                 >
-                    <Box fontWeight="fontWeightBold" fontSize="24px" m={1} align='center'>
+                    <Box fontWeight='fontWeightBold' fontSize='24px' m={1} align='center'>
                         Выполняемые работы
                 </Box>
                 </TableHeader>
@@ -310,12 +351,21 @@ export default function CheckList() {
                     overflow='auto'
                     bgcolor='#F2F2F2'
                 >
-                    <Table stickyHeader>
+                    <Table className='table' stickyHeader>
                         <StyledTableHead>
                             <TableRow>
-                                <TableCell className='border border_white border_right border_bottom'>N/N</TableCell>
-                                <TableCell className='border border_white border_right border_bottom'>Действия</TableCell>
-                                <TableCell className='border border_white border_right border_bottom'>Ожидаемый результат</TableCell>
+                                <TableCell
+                                    padding='none'
+                                    className='table__id border border_white border_right border_bottom'
+                                >
+                                    N/N
+                                </TableCell>
+                                <TableCell className='table__name border border_white border_right border_bottom'>
+                                    Действия
+                                </TableCell>
+                                <TableCell className='border border_white border_right border_bottom'>
+                                    Ожидаемый результат
+                                </TableCell>
                                 <TableCell>Фактический результат</TableCell>
                             </TableRow>
                         </StyledTableHead>
@@ -332,6 +382,11 @@ export default function CheckList() {
                                         {task.expected}
                                     </TableCell>
                                     <TableCell className='border border_right border_bottom'>
+                                        <RenderField
+                                            task={task}
+                                            onChange={handleChange1}
+                                            disabled={lock}
+                                        />
                                         {task.id === 1 ?
                                             <SmallSelect
                                                 fullWidth
@@ -343,16 +398,16 @@ export default function CheckList() {
                                             >
                                                 <MenuItem value='yes'>Есть</MenuItem>
                                                 <MenuItem value='no'>Нет</MenuItem>
-                                            </SmallSelect> : <React.Fragment ></React.Fragment>
+                                            </SmallSelect> : <></>
                                         }
                                         {task.id === 2 ?
                                             <TextField
-                                                id="outlined-basic"
-                                                label="Значение"
-                                                variant="outlined"
+                                                label='Значение'
+                                                variant='outlined'
+                                                value={rule2}
                                                 onChange={handleChange2}
                                                 disabled={lock}
-                                            /> : <React.Fragment ></React.Fragment>
+                                            /> : <></>
                                         }
                                         {task.id === 3 ?
                                             <SmallSelect
@@ -364,7 +419,7 @@ export default function CheckList() {
                                             >
                                                 <MenuItem value='good'>Исправен</MenuItem>
                                                 <MenuItem value='bad'>Не исправен</MenuItem>
-                                            </SmallSelect> : <React.Fragment ></React.Fragment>
+                                            </SmallSelect> :  <></>
                                         }
                                     </TableCell>
                                 </TableRow>
