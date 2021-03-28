@@ -1,4 +1,4 @@
-import {useRef} from 'react';
+import { useRef } from 'react';
 import { useEffect, useState } from 'react';
 import { useLocation } from "react-router-dom";
 
@@ -15,7 +15,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import Camera from 'react-html5-camera-photo';
 import 'react-html5-camera-photo/build/css/index.css';
 
-import {theme} from '../theme/theme';
+import { theme } from '../theme/theme';
 import CloseIcon from '@material-ui/icons/Close';
 
 const checkList = [
@@ -70,7 +70,7 @@ const StyledTableHead = withStyles(theme => ({
 }))(TableHead);
 
 function CameraDialog(props) {
-    const {onClose, selectedValue} = props;
+    const { onClose, selectedValue } = props;
 
     function handleTakePhoto() {
         // Do stuff with the photo...
@@ -97,10 +97,10 @@ function CameraDialog(props) {
     );
 }
 
-function EquipmentInfo ({code, name}) {
+function EquipmentInfo({ code, name }) {
     return (
         <Box display='flex'>
-            <Box width={40}/>
+            <Box width={40} />
             <Box fontWeight='bold' p={1} lineHeight={1}>
                 Оборудование
             </Box>
@@ -115,10 +115,10 @@ function EquipmentInfo ({code, name}) {
         </Box>
     );
 }
-function OpenDrawer({code, name, onClose}) {
+function OpenDrawer({ code, name, onClose }) {
     return (
         <Drawer
-            classes={{paper: 'checklist__drawer'}}
+            classes={{ paper: 'checklist__drawer' }}
             open={true}
             onClose={onClose}
         >
@@ -127,10 +127,10 @@ function OpenDrawer({code, name, onClose}) {
                     size='small'
                     onClick={onClose}
                 >
-                    <CloseIcon/>
+                    <CloseIcon />
                 </IconButton>
             </Box>
-            <EquipmentInfo code={code} name={name}/>
+            <EquipmentInfo code={code} name={name} />
             <Box mt={5} py={5} className='title'>
                 Контролируемые технологические параметры
             </Box>
@@ -168,7 +168,7 @@ function OpenDrawer({code, name, onClose}) {
     );
 }
 
-function SimpleDialog({onClose, anchor}) {
+function SimpleDialog({ onClose, anchor }) {
     const [open, setOpen] = useState(false);
     const inputFile = useRef(null);
 
@@ -182,41 +182,47 @@ function SimpleDialog({onClose, anchor}) {
             >
                 <MenuItem onClick={() => setOpen(true)}>
                     <ListItemIcon>
-                        <AddAPhotoIcon fontSize='small'/>
+                        <AddAPhotoIcon fontSize='small' />
                     </ListItemIcon>
                     Включить камеру
                 </MenuItem>
                 <MenuItem onClick={() => inputFile.current.click()}>
                     <ListItemIcon>
-                        <AddPhotoAlternateIcon/>
+                        <AddPhotoAlternateIcon />
                     </ListItemIcon>
                     <Box display='none'>
-                        <input type='file' ref={inputFile}/>
+                        <input type='file' ref={inputFile} />
                     </Box>
                     выбрать из галереи
                 </MenuItem>
             </Menu>
             {open &&
-                <CameraDialog onClose={() => setOpen(false)}/>
+                <CameraDialog onClose={() => setOpen(false)} />
             }
         </>
     );
 }
 
-function RenderField({task, onChange, ...props}) {
+function RenderField({ task, onChange, ...props }) {
     const [value, setValue] = useState('');
+
+    const onChangeMiddleware = (e) => {
+        setValue(e.currentTarget.value)
+        onChange(task, e.currentTarget.value)
+    }
 
     if (task.field === 'select')
         return (
             <Select
-                classes={{root: 'select'}}
+                classes={{ root: 'select' }}
                 fullWidth
+                displayEmpty
                 variant='outlined'
                 onChange={event => onChange(task, event.target.value)}
                 {...props}
             >
                 {task.selectItems.map(selectItem =>
-                    <MenuItem value={selectItem}>{selectItem}</MenuItem>
+                    <MenuItem key={selectItem} value={selectItem}>{selectItem}</MenuItem>
                 )}
             </Select>
         );
@@ -228,8 +234,8 @@ function RenderField({task, onChange, ...props}) {
             size='small'
             label='Значение'
             variant='outlined'
-            onChange={event => setValue(event.currentTarget.value)}
-            onBlur={() => onChange(task, value)}
+            // onChange={event => setValue(event.currentTarget.value)}
+            onChange={event => onChangeMiddleware(event)}
             {...props}
         />
     );
@@ -303,7 +309,7 @@ export default function CheckList() {
                         display='flex'
                         alignItems='center'
                     >
-                        <EditIcon className='icon icon_border icon_medium' color='primary'/>
+                        <EditIcon className='icon icon_border icon_medium' color='primary' />
                         <Box className='title' px={2}>
                             Задание на ремонт №{location.state.number}
                         </Box>
@@ -315,7 +321,7 @@ export default function CheckList() {
                                 color='primary'
                                 onClick={event => setOpen(event.currentTarget)}
                             >
-                                <AttachFileIcon className='icon icon_medium icon_deg45'/>
+                                <AttachFileIcon className='icon icon_medium icon_deg45' />
                             </IconButton>
                         </Box>
                         <Box
@@ -336,15 +342,15 @@ export default function CheckList() {
                             <IconButton
                                 title='Назад'
                                 color='primary'
-                                href='/tasks'
+                                href={process.env.PUBLIC_URL + '/'}
                             >
-                                <CloseIcon className='icon icon_border icon_medium' color='primary'/>
+                                <CloseIcon className='icon icon_border icon_medium' color='primary' />
                             </IconButton>
                         </Box>
                     </Box>
                 </Box>
                 <Box display='flex' justifyContent='space-between' fontSize={18} p={2}>
-                    <EquipmentInfo code={location.state.code} name={location.state.name}/>
+                    <EquipmentInfo code={location.state.code} name={location.state.name} />
                     <Box>
                         Работы начаты: {new Date().toLocaleString().replace(',', ' ')}
                     </Box>
@@ -383,24 +389,24 @@ export default function CheckList() {
                         <TableBody >
                             {checkList.map((task, index) =>
                                 index < step &&
-                                    <TableRow key={task.id}>
-                                        <TableCell className='border border_right border_bottom'>
-                                            {task.id}
-                                        </TableCell>
-                                        <TableCell className='border border_right border_bottom'>
-                                            {task.action}
-                                        </TableCell>
-                                        <TableCell className='border border_right border_bottom'>
-                                            {task.expected}
-                                        </TableCell>
-                                        <TableCell className='border border_right border_bottom'>
-                                            <RenderField
-                                                task={task}
-                                                onChange={handleChange}
-                                                disabled={lock || step - 1 > index}
-                                            />
-                                        </TableCell>
-                                    </TableRow>
+                                <TableRow key={task.id}>
+                                    <TableCell className='border border_right border_bottom'>
+                                        {task.id}
+                                    </TableCell>
+                                    <TableCell className='border border_right border_bottom'>
+                                        {task.action}
+                                    </TableCell>
+                                    <TableCell className='border border_right border_bottom'>
+                                        {task.expected}
+                                    </TableCell>
+                                    <TableCell className='border border_right border_bottom'>
+                                        <RenderField
+                                            task={task}
+                                            onChange={handleChange}
+                                            disabled={lock}
+                                        />
+                                    </TableCell>
+                                </TableRow>
                             )}
                         </TableBody>
                     </Table>
@@ -408,7 +414,7 @@ export default function CheckList() {
             </Box>
             {
                 open &&
-                    <SimpleDialog anchor={open} onClose={() => setOpen(null)}/>
+                <SimpleDialog anchor={open} onClose={() => setOpen(null)} />
             }
         </Box >
     );

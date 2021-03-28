@@ -99,7 +99,7 @@ export default function Tasks() {
             {sort.name}
             <Box width={20} display='flex' alignItems='center'>
                 {sortConfig.key === sort.key &&
-                <ExpandLessIcon className={`icon ${sortConfig.ascending ? '' : 'icon_flip'}`}/>
+                    <ExpandLessIcon className={`icon ${sortConfig.ascending ? '' : 'icon_flip'}`} />
                 }
             </Box>
         </Button>;
@@ -109,9 +109,9 @@ export default function Tasks() {
         if (sortConfig.key == key && !sortConfig.ascending)
             setSortConfig({});
         else if (sortConfig.key == key)
-            setSortConfig({key, ascending: !sortConfig.ascending});
+            setSortConfig({ key, ascending: !sortConfig.ascending });
         else
-            setSortConfig({key, ascending: true});
+            setSortConfig({ key, ascending: true });
     }
 
     const renderRow = task =>
@@ -193,13 +193,13 @@ export default function Tasks() {
                 <Table>
                     <TableHead>
                         <TableRow>
-                            <TableCell/>
+                            <TableCell />
                             {tableHeader.map(sort =>
-                                <TableCell>
+                                <TableCell key={sort.key}>
                                     {sortButton(sort)}
                                 </TableCell>
                             )}
-                            <TableCell/>
+                            <TableCell />
                         </TableRow>
                     </TableHead>
                     <TableBody>
