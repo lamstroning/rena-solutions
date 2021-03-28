@@ -15,7 +15,7 @@ var urlsToCache = [
     'https://fonts.gstatic.com/s/roboto/v20/KFOlCnqEu92Fr1MmEU9fABc4EsA.woff2',
     'https://sqsinformatique.com/mrms/client/src/asetss/images/login-background.png',
     'https://fonts.gstatic.com/s/roboto/v20/KFOmCnqEu92Fr1Mu5mxKOzY.woff2',
-    'https://sqsinformatique.com/mrms/client/src/asetss/images/worker-avatar.jpg',
+    'https://sqsinformatique.com/mrms/client/src/asetss/images/worker-avatar.png',
     'https://fonts.gstatic.com/s/roboto/v20/KFOlCnqEu92Fr1MmWUlfBBc4.woff2',
     'https://fonts.gstatic.com/s/roboto/v20/KFOlCnqEu92Fr1MmWUlfABc4EsA.woff2',
     'https://sqsinformatique.com/mrms/client/src/asetss/images/scrap.png',

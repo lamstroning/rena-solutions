@@ -15,10 +15,10 @@ const PrivateRoute = () => {
     const user = window.localStorage.getItem('auth'); // i will fetch token stored in cookie
     if (user === 'true')
         return <Route path='/'>
-            <App />
+            <App/>
         </Route>;
     else
-        return <Redirect to='login' />
+        return <Redirect to='login'/>
 }
 
 ReactDOM.render(
@@ -27,9 +27,9 @@ ReactDOM.render(
             <BrowserRouter basename={process.env.PUBLIC_URL}>
                 <Switch>
                     <Route exact path='/login'>
-                        <Login />
+                        <Login/>
                     </Route>
-                    <PrivateRoute />
+                    <PrivateRoute/>
                 </Switch>
             </BrowserRouter>
         </MuiThemeProvider>

@@ -264,16 +264,7 @@ export default function CheckList() {
             </Box>
         );
     return (
-        <Box
-            className='checklist'
-            display='flex'
-            mx='auto'
-            overflow='auto'
-            maxWidth={theme.size.appWidth}
-            width={1}
-            height={1}
-        >
-
+        <Box className='checklist page page_row'>
             <Box
                 display='flex'
                 alignItems='center'

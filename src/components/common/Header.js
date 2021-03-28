@@ -6,14 +6,14 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
 import { theme } from '../../theme/theme';
 
-import avatar from '../../asetss/images/worker-avatar.jpg'
+import avatar from '../../asetss/images/worker-avatar.png'
 
 const userProfiles = [
     {
         id: 1,
         userName: 'Иванов П.С.',
         position: 'Инженер-механик',
-        avatar: '/src/assets/images/worker-avatar.jpg'
+        avatar: '/src/assets/images/worker-avatar.png'
     }
 ]
 
@@ -41,7 +41,7 @@ export default function Header() {
                         borderRadius='50%'
                         overflow='hidden'
                     >
-                        <img width='100%' height='100%' src={avatar} alt='' />
+                        <img width='100%' height='100%' src={avatar} alt=''/>
                     </Box>
                     <Box ml={2} color='white'>
                         <Typography variant='h5' className='text text_nowrap'>
@@ -59,13 +59,16 @@ export default function Header() {
                 >
                     <Box >
                         <IconButton color='inherit'>
-                            <SearchIcon fontSize='inherit' />
+                            <SearchIcon fontSize='inherit'/>
                         </IconButton >
                         <IconButton color='inherit'>
-                            <LibraryBooksIcon fontSize='inherit' />
+                            <LibraryBooksIcon fontSize='inherit'/>
                         </IconButton>
-                        <IconButton color='inherit'>
-                            <SettingsIcon fontSize='inherit' />
+                        <IconButton
+                            color='inherit'
+                            // href='/profile'
+                        >
+                            <SettingsIcon fontSize='inherit'/>
                         </IconButton>
                     </Box>
                     <IconButton
@@ -75,7 +78,7 @@ export default function Header() {
                             window.location.reload();
                         }}
                     >
-                        <ExitToAppIcon fontSize='inherit' />
+                        <ExitToAppIcon fontSize='inherit'/>
                     </IconButton>
                 </Box>
             </Box >

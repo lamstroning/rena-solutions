@@ -1,12 +1,14 @@
-import React from 'react';
-import { BrowserRouter, Route } from 'react-router-dom';
-import { Redirect, Switch } from 'react-router';
+import {Box} from '@material-ui/core';
+import {BrowserRouter, Route} from 'react-router-dom';
+import {Redirect, Switch} from 'react-router';
+
 import '../styles/index.scss';
+
 import Tasks from "./Tasks";
 import Header from './common/Header';
 import NotFound from './404';
-import { Box } from '@material-ui/core';
 import CheckList from "./CheckList";
+import Profile from './Profile';
 
 function App() {
     return (
@@ -18,21 +20,25 @@ function App() {
             <BrowserRouter basename={process.env.PUBLIC_URL}>
                 <Switch>
                     <Route exact path='/'>
-                        <Redirect to='/tasks' />
+                        <Redirect to='/tasks'/>
                     </Route>
                     <Route path='/tasks'>
-                        <Header />
-                        <Tasks />
+                        <Header/>
+                        <Tasks/>
                     </Route>
                     <Route path='/checklist'>
-                        <Header />
-                        <CheckList />
+                        <Header/>
+                        <CheckList/>
+                    </Route>
+                    <Route path='/profile'>
+                        <Header/>
+                        <Profile/>
                     </Route>
                     <Route path='/404'>
-                        <NotFound />
+                        <NotFound/>
                     </Route>
                     <Route path='*'>
-                        <Redirect to='/404' />
+                        <Redirect to='/404'/>
                     </Route>
                 </Switch>
             </BrowserRouter>
