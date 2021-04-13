@@ -5,6 +5,7 @@ import {
 } from '@material-ui/core';
 
 import ExpandLessIcon from '@material-ui/icons/ExpandLess'
+import FlashOnIcon from '@material-ui/icons/FlashOn';
 
 import { useHistory } from 'react-router';
 import { theme } from '../theme/theme';
@@ -51,7 +52,8 @@ const tasks = [
         name: 'KUKA KR 10 R9',
         code: '35663-KL',
         date: getOffsetDate(1, 2, 27),
-        color: 'orange'
+        color: 'orange',
+        icon: FlashOnIcon
     },
     {
         id: 2,
@@ -122,7 +124,9 @@ export default function Tasks() {
                     width={24}
                     height={24}
                     bgcolor={task.color}
-                />
+                >
+                    <FlashOnIcon/>
+                </Box>
 
             </TableCell>
             <TableCell>

@@ -42,10 +42,8 @@ body {
 }
 
 .title {
+	width: 100%;
 	font-size: 24px;
-	font-weight: 500;
-
-	&_center {
-		text-align: center;
-	}
+	font-weight: 700;
+	text-align: center;
 }
