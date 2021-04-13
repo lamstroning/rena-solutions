@@ -6,6 +6,9 @@ import {
 
 import ExpandLessIcon from '@material-ui/icons/ExpandLess'
 import FlashOnIcon from '@material-ui/icons/FlashOn';
+import PriorityHighIcon from '@material-ui/icons/PriorityHigh';
+import TodayIcon from '@material-ui/icons/Today';
+import SchoolIcon from '@material-ui/icons/School';
 
 import { useHistory } from 'react-router';
 import { theme } from '../theme/theme';
@@ -43,7 +46,8 @@ const tasks = [
         name: 'PlazMax CNC-2060',
         code: '98235-ZY',
         date: new Date().toLocaleString().replace(',', ' '),
-        color: 'red'
+        color: '#BF2120',
+        icon: <PriorityHighIcon/>
     },
     {
         id: 1,
@@ -52,8 +56,8 @@ const tasks = [
         name: 'KUKA KR 10 R9',
         code: '35663-KL',
         date: getOffsetDate(1, 2, 27),
-        color: 'orange',
-        icon: FlashOnIcon
+        color: '#F29545',
+        icon: <FlashOnIcon/>
     },
     {
         id: 2,
@@ -62,7 +66,8 @@ const tasks = [
         name: 'PlazMax CNC-2060',
         code: '23664-OP',
         date: getOffsetDate(2, 1, 49),
-        color: 'green'
+        color: '#27927D',
+        icon: <TodayIcon/>
     },
     {
         id: 3,
@@ -71,7 +76,8 @@ const tasks = [
         name: 'KUKA 5 ARC',
         code: '23664-OP',
         date: getOffsetDate(2, 1, 37),
-        color: 'orange'
+        color: '#A3B4BE',
+        icon: <SchoolIcon/>
     }
 ]
 
@@ -121,11 +127,15 @@ export default function Tasks() {
             <TableCell>
                 <Box
                     borderRadius='50%'
-                    width={24}
-                    height={24}
+                    display='flex'
+                    alignItems='center'
+                    justifyContent='center'
+                    width={38}
+                    height={38}
                     bgcolor={task.color}
+                    color='white'
                 >
-                    <FlashOnIcon/>
+                    {task.icon}
                 </Box>
 
             </TableCell>
