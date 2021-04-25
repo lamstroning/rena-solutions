@@ -112,6 +112,12 @@ export default function Tasks() {
             </Box>
         </Button>;
 
+    function navigate() {
+        history.push({
+            pathname: '/checklist',
+            state: {}
+        });
+    }
 
     const requestSort = key => {
         if (sortConfig.key == key && !sortConfig.ascending)
@@ -174,10 +180,10 @@ export default function Tasks() {
                     fullWidth
                     variant='contained'
                     color='primary'
-                    onClick={() => history.push('/checklist', task)}
+                    onClick={navigate}
                 >
                     Просмотр
-                    </Button>
+                </Button>
             </TableCell>
         </TableRow>;
 
@@ -195,9 +201,6 @@ export default function Tasks() {
                 pt={6}
                 pb={4}
             >
-                <Box className='title'>
-                    Задания на ремонт
-                </Box>
             </Box>
             <Box
                 bgcolor='white'

@@ -42,8 +42,15 @@ body {
 }
 
 .title {
-	width: 100%;
 	font-size: 24px;
 	font-weight: 700;
-	text-align: center;
+	color: white;
+
+	&_center {
+		text-align: center;
+	}
+
+	&_black {
+		color: var(--color-text-primary);
+	}
 }

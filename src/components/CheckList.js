@@ -1,5 +1,5 @@
 import { useRef } from 'react';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useLocation } from "react-router-dom";
 
 import {
@@ -281,10 +281,11 @@ export default function CheckList() {
             >
                 <Button
                     fullWidth
+                    disableTouchRipple
                     className='button button_white button_vertical button_full'
                     onClick={() => setOpenDrawer(true)}
                 >
-                    Контролируемые технологические параметры
+                    Телеметрия
                 </Button>
                 {openDrawer &&
                     <OpenDrawer
@@ -310,7 +311,7 @@ export default function CheckList() {
                         alignItems='center'
                     >
                         <EditIcon className='icon icon_border icon_medium' color='primary' />
-                        <Box className='title' px={2}>
+                        <Box className='title title_black' px={2}>
                             Задание на ремонт №{location.state.number}
                         </Box>
 
@@ -338,15 +339,6 @@ export default function CheckList() {
                                 {lock ? 'Заполнен' : 'Заполнить'}
                             </Button>
                         </Box>
-                        <Box px={2}>
-                            <IconButton
-                                title='Назад'
-                                color='primary'
-                                href={process.env.PUBLIC_URL + '/'}
-                            >
-                                <CloseIcon className='icon icon_border icon_medium' color='primary' />
-                            </IconButton>
-                        </Box>
                     </Box>
                 </Box>
                 <Box display='flex' justifyContent='space-between' fontSize={18} p={2}>
@@ -357,11 +349,11 @@ export default function CheckList() {
                 </Box>
                 <TableHeader
                     mt={2}
-                    p={4}
+                    p={1}
                 >
-                    <Box fontWeight='fontWeightBold' fontSize='24px' m={1} align='center'>
+                    <div className='title title_center'>
                         Выполняемые работы
-                </Box>
+                    </div>
                 </TableHeader>
                 <Box
                     flex={1}

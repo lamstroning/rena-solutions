@@ -23,15 +23,21 @@ function App() {
                         <Redirect to='/tasks' />
                     </Route>
                     <Route path='/tasks'>
-                        <Header />
+                        <Header title='Задания на ремонт'/>
                         <Tasks />
                     </Route>
                     <Route path='/checklist'>
-                        <Header />
+                        <Header
+                            backArrow
+                            title='Чек-лист задания'
+                        />
                         <CheckList />
                     </Route>
                     <Route path='/profile'>
-                        <Header />
+                        <Header
+                            backArrow
+                            title='Профиль'
+                        />
                         <Profile />
                     </Route>
                     <Route path='/404'>

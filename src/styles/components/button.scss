@@ -11,7 +11,7 @@
   }
 
   &_vertical > span{
-    writing-mode: tb-rl;
+    transform: rotate(270deg);
   }
 
   &_hover:hover {
