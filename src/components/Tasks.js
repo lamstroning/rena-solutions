@@ -12,6 +12,7 @@ import SchoolIcon from '@material-ui/icons/School';
 
 import { useHistory } from 'react-router';
 import { theme } from '../theme/theme';
+import CustomTabs from './Tabs/CustomTabs';
 
 const baseDate = new Date(Date.now())
 
@@ -188,42 +189,47 @@ export default function Tasks() {
         </TableRow>;
 
     return (
-        <Box
-            mx='auto'
-            width={1}
-            maxWidth={theme.size.appWidth}
-            px={2}
-        >
+        <>
             <Box
-                display='flex'
-                alignItems='center'
-                justifyContent='space-between'
-                pt={6}
-                pb={4}
+                mx='auto'
+                width={1}
+                maxWidth={theme.size.appWidth}
+                px={2}
             >
+                <Box
+                    display='flex'
+                    alignItems='center'
+                    justifyContent='space-between'
+                    pt={6}
+                    pb={4}
+                >
+                </Box>
+                <div>
+                    <CustomTabs content={['x', '2', '2']}/>
+                </div>
+                <Box
+                    bgcolor='white'
+                    height={1}
+                    borderRadius={16}
+                >
+                    <Table>
+                        <TableHead>
+                            <TableRow>
+                                <TableCell/>
+                                {tableHeader.map(sort =>
+                                    <TableCell key={sort.key}>
+                                        {sortButton(sort)}
+                                    </TableCell>
+                                )}
+                                <TableCell/>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {sortedTasks.map(renderRow)}
+                        </TableBody>
+                    </Table>
+                </Box>
             </Box>
-            <Box
-                bgcolor='white'
-                height={1}
-                borderRadius={16}
-            >
-                <Table>
-                    <TableHead>
-                        <TableRow>
-                            <TableCell />
-                            {tableHeader.map(sort =>
-                                <TableCell key={sort.key}>
-                                    {sortButton(sort)}
-                                </TableCell>
-                            )}
-                            <TableCell />
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {sortedTasks.map(renderRow)}
-                    </TableBody>
-                </Table >
-            </Box >
-        </Box >
+        </>
     );
 }

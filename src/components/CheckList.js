@@ -98,19 +98,39 @@ function CameraDialog(props) {
 }
 
 function EquipmentInfo({ code, name }) {
+
+    const items = [
+        {
+            category:  'Шифр',
+            value: code || '000322332'
+        },
+        {
+            category:  'Наименование',
+            value: name || ' PlazMax CNC-2060'
+        }
+    ];
+
+    const renderEquipmentItem = item =>
+        <Box display='flex' justifyContent='space-between'>
+            <div>
+                {item.category}:
+            </div>
+            <Box ml={2}>
+                {item.value}
+            </Box>
+        </Box>;
+
     return (
-        <Box display='flex'>
-            <Box width={40} />
-            <Box fontWeight='bold' p={1} lineHeight={1}>
+        <Box display='flex' alignItems='flex-start'>
+            <Box fontWeight='bold' lineHeight={1} pr={1}>
                 Оборудование
             </Box>
-            <Box display='flex' flexDirection='column' justifyContent='flex-start'>
-                <Box p={1}>
-                    Шифр: {code}
-                </Box>
-                <Box p={1}>
-                    Наименование: {name}
-                </Box>
+            <Box
+                display='flex'
+                flexDirection='column'
+                justifyContent='flex-start'
+            >
+                {items.map(renderEquipmentItem)}
             </Box>
         </Box>
     );
@@ -314,17 +334,8 @@ export default function CheckList() {
                         <Box className='title title_black' px={2}>
                             Задание на ремонт №{location.state.number}
                         </Box>
-
                     </Box>
                     <Box display='flex' alignItems='center'>
-                        <Box px={2}>
-                            <IconButton
-                                color='primary'
-                                onClick={event => setOpen(event.currentTarget)}
-                            >
-                                <AttachFileIcon className='icon icon_medium icon_deg45' />
-                            </IconButton>
-                        </Box>
                         <Box
                             height={40}
                             width={140}
@@ -341,11 +352,23 @@ export default function CheckList() {
                         </Box>
                     </Box>
                 </Box>
+                <Box px={2}>
+                    Отказ системы позиционирования обрабатываемых заготовок
+                </Box>
                 <Box display='flex' justifyContent='space-between' fontSize={18} p={2}>
                     <EquipmentInfo code={location.state.code} name={location.state.name} />
                     <Box>
                         Работы начаты: {new Date().toLocaleString().replace(',', ' ')}
                     </Box>
+                </Box>
+                <Box display='flex' alignItems='center'>
+                    <IconButton
+                        color='primary'
+                        onClick={event => setOpen(event.currentTarget)}
+                    >
+                        <AttachFileIcon className='icon icon_medium icon_deg45' />
+                    </IconButton>
+                    Нет вложений
                 </Box>
                 <TableHeader
                     mt={2}
@@ -369,20 +392,28 @@ export default function CheckList() {
                                 >
                                     N/N
                                 </TableCell>
-                                <TableCell className='table__name border border_white border_right border_bottom'>
+                                <TableCell
+                                    align='center'
+                                    className='table__name border border_white border_right border_bottom'
+                                >
                                     Действия
                                 </TableCell>
-                                <TableCell className='border border_white border_right border_bottom'>
+                                <TableCell
+                                    align='center'
+                                    className='border border_white border_right border_bottom'
+                                >
                                     Ожидаемый результат
                                 </TableCell>
-                                <TableCell>Фактический результат</TableCell>
+                                <TableCell align='center'>
+                                    Фактический результат
+                                </TableCell>
                             </TableRow>
                         </StyledTableHead>
                         <TableBody >
                             {checkList.map((task, index) =>
                                 index < step &&
-                                <TableRow key={task.id}>
-                                    <TableCell className='border border_right border_bottom'>
+                                <TableRow className='table__row' key={task.id}>
+                                    <TableCell className='table__cell border border_right border_bottom'>
                                         {task.id}
                                     </TableCell>
                                     <TableCell className='border border_right border_bottom'>
@@ -405,8 +436,7 @@ export default function CheckList() {
                 </Box>
             </Box>
             {
-                open &&
-                <SimpleDialog anchor={open} onClose={() => setOpen(null)} />
+                open && <SimpleDialog anchor={open} onClose={() => setOpen(null)} />
             }
         </Box >
     );

@@ -1,0 +1,20 @@
+.tabs {
+  background-color: transparent;
+  box-shadow: none;
+  margin: 0 auto;
+
+  &__container {
+
+  }
+
+  &__item {
+    color: var(--color-text-primary);
+    text-transform: capitalize;
+    min-width: 100px;
+    margin: 0 20px;
+  }
+
+  &__age {
+
+  }
+}
