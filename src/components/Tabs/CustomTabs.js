@@ -7,6 +7,10 @@ export default function CustomTabs({contents = []}) {
 
     console.log(contents);
 
+    const Page1 = () => <div>Page1</div>;
+    const Page2 = () => <div>Page2</div>;
+    const pages = [Page1, Page2];
+
     const changeTab = (event, value) => {
         console.log(value);
         setValue(value);
@@ -23,29 +27,47 @@ export default function CustomTabs({contents = []}) {
                     onChange={changeTab}
                 >
                     <Tab
-                        disableRipple classes={{
-
-                        }}
-                        className='tabs__item' label='Новые'
+                        value={0}
+                        disableRipple
+                        className='tabs__item'
+                        label='Новые'
                     />
                     <Tab
-                        disableRipple classes={{
-                        }}
-                        className='tabs__item' label='В работе'
+                        value={1}
+                        disableRipple
+                        className='tabs__item'
+                        label='В работе'
                     />
                     <Tab
-                        disableRipple classes={{
-
-                        }}
-                        className='tabs__item' label='Выполненые'
+                        value={2}
+                        disableRipple
+                        className='tabs__item'
+                        label='Выполненые'
                     />
                 </Tabs>
             </AppBar>
-            {contents.map((content, index) =>
-                <TabPanel className='tabs__page' value={value} index={index}>
-                    {content}
-                </TabPanel>
-            )}
+            {pages.map(Component => Component)}
+            <TabPanel
+                className='tabs__page'
+                value={value}
+                index={0}
+            >
+                aa
+            </TabPanel>
+            <TabPanel
+                className='tabs__page'
+                value={value}
+                index={1}
+            >
+                bbbbbb
+            </TabPanel>
+            <TabPanel
+                className='tabs__page'
+                value={value}
+                index={2}
+            >
+                cccccccccc
+            </TabPanel>
         </>
     );
 }
