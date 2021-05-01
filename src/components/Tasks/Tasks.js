@@ -8,6 +8,7 @@ import ExpandLessIcon from '@material-ui/icons/ExpandLess'
 import { theme } from '../../theme/theme';
 import CustomTabs from '../Tabs/CustomTabs';
 import TasksTable from './TasksTable';
+import {useState} from 'react';
 
 const baseDate = new Date(Date.now())
 
@@ -43,8 +44,8 @@ const tasks = [
         icon: 'warning'
     },
     {
-        status: 'new',
         id: 2,
+        status: 'new',
         number: '000000000011',
         auth: 'Система',
         name: 'PlazMax CNC-2060',
@@ -54,8 +55,8 @@ const tasks = [
         icon: 'error'
     },
     {
-        status: 'new',
         id: 3,
+        status: 'new',
         number: '000000000044',
         auth: 'Система',
         name: 'KUKA 5 ARC',
@@ -67,7 +68,15 @@ const tasks = [
 ]
 
 export default function Tasks() {
-    const Table = () => <TasksTable tasks={tasks}/>;
+    const [tasksFiltered, setTasksFiltered] = useState(tasks)
+    const Table = () => <TasksTable tasks={tasksFiltered}/>;
+
+    function filterTasks(filter) {
+        console.log(filter);
+        filter == 'all'
+            ? setTasksFiltered(tasks)
+            : setTasksFiltered(tasks.filter(task => task.status == filter))
+    }
 
     return (
         <>
@@ -77,7 +86,7 @@ export default function Tasks() {
                 maxWidth={theme.size.appWidth}
                 px={2}
             >
-                <CustomTabs pages={[Table, Table, Table]}/>
+                <CustomTabs filter={filterTasks} table={Table}/>
             </Box>
         </>
     );

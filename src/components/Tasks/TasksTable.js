@@ -34,16 +34,14 @@ function RenderRow ({task}) {
             </div>
         </TableCell>
         <TableCell>
-            <Box display='flex' alignItems='center'>
-                <Box pl={2}>
-                    <Box className='text text_overflow'>
-                        №{task.number}
-                    </Box>
-                    <Box className='text text_overflow'>
-                        {task.name}
-                    </Box>
-                </Box>
-            </Box>
+            <div className='text text_overflow'>
+                {task.name}
+            </div>
+        </TableCell>
+        <TableCell>
+            <div className='text text_overflow'>
+                №{task.number}
+            </div>
         </TableCell>
         <TableCell>
             <Box>
@@ -120,6 +118,10 @@ export default function TasksTable({tasks = []}) {
 
     const names = [
         {name: ''},
+        {
+            name: 'Название',
+            key: 'name'
+        },
         {
             name: 'Номер задания',
             key: 'number'
