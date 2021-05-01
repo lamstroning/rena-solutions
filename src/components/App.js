@@ -4,7 +4,7 @@ import { Redirect, Switch } from 'react-router';
 
 import '../styles/index.scss';
 
-import Tasks from "./Tasks";
+import Tasks from "./Tasks/Tasks";
 import Header from './common/Header';
 import NotFound from './404';
 import CheckList from "./CheckList";

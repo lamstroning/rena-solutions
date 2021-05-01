@@ -1,0 +1,27 @@
+.tasks{
+  &__icon {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    border-radius: 50%;
+
+    &_error {
+      background-color: var(--color-error);
+    }
+
+    &_warning {
+      background-color: var(--color-warning);
+    }
+
+    &_date {
+      background-color: var(--color-success);
+    }
+
+    &_study {
+      background-color: var(--color-info);
+    }
+  }
+}
