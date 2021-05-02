@@ -1,11 +1,4 @@
 
-import {
-    Box, Button
-} from '@material-ui/core';
-
-import ExpandLessIcon from '@material-ui/icons/ExpandLess'
-
-import { theme } from '../../theme/theme';
 import CustomTabs from '../Tabs/CustomTabs';
 import TasksTable from './TasksTable';
 import {useState} from 'react';
@@ -72,22 +65,14 @@ export default function Tasks() {
     const Table = () => <TasksTable tasks={tasksFiltered}/>;
 
     function filterTasks(filter) {
-        console.log(filter);
         filter == 'all'
             ? setTasksFiltered(tasks)
             : setTasksFiltered(tasks.filter(task => task.status == filter))
     }
 
     return (
-        <>
-            <Box
-                mx='auto'
-                width={1}
-                maxWidth={theme.size.appWidth}
-                px={2}
-            >
-                <CustomTabs filter={filterTasks} table={Table}/>
-            </Box>
-        </>
+        <div className='page'>
+            <CustomTabs filter={filterTasks} table={Table}/>
+        </div>
     );
 }

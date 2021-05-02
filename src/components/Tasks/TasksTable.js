@@ -27,7 +27,7 @@ function RenderRow ({task}) {
     }
 
     return (
-    <TableRow>
+    <TableRow onClick={navigate}>
         <TableCell>
             <div className={`tasks__icon tasks__icon_${task.icon}`}>
                 {iconList[task.icon]}
@@ -49,27 +49,9 @@ function RenderRow ({task}) {
             </Box>
         </TableCell>
         <TableCell>
-            <Box
-                display='flex'
-                justifyContent='space-between'
-                alignItems='center'
-                flexWrap='wrap'
-            >
-                <Box>
-                    {task.date}
-                </Box>
-            </Box>
-        </TableCell>
-        <TableCell>
-            <Button
-                size='medium'
-                fullWidth
-                variant='contained'
-                color='primary'
-                onClick={navigate}
-            >
-                Просмотр
-            </Button>
+            <div>
+                {task.date}
+            </div>
         </TableCell>
     </TableRow>
     );
@@ -133,8 +115,7 @@ export default function TasksTable({tasks = []}) {
         {
             name: 'Дата',
             key: 'date'
-        },
-        {name: ''}
+        }
     ]
     return (
 
@@ -150,7 +131,7 @@ export default function TasksTable({tasks = []}) {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {tasks.map(task => <RenderRow task={task}/>)}
+                    {tasks.map(task => <RenderRow key={task.id} task={task}/>)}
                 </TableBody>
             </Table>
         </div>

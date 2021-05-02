@@ -16,7 +16,7 @@ const filters = [
     },
     {
         type: 'finish',
-        label: 'Выполненые'
+        label: 'Выполненные'
     }
 ]
 
@@ -41,6 +41,7 @@ export default function CustomTabs({table, filter}) {
                     >
                         {filters.map(({type, label}) =>
                             <Tab
+                                key={type}
                                 value={type}
                                 label={label}
                                 disableRipple
