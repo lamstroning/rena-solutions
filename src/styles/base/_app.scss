@@ -5,6 +5,10 @@
     white-space: nowrap;
   }
 
+  &_bold {
+    font-weight: bold;
+  }
+
   &_lowercase {
     text-transform: lowercase;
   }

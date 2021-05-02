@@ -111,28 +111,24 @@ function EquipmentInfo({ code, name }) {
     ];
 
     const renderEquipmentItem = item =>
-        <Box display='flex' justifyContent='space-between'>
-            <div>
+        <div className='row row_between'>
+            <div className='col'>
                 {item.category}:
             </div>
-            <Box ml={2}>
+            <div className='col'>
                 {item.value}
-            </Box>
-        </Box>;
+            </div>
+        </div>;
 
     return (
-        <Box display='flex' alignItems='flex-start'>
-            <Box fontWeight='bold' lineHeight={1} pr={1}>
+        <div className='row row_top'>
+            <div className='col text text_bold'>
                 Оборудование
-            </Box>
-            <Box
-                display='flex'
-                flexDirection='column'
-                justifyContent='flex-start'
-            >
+            </div>
+            <div className='col'>
                 {items.map(renderEquipmentItem)}
-            </Box>
-        </Box>
+            </div>
+        </div>
     );
 }
 function OpenDrawer({ code, name, onClose }) {
@@ -321,46 +317,38 @@ export default function CheckList() {
                 flexDirection='column'
                 overflow='auto'
             >
-                <Box
-                    display='flex'
-                    justifyContent='space-between'
-                    p={3}
-                >
-                    <Box
-                        display='flex'
-                        alignItems='center'
-                    >
-                        <EditIcon className='icon icon_border icon_medium' color='primary' />
-                        <Box className='title title_black' px={2}>
-                            Задание на ремонт №{location.state.number}
-                        </Box>
-                    </Box>
-                    <Box display='flex' alignItems='center'>
-                        <Box
-                            height={40}
-                            width={140}
+                <div className='checklist__header'>
+                    <div className='row row_offset-2 row_between'>
+                        <div className='col row'>
+                           <div className='col'>
+                               <EditIcon className='icon icon_border icon_medium' color='primary' />
+                           </div>
+                            <div className='col title title_black'>
+                                Задание на ремонт №{location.state.number}
+                            </div>
+                        </div>
+                        <Button
+                            className='button'
+                            variant='contained'
+                            color='primary'
+                            onClick={() => setLock(true)}
+                            disabled={lock}
                         >
-                            <Button
-                                className='button button_full'
-                                variant='contained'
-                                color='primary'
-                                onClick={() => setLock(true)}
-                                disabled={lock}
-                            >
-                                {lock ? 'Заполнен' : 'Заполнить'}
-                            </Button>
-                        </Box>
-                    </Box>
-                </Box>
-                <Box px={2}>
-                    Отказ системы позиционирования обрабатываемых заготовок
-                </Box>
-                <Box display='flex' justifyContent='space-between' fontSize={18} p={2}>
-                    <EquipmentInfo code={location.state.code} name={location.state.name} />
-                    <Box>
-                        Работы начаты: {new Date().toLocaleString().replace(',', ' ')}
-                    </Box>
-                </Box>
+                            {lock ? 'Заполнен' : 'Заполнить'}
+                        </Button>
+                    </div>
+                    <div className='col row row_offset-2 text text_bold'>
+                        Отказ системы позиционирования обрабатываемых заготовок
+                    </div>
+                    <div className='row row_offset-2 row_between text text_bold'>
+                        <div className='col'>
+                            <EquipmentInfo code={location.state.code} name={location.state.name} />
+                        </div>
+                        <div className='col'>
+                            Работы начаты: {new Date().toLocaleString().replace(',', ' ')}
+                        </div>
+                    </div>
+                </div>
                 <Box display='flex' alignItems='center'>
                     <IconButton
                         color='primary'

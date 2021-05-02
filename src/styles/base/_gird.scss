@@ -1,0 +1,32 @@
+$columns-count: 12;
+
+.row {
+  display: flex;
+  align-items: center;
+  margin: 0 -15px;
+
+  &_offset-2 {
+    margin-top: 10px;
+  }
+
+  &_top {
+    align-items: flex-start;
+  }
+
+  &_bottom {
+    align-items: flex-end;
+  }
+
+  &_between {
+    justify-content: space-between;
+  }
+}
+
+.col {
+  padding: 0 15px;
+  @for $i from 1 through $columns-count {
+    &_#{$i} {
+      width: 100% / $columns-count * $i;
+    }
+  }
+}
