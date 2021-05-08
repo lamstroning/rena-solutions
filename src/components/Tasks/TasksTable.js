@@ -1,11 +1,13 @@
+import {useState} from 'react';
 import { useHistory } from 'react-router';
 
-import {Box, Button, Table, TableBody, TableCell, TableHead, TableRow} from '@material-ui/core';
+import {Box, Button, IconButton, Table, TableBody, TableCell, TableHead, TableRow} from '@material-ui/core';
+
+import AddIcon from '@material-ui/icons/Add';
 import TodayIcon from '@material-ui/icons/Today';
 import FlashOnIcon from '@material-ui/icons/FlashOn';
 import SchoolIcon from '@material-ui/icons/School';
 import PriorityHighIcon from '@material-ui/icons/PriorityHigh';
-import {useState} from 'react';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 
 function RenderRow ({task}) {
@@ -99,7 +101,6 @@ export default function TasksTable({tasks = []}) {
 
 
     const names = [
-        {name: ''},
         {
             name: 'Название',
             key: 'name'
@@ -121,6 +122,11 @@ export default function TasksTable({tasks = []}) {
         <Table className='card card_rounded'>
             <TableHead>
                 <TableRow>
+                    <TableCell>
+                        <IconButton title='Создать задание'>
+                            <AddIcon/>
+                        </IconButton>
+                    </TableCell>
                     {names.map(({name, key}) =>
                         <TableCell key={key}>
                             {name && <SortButton name={name} type={key}/>}

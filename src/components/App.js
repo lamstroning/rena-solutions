@@ -22,12 +22,10 @@ function App() {
             <BrowserRouter basename={process.env.PUBLIC_URL}>
                 <Switch>
                     <Route exact path='/'>
-                        <Redirect to='/tasks'
-                        />
+                        <Redirect to='/tasks'/>
                     </Route>
                     <Route path='/tasks'>
-                        <Header title='Задания на ремонт'
-                        />
+                        <Header title='Задания на ремонт'/>
                         <Tasks/>
                     </Route>
                     <Route path='/checklist/info'>
@@ -55,8 +53,7 @@ function App() {
                         <NotFound/>
                     </Route>
                     <Route path='*'>
-                        <Redirect to='/404'
-                        />
+                        <Redirect to='/404'/>
                     </Route>
                 </Switch>
             </BrowserRouter>
