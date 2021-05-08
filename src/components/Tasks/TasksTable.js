@@ -27,7 +27,7 @@ function RenderRow ({task}) {
     }
 
     return (
-    <TableRow onClick={navigate}>
+    <TableRow className='table__row table__row_hovering' onClick={navigate}>
         <TableCell>
             <div className={`tasks__icon tasks__icon_${task.icon}`}>
                 {iconList[task.icon]}
@@ -118,22 +118,19 @@ export default function TasksTable({tasks = []}) {
         }
     ]
     return (
-
-        <div className='card card_rounded'>
-            <Table>
-                <TableHead>
-                    <TableRow>
-                        {names.map(({name, key}) =>
-                            <TableCell key={key}>
-                                {name && <SortButton name={name} type={key}/>}
-                            </TableCell>
-                        )}
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {tasks.map(task => <RenderRow key={task.id} task={task}/>)}
-                </TableBody>
-            </Table>
-        </div>
+        <Table className='card card_rounded'>
+            <TableHead>
+                <TableRow>
+                    {names.map(({name, key}) =>
+                        <TableCell key={key}>
+                            {name && <SortButton name={name} type={key}/>}
+                        </TableCell>
+                    )}
+                </TableRow>
+            </TableHead>
+            <TableBody>
+                {tasks.map(task => <RenderRow key={task.id} task={task}/>)}
+            </TableBody>
+        </Table>
     );
 }

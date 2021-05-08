@@ -40,6 +40,13 @@ body {
 		text-align: center;
 		width: 50px
 	}
+
+	&__row {
+		&_hovering:hover {
+			cursor: pointer;
+			background-color: var(--color-hoverGrey);
+		}
+	}
 }
 
 .title {

@@ -1,14 +1,16 @@
-import { Box } from '@material-ui/core';
-import { BrowserRouter, Route } from 'react-router-dom';
-import { Redirect, Switch } from 'react-router';
+import {BrowserRouter, Route} from 'react-router-dom';
+import {Redirect, Switch} from 'react-router';
+
+import {Box} from '@material-ui/core';
 
 import '../styles/index.scss';
 
-import Tasks from "./Tasks/Tasks";
+import Tasks from './Tasks/Tasks';
 import Header from './common/Header';
 import NotFound from './404';
-import CheckList from "./CheckList";
+import CheckList from './CheckList';
 import Profile from './Profile';
+import CheckListDetail from './CheckList/CheckListDetail';
 
 function App() {
     return (
@@ -20,31 +22,41 @@ function App() {
             <BrowserRouter basename={process.env.PUBLIC_URL}>
                 <Switch>
                     <Route exact path='/'>
-                        <Redirect to='/tasks' />
+                        <Redirect to='/tasks'
+                        />
                     </Route>
                     <Route path='/tasks'>
-                        <Header title='Задания на ремонт'/>
-                        <Tasks />
+                        <Header title='Задания на ремонт'
+                        />
+                        <Tasks/>
+                    </Route>
+                    <Route path='/checklist/info'>
+                        <Header
+                            backArrow
+                            title='Информация по действию чек-листа'
+                        />
+                        <CheckListDetail/>
                     </Route>
                     <Route path='/checklist'>
                         <Header
                             backArrow
                             title='Чек-лист задания'
                         />
-                        <CheckList />
+                        <CheckList/>
                     </Route>
                     <Route path='/profile'>
                         <Header
                             backArrow
                             title='Профиль'
                         />
-                        <Profile />
+                        <Profile/>
                     </Route>
                     <Route path='/404'>
-                        <NotFound />
+                        <NotFound/>
                     </Route>
                     <Route path='*'>
-                        <Redirect to='/404' />
+                        <Redirect to='/404'
+                        />
                     </Route>
                 </Switch>
             </BrowserRouter>
