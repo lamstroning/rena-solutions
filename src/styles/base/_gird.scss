@@ -1,12 +1,19 @@
 $columns-count: 12;
+$offset: 8px;
+
+.container {
+  padding: 0 16px;
+}
 
 .row {
   display: flex;
   align-items: center;
-  margin: 0 -15px;
+  margin: 0 -16px;
 
-  &_offset-2 {
-    margin-top: 10px;
+  @for $i from 1 through $columns-count {
+    &_offset-#{$i} {
+      margin-top: $i * $offset;
+    }
   }
 
   &_top {
@@ -15,6 +22,10 @@ $columns-count: 12;
 
   &_bottom {
     align-items: flex-end;
+  }
+
+  &_center {
+    justify-content: center;
   }
 
   &_between {

@@ -411,6 +411,7 @@ export default function CheckList() {
                                                 {task.action}
                                             </div>
                                             <IconButton
+                                                href='/checklist/info'
                                                 className='icon-button icon-button_warning'
                                                 size='small'
                                             >
