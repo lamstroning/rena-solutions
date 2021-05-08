@@ -47,6 +47,10 @@ body {
 			background-color: var(--color-hoverGrey);
 		}
 	}
+
+	&__cell {
+		padding: 10px 20px;
+	}
 }
 
 .title {

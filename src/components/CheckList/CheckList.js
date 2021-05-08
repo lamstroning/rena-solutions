@@ -11,12 +11,13 @@ import AttachFileIcon from '@material-ui/icons/AttachFile'
 import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
 import AddPhotoAlternateIcon from '@material-ui/icons/AddPhotoAlternate';
 import EditIcon from '@material-ui/icons/Edit';
+import InfoIcon from '@material-ui/icons/Info';
 
 import Camera from 'react-html5-camera-photo';
 import 'react-html5-camera-photo/build/css/index.css';
 
-import { theme } from '../theme/theme';
 import CloseIcon from '@material-ui/icons/Close';
+import {theme} from '../../theme/theme';
 
 const checkList = [
     {
@@ -404,13 +405,23 @@ export default function CheckList() {
                                     <TableCell className='table__cell border border_right border_bottom'>
                                         {task.id}
                                     </TableCell>
-                                    <TableCell className='border border_right border_bottom'>
-                                        {task.action}
+                                    <TableCell className='table__cell border border_right border_bottom'>
+                                        <div className='row row_between'>
+                                            <div className='col text text_nowrap'>
+                                                {task.action}
+                                            </div>
+                                            <IconButton
+                                                className='icon-button icon-button_warning'
+                                                size='small'
+                                            >
+                                                <InfoIcon/>
+                                            </IconButton>
+                                        </div>
                                     </TableCell>
-                                    <TableCell className='border border_right border_bottom'>
+                                    <TableCell className='table__cell border border_right border_bottom'>
                                         {task.expected}
                                     </TableCell>
-                                    <TableCell className='border border_right border_bottom'>
+                                    <TableCell className='table__cell border border_right border_bottom'>
                                         <RenderField
                                             task={task}
                                             onChange={handleChange}

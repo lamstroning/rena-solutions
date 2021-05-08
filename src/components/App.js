@@ -8,7 +8,7 @@ import '../styles/index.scss';
 import Tasks from './Tasks/Tasks';
 import Header from './common/Header';
 import NotFound from './404';
-import CheckList from './CheckList';
+import CheckList from './CheckList/CheckList';
 import Profile from './Profile';
 import CheckListDetail from './CheckList/CheckListDetail';
 

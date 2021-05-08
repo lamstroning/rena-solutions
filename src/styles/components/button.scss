@@ -20,3 +20,9 @@
     color: var(--color-hover-active);
   }
 }
+
+.icon-button {
+  &_warning {
+    color: var(--color-warning);
+  }
+}
