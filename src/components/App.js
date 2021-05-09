@@ -11,6 +11,7 @@ import NotFound from './404';
 import CheckList from './CheckList/CheckList';
 import Profile from './Profile';
 import CheckListDetail from './CheckList/CheckListDetail';
+import NewTask from './Tasks/NewTask';
 
 function App() {
     return (
@@ -23,6 +24,10 @@ function App() {
                 <Switch>
                     <Route exact path='/'>
                         <Redirect to='/tasks'/>
+                    </Route>
+                    <Route path='/tasks/new'>
+                        <Header title='Задания на ремонт'/>
+                        <NewTask/>
                     </Route>
                     <Route path='/tasks'>
                         <Header title='Задания на ремонт'/>

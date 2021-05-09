@@ -102,6 +102,10 @@ export default function TasksTable({tasks = []}) {
 
     const names = [
         {
+            name: '',
+            key: 'type'
+        },
+        {
             name: 'Название',
             key: 'name'
         },
@@ -122,11 +126,6 @@ export default function TasksTable({tasks = []}) {
         <Table className='card card_rounded'>
             <TableHead>
                 <TableRow>
-                    <TableCell>
-                        <IconButton title='Создать задание'>
-                            <AddIcon/>
-                        </IconButton>
-                    </TableCell>
                     {names.map(({name, key}) =>
                         <TableCell key={key}>
                             {name && <SortButton name={name} type={key}/>}

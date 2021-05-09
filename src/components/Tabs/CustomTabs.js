@@ -1,5 +1,6 @@
-import {AppBar, Tab, Tabs} from '@material-ui/core';
+import {AppBar, Button, Tab, Tabs} from '@material-ui/core';
 import {useState} from 'react';
+import AddIcon from '@material-ui/icons/Add';
 
 const filters = [
     {
@@ -48,6 +49,19 @@ export default function CustomTabs({table, filter}) {
                                 className='tabs__item'
                             />
                         )}
+
+                        <Button
+                            className='button'
+                            color='primary'
+                            variant='contained'
+                            href='/tasks/new'
+                            title='Создать задание'
+                        >
+                            <AddIcon/>
+                            <div className='button__label'>
+                                Создать задание
+                            </div>
+                        </Button>
                     </Tabs>
                 </AppBar>
             </div>

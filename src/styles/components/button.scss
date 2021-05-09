@@ -19,6 +19,10 @@
     transition: var(--transition);
     color: var(--color-hover-active);
   }
+
+  &__label {
+    padding-left: 10px;
+  }
 }
 
 .icon-button {
