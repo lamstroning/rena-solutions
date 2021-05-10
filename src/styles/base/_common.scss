@@ -31,28 +31,6 @@ body {
 	}
 }
 
-.table {
-	&__name {
-		width: 200px
-	}
-
-	&__id {
-		text-align: center;
-		width: 50px
-	}
-
-	&__row {
-		&_hovering:hover {
-			cursor: pointer;
-			background-color: var(--color-hoverGrey);
-		}
-	}
-
-	&__cell {
-		padding: 10px 20px;
-	}
-}
-
 .title {
 	font-size: 24px;
 	font-weight: 700;

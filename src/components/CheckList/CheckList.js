@@ -51,25 +51,6 @@ const checkList = [
     }
 ]
 
-const TableHeader = withStyles(theme => ({
-    root: {
-        borderTopLeftRadius: 24,
-        borderTopRightRadius: 24,
-        backgroundColor: theme.palette.darkGreen,
-        color: 'white'
-    }
-}))(Box);
-
-const StyledTableHead = withStyles(theme => ({
-    root: {
-        '& th': {
-            backgroundColor: theme.palette.darkGreen,
-            color: 'white',
-            fontSize: 18
-        }
-    }
-}))(TableHead);
-
 function CameraDialog(props) {
     const { onClose, selectedValue } = props;
 
@@ -289,7 +270,9 @@ export default function CheckList() {
     return (
         <Box className='checklist page page_row'>
             <Box
-                display='flex'
+                // Remove display none
+                display='none'
+                // display='flex'
                 alignItems='center'
                 justifyContent='center'
                 color='white'
@@ -359,21 +342,13 @@ export default function CheckList() {
                     </IconButton>
                     Нет вложений
                 </Box>
-                <TableHeader
-                    mt={2}
-                    p={1}
-                >
-                    <div className='title title_center'>
-                        Выполняемые работы
-                    </div>
-                </TableHeader>
                 <Box
                     flex={1}
                     overflow='auto'
                     bgcolor='#F2F2F2'
                 >
-                    <Table className='table' stickyHeader>
-                        <StyledTableHead>
+                    <Table className='table-checklist table table_rounded' stickyHeader>
+                        <TableHead className='table__head table__head_primary'>
                             <TableRow>
                                 <TableCell
                                     padding='none'
@@ -397,17 +372,17 @@ export default function CheckList() {
                                     Фактический результат
                                 </TableCell>
                             </TableRow>
-                        </StyledTableHead>
-                        <TableBody >
+                        </TableHead>
+                        <TableBody>
                             {checkList.map((task, index) =>
                                 index < step &&
-                                <TableRow className='table__row' key={task.id}>
+                                <TableRow className='table__row table__row_hovering' key={task.id}>
                                     <TableCell className='table__cell border border_right border_bottom'>
                                         {task.id}
                                     </TableCell>
-                                    <TableCell className='table__cell border border_right border_bottom'>
+                                    <TableCell className='table__cell table__cell_overflow border border_right border_bottom'>
                                         <div className='row row_between'>
-                                            <div className='col text text_nowrap'>
+                                            <div className='col text text_nowrap table-checklist__col_name'>
                                                 {task.action}
                                             </div>
                                             <IconButton

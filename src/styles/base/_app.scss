@@ -26,6 +26,22 @@
   }
 }
 
+.area-border {
+    position: relative;
+    padding: 20px;
+    margin-top: 40px;
+    border: 1px solid var(--color-lightGrey);
+
+   &__label {
+     display: table;
+     padding: 0 20px;
+     margin-top: -28px;
+     width: auto;
+     font-size: 14px;
+     background: #E5E5E5;
+   }
+}
+
 .border {
   border-color: black;
   border-style: solid;

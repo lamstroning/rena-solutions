@@ -1,0 +1,51 @@
+.table {
+  &_rounded {
+    th {
+      &:first-child {
+        border-top-left-radius: 12px;
+      }
+      &:last-child {
+        border-top-right-radius: 12px;
+      }
+    }
+  }
+
+  &__name {
+    width: 200px
+  }
+
+  &__id {
+    text-align: center;
+    width: 50px
+  }
+
+  &__head {
+    &_primary {
+      th {
+        color: white;
+        background-color: var(--color-primary);
+      }
+    }
+  }
+
+  &__row {
+    &_hovering:hover {
+      cursor: pointer;
+      background-color: var(--color-hoverGrey);
+    }
+  }
+
+  &__cell {
+    padding: 10px 20px;
+  }
+}
+
+.table-checklist {
+  &__col {
+    &_name {
+      width: 330px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+}
