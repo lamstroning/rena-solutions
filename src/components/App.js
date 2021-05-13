@@ -26,7 +26,10 @@ function App() {
                         <Redirect to='/tasks'/>
                     </Route>
                     <Route path='/tasks/new'>
-                        <Header title='Задания на ремонт'/>
+                        <Header
+                            backArrow
+                            title='Создать задание на ремонт'
+                        />
                         <NewTask/>
                     </Route>
                     <Route path='/tasks'>

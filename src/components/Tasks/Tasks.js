@@ -73,7 +73,7 @@ export default function Tasks() {
     }
 
     return (
-        <div className='page'>
+        <div className='page page_small'>
             <CustomTabs filter={filterTasks} table={Table}/>
         </div>
     );
