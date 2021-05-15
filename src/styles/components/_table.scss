@@ -37,6 +37,18 @@
 
   &__cell {
     padding: 10px 20px;
+
+    &_icon {
+      width: 48px;
+    }
+
+    &_right-offset {
+      padding-right: 40px;
+    }
+
+    &_left-offset {
+      padding-left: 40px;
+    }
   }
 }
 

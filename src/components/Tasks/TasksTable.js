@@ -1,9 +1,8 @@
 import {useState} from 'react';
 import { useHistory } from 'react-router';
 
-import {Box, Button, IconButton, Table, TableBody, TableCell, TableHead, TableRow} from '@material-ui/core';
+import {Box, Button, Table, TableBody, TableCell, TableHead, TableRow} from '@material-ui/core';
 
-import AddIcon from '@material-ui/icons/Add';
 import TodayIcon from '@material-ui/icons/Today';
 import FlashOnIcon from '@material-ui/icons/FlashOn';
 import SchoolIcon from '@material-ui/icons/School';
@@ -30,27 +29,27 @@ function RenderRow ({task}) {
 
     return (
     <TableRow className='table__row table__row_hovering' onClick={navigate}>
-        <TableCell>
+        <TableCell className='table__cell table__cell_left-offset table__cell_icon'>
             <div className={`tasks__icon tasks__icon_${task.icon}`}>
                 {iconList[task.icon]}
             </div>
         </TableCell>
-        <TableCell>
+        <TableCell className='table__cell'>
             <div className='text text_overflow'>
                 {task.name}
             </div>
         </TableCell>
-        <TableCell>
+        <TableCell className='table__cell'>
             <div className='text text_overflow'>
                 №{task.number}
             </div>
         </TableCell>
-        <TableCell>
+        <TableCell className='table__cell'>
             <Box>
                 {task.auth}
             </Box>
         </TableCell>
-        <TableCell>
+        <TableCell className='table__cell table__cell_right-offset'>
             <div>
                 {task.date}
             </div>
