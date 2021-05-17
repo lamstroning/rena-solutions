@@ -1,4 +1,4 @@
-import {Box, Button, Drawer, IconButton, Typography} from '@material-ui/core';
+import {Box, Button, Drawer, IconButton} from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 import LibraryBooksIcon from '@material-ui/icons/LibraryBooks';
 import SettingsIcon from '@material-ui/icons/Settings';
@@ -40,6 +40,7 @@ export default function Header({backArrow, title}) {
                             className='row profile button button_left'
                         >
                             <img
+                                alt=''
                                 className='profile__img'
                                 width='100%'
                                 height='100%'
