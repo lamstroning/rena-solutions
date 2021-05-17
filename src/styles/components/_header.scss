@@ -1,0 +1,28 @@
+.header {
+  padding: 12px;
+  background-color: var(--color-primary);
+
+  &__wrapper {
+    max-width: var(--page-small-width);
+    margin: 0 auto;
+  }
+
+  &__back {
+    width: 50px;
+    margin: 0 20px;
+  }
+}
+
+.profile {
+  height: 58px;
+
+  &__name {
+    padding-left: 20px;
+  }
+
+  &__img {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+  }
+}

@@ -1,31 +1,3 @@
-.text {
-  &_overflow {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-
-  &_bold {
-    font-weight: bold;
-  }
-
-  &_lowercase {
-    text-transform: lowercase;
-  }
-
-  &_white {
-    color: white;
-  }
-
-  &_nowrap {
-    white-space: nowrap;
-  }
-
-  &_vertical {
-    writing-mode: tb-rl;
-  }
-}
-
 .area-border {
     position: relative;
     padding: 20px;
