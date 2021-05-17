@@ -21,7 +21,8 @@ var urlsToCache = [
     'https://fonts.gstatic.com/s/roboto/v20/KFOlCnqEu92Fr1MmWUlfBBc4.woff2',
     'https://fonts.gstatic.com/s/roboto/v20/KFOlCnqEu92Fr1MmWUlfABc4EsA.woff2',
     'https://rusroboter.sqsinformatique.com/src/asetss/images/scrap.png',
-    'https://rusroboter.sqsinformatique.com/src/asetss/images/draft-icon.png'
+    'https://rusroboter.sqsinformatique.com/src/asetss/images/draft-icon.png',
+    'https://rusroboter.sqsinformatique.com/src/asetss/images/user-avatar.jpg'
 ];
 
 // Install a service worker
