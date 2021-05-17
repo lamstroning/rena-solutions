@@ -1,13 +1,12 @@
-import { Box, IconButton, Typography } from '@material-ui/core';
+import {Box, Button, Drawer, IconButton, Typography} from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 import LibraryBooksIcon from '@material-ui/icons/LibraryBooks';
 import SettingsIcon from '@material-ui/icons/Settings';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
-import { theme } from '../../theme/theme';
-
 import avatar from '../../asetss/images/worker-avatar.png'
+import {useState} from 'react';
 
 const userProfiles = [
     {
@@ -19,85 +18,98 @@ const userProfiles = [
 ]
 
 export default function Header({backArrow, title}) {
+    const [open, setOpen] = useState(false);
+
     return (
-        <Box
-            p={2}
-            bgcolor={theme.palette.primary.main}
-        >
-            <Box
-                display='flex'
-                justifyContent='space-between'
-                alignItems='center'
-                mx='auto'
-                px={2}
-                maxWidth={theme.size.appWidth}
-            >
-                <Box display='flex'>
-                    <Box width={50}>
-                        {backArrow &&
-                        <IconButton
-                            className='icon icon_white'
-                            onClick={() => window.history.back()}
+        <div className='header'>
+            <div className='header__wrapper'>
+                <div className='row row_between'>
+                    <div className='row'>
+                        <div className='header__back'>
+                            {backArrow &&
+                                <IconButton
+                                    className='icon icon_white'
+                                    onClick={() => window.history.back()}
+                                >
+                                    <ArrowBackIcon/>
+                                </IconButton>
+                            }
+                        </div>
+                        <Button
+                            onClick={() => setOpen(!open)}
+                            className='row profile button button_left'
                         >
-                            <ArrowBackIcon/>
-                        </IconButton>}
-                    </Box>
+                            <img
+                                className='profile__img'
+                                width='100%'
+                                height='100%'
+                                src={avatar}
+                            />
+                            <div className='profile__name'>
+                                <div className='text text_big text_white'>
+                                    {userProfiles[0].userName}
+                                </div>
+                                <div className='text text_white'>
+                                    {userProfiles[0].position}
+                                </div>
+                            </div>
+                        </Button>
+                    </div>
+                    <div className='title'>
+                        {title}
+                    </div>
                     <Box
-                        alignItems='center'
                         display='flex'
-                        pl={2}
+                        color='white'
+                        fontSize={28}
                     >
-                        <Box
-                            width={50}
-                            height={50}
-                            borderRadius='50%'
-                            overflow='hidden'
-                        >
-                            <img width='100%' height='100%' src={avatar} alt=''/>
-                        </Box>
-                        <Box ml={2} color='white'>
-                            <Typography variant='h5' className='text text_nowrap'>
-                                {userProfiles[0].userName}
-                            </Typography>
-                            <Typography variant='h6' className='text text_nowrap'>
-                                {userProfiles[0].position}
-                            </Typography>
+                        <Box>
+                            <IconButton color='inherit'>
+                                <SearchIcon fontSize='inherit'/>
+                            </IconButton >
+                            <IconButton color='inherit'>
+                                <LibraryBooksIcon fontSize='inherit'/>
+                            </IconButton>
+                            <IconButton
+                                color='inherit'
+                                href='/profile'
+                            >
+                                <SettingsIcon fontSize='inherit'/>
+                            </IconButton>
                         </Box>
                     </Box>
-                </Box>
-                <Box className='title'>
-                    {title}
-                </Box>
-                <Box
-                    display='flex'
-                    color='white'
-                    fontSize={28}
+                </div>
+            </div>
+            <Drawer
+                variant='persistent'
+                open={open}
+                onClose={() => setOpen(!open)}
+            >
+                <Button className='button button_left button_square'>
+                    <SettingsIcon
+                        className='button__icon'
+                        fontSize='inherit'
+                    />
+                    <div className='button__label'>
+                        Настройки
+                    </div>
+                </Button>
+                <Button
+                    className='button button_left button_square'
+                    onClick={() => {
+                        window.localStorage.clear();
+                        window.location.reload();
+                    }}
                 >
-                    <Box >
-                        <IconButton color='inherit'>
-                            <SearchIcon fontSize='inherit'/>
-                        </IconButton >
-                        <IconButton color='inherit'>
-                            <LibraryBooksIcon fontSize='inherit'/>
-                        </IconButton>
-                        <IconButton
-                            color='inherit'
-                            href='/profile'
-                        >
-                            <SettingsIcon fontSize='inherit'/>
-                        </IconButton>
-                    </Box>
-                    <IconButton
-                        color='inherit'
-                        onClick={() => {
-                            window.localStorage.clear();
-                            window.location.reload();
-                        }}
-                    >
-                        <ExitToAppIcon fontSize='inherit'/>
-                    </IconButton>
-                </Box>
-            </Box >
-        </Box>
+                    <ExitToAppIcon
+                        className='button__icon'
+                        fontSize='inherit'
+                    />
+                    <div className='button__label'>
+                        Выйти
+                    </div>
+                </Button>
+            </Drawer>
+        </div>
     );
 }
