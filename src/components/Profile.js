@@ -1,21 +1,21 @@
-import {Box} from '@material-ui/core';
-
-import avatar from '../asetss/images/worker-avatar.png'
+import {getUser} from '../Services/Auth';
 
 export default function Profile() {
+    const user = getUser();
+
     return (
-        <Box className='page' p={3}>
-            <Box pt={10}>
-                <Box>
-                    <img src={avatar} alt=''/>
-                </Box>
-                <Box>
-                    Имя: Иванов П.С.
-                </Box>
-                <Box>
-                    Должность: Инженер-механик
-                </Box>
-            </Box>
-        </Box>
+        <div className='page'>
+            <div>
+                <div>
+                    <img src={user.avatar} alt=''/>
+                </div>
+                <div>
+                    Имя: {user.name}
+                </div>
+                <div>
+                    Должность: {user.position}
+                </div>
+            </div>
+        </div>
     );
 }

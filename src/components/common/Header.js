@@ -5,20 +5,12 @@ import SettingsIcon from '@material-ui/icons/Settings';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
-import avatar from '../../asetss/images/worker-avatar.png'
 import {useState} from 'react';
-
-const userProfiles = [
-    {
-        id: 1,
-        userName: 'Иванов П.С.',
-        position: 'Инженер-механик',
-        avatar: '/src/assets/images/worker-avatar.png'
-    }
-]
+import {getUser} from '../../Services/Auth';
 
 export default function Header({backArrow, title}) {
     const [open, setOpen] = useState(false);
+    const user = getUser();
 
     return (
         <div className='header'>
@@ -44,14 +36,14 @@ export default function Header({backArrow, title}) {
                                 className='profile__img'
                                 width='100%'
                                 height='100%'
-                                src={avatar}
+                                src={user.avatar}
                             />
                             <div className='profile__name'>
                                 <div className='text text_big text_white'>
-                                    {userProfiles[0].userName}
+                                    {user.name}
                                 </div>
                                 <div className='text text_white'>
-                                    {userProfiles[0].position}
+                                    {user.position}
                                 </div>
                             </div>
                         </Button>
@@ -71,12 +63,6 @@ export default function Header({backArrow, title}) {
                             <IconButton color='inherit'>
                                 <LibraryBooksIcon fontSize='inherit'/>
                             </IconButton>
-                            <IconButton
-                                color='inherit'
-                                href='/profile'
-                            >
-                                <SettingsIcon fontSize='inherit'/>
-                            </IconButton>
                         </Box>
                     </Box>
                 </div>
@@ -86,7 +72,10 @@ export default function Header({backArrow, title}) {
                 open={open}
                 onClose={() => setOpen(!open)}
             >
-                <Button className='button button_left button_square'>
+                <Button
+                    className='button button_left button_square'
+                    href='/profile'
+                >
                     <SettingsIcon
                         className='button__icon'
                         fontSize='inherit'
