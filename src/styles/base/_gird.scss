@@ -14,6 +14,10 @@ $offset: 8px;
   align-items: center;
   margin: 0 -16px;
 
+  &_wide {
+    width: 100%;
+  }
+
   @for $i from 1 through $columns-count {
     &_offset-#{$i} {
       margin-top: $i * $offset;

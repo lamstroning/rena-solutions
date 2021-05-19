@@ -4,7 +4,7 @@ import {Input} from '../common/Inputs';
 export default function Reports() {
     return (
         <div className='page container'>
-            <div className='row row_end row_offset-4'>
+            <div className='row row_wide row_end row_offset-4'>
                 <Button
                     variant='contained'
                     color='primary'
