@@ -1,5 +1,6 @@
 .header {
   padding: 12px;
+  height: var(--page-header-height);
   background-color: var(--color-primary);
 
   &__wrapper {
@@ -10,6 +11,13 @@
   &__back {
     width: 50px;
     margin: 0 20px;
+  }
+
+  &__drawer {
+    top: var(--page-header-height);
+    max-width: 300px;
+    width: 30%;
+    background-color: var(--color-primary);
   }
 }
 

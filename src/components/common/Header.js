@@ -68,12 +68,13 @@ export default function Header({backArrow, title}) {
                 </div>
             </div>
             <Drawer
+                classes={{paper: 'header__drawer'}}
                 variant='persistent'
                 open={open}
                 onClose={() => setOpen(!open)}
             >
                 <Button
-                    className='button button_left button_square'
+                    className='button button_white button_left button_square'
                     href='/profile'
                 >
                     <SettingsIcon
@@ -85,7 +86,7 @@ export default function Header({backArrow, title}) {
                     </div>
                 </Button>
                 <Button
-                    className='button button_left button_square'
+                    className='button button_white button_left button_square'
                     onClick={() => {
                         window.localStorage.clear();
                         window.location.reload();
