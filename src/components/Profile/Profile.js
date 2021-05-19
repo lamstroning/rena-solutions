@@ -1,4 +1,4 @@
-import {getUser} from '../Services/Auth';
+import {getUser} from '../../Services/Auth';
 import {Button, TextField} from '@material-ui/core';
 
 export default function Profile() {
