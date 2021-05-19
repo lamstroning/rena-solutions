@@ -4,7 +4,8 @@
   background-color: var(--color-primary);
 
   &__wrapper {
-    max-width: var(--page-small-width);
+    max-width: var(--page-full-width);
+    padding: 0 16px;
     margin: 0 auto;
   }
 
@@ -26,11 +27,5 @@
 
   &__name {
     padding-left: 20px;
-  }
-
-  &__img {
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
   }
 }
