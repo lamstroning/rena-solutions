@@ -26,7 +26,8 @@ var urlsToCache = [
     'https://rusroboter.sqsinformatique.com/checklist/info',
     'https://rusroboter.sqsinformatique.com/404',
     'https://rusroboter.sqsinformatique.com/report',
-    'https://rusroboter.sqsinformatique.com/checklist'
+    'https://rusroboter.sqsinformatique.com/checklist',
+    'https://rusroboter.sqsinformatique.com/profile'
 
 ];
 
