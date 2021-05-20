@@ -9,9 +9,10 @@ import Tasks from './Tasks/Tasks';
 import Header from './common/Header';
 import NotFound from './404';
 import CheckList from './CheckList/CheckList';
-import Profile from './Profile';
+import Profile from './Profile/Profile';
 import CheckListDetail from './CheckList/CheckListDetail';
 import NewTask from './Tasks/NewTask';
+import Reports from './Reports/Reports';
 
 function App() {
     return (
@@ -49,6 +50,13 @@ function App() {
                             title='Чек-лист задания'
                         />
                         <CheckList/>
+                    </Route>
+                    <Route path='/report'>
+                        <Header
+                            backArrow
+                            title='Отчеты по чек листам'
+                        />
+                        <Reports/>
                     </Route>
                     <Route path='/profile'>
                         <Header

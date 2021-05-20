@@ -3,6 +3,10 @@ $offset: 8px;
 
 .container {
   padding: 0 16px;
+
+  &_offset {
+    padding: 16px;
+  }
 }
 
 .row {
@@ -31,10 +35,27 @@ $offset: 8px;
   &_between {
     justify-content: space-between;
   }
+
+  &_end {
+    justify-content: flex-end;
+  }
+
+  &_wrap {
+    flex-wrap: wrap;
+  }
 }
 
 .col {
-  padding: 0 15px;
+  padding: 0 16px;
+
+  &_top {
+    margin-top: 16px;
+  }
+
+  &_wide {
+    flex: 1;
+  }
+
   @for $i from 1 through $columns-count {
     &_#{$i} {
       width: 100% / $columns-count * $i;

@@ -2,6 +2,7 @@ import {Box, Button, Drawer, IconButton} from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 import LibraryBooksIcon from '@material-ui/icons/LibraryBooks';
 import SettingsIcon from '@material-ui/icons/Settings';
+import EqualizerIcon from '@material-ui/icons/Equalizer';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
@@ -33,9 +34,7 @@ export default function Header({backArrow, title}) {
                         >
                             <img
                                 alt=''
-                                className='profile__img'
-                                width='100%'
-                                height='100%'
+                                className='image image_small image_rounded'
                                 src={user.avatar}
                             />
                             <div className='profile__name'>
@@ -56,14 +55,17 @@ export default function Header({backArrow, title}) {
                         color='white'
                         fontSize={28}
                     >
-                        <Box>
+                        <div>
                             <IconButton color='inherit'>
                                 <SearchIcon fontSize='inherit'/>
+                            </IconButton >
+                            <IconButton href='/report' color='inherit'>
+                                <EqualizerIcon fontSize='inherit'/>
                             </IconButton >
                             <IconButton color='inherit'>
                                 <LibraryBooksIcon fontSize='inherit'/>
                             </IconButton>
-                        </Box>
+                        </div>
                     </Box>
                 </div>
             </div>
