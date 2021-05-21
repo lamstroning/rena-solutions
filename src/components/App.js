@@ -6,14 +6,14 @@ import {Box} from '@material-ui/core';
 import '../styles/index.scss';
 
 import Tasks from './Tasks/Tasks';
-import Header from './common/Header';
+import Header from './Common/Header';
 import NotFound from './404';
 import CheckList from './CheckList/CheckList';
 import Profile from './Profile/Profile';
 import CheckListDetail from './CheckList/CheckListDetail';
 import NewTask from './Tasks/NewTask';
 import Reports from './Reports/Reports';
-import {getUser} from '../Services/Auth';
+import {getUser} from '../Services/AuthService';
 import Users from './Users/Users';
 
 function App() {

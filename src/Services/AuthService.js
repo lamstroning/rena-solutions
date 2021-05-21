@@ -25,13 +25,33 @@ const user = {
     avatar: avatarUser
 };
 
-export const userList = [
+const newUser = {
+    name: '',
+    role: '',
+    email: '',
+    lastName: '',
+    firstName: '',
+    middleName: '',
+    position: '',
+    division: '',
+    avatar: ''
+};
+
+const userList = [
     admin,
     user
 ]
 
+export function createUser() {
+    return newUser;
+}
+
 export function getUser() {
     return JSON.parse(localStorage.getItem('user'));
+}
+
+export function getUsersList() {
+    return userList;
 }
 
 export default function authorization(login, password) {

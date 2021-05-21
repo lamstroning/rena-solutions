@@ -8,7 +8,7 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
 import {useState} from 'react';
-import {getUser} from '../../Services/Auth';
+import {getUser} from '../../Services/AuthService';
 import {NavLink} from 'react-router-dom';
 
 export default function Header({backArrow, title}) {

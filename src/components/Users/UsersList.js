@@ -1,15 +1,20 @@
 import {IconButton, Table, TableCell, TableHead, TableRow} from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
-import {userList} from '../../Services/Auth';
+import {createUser} from '../../Services/AuthService';
 
-export default function UsersList() {
+export default function UsersList({userList, selectUser}) {
+    const newUser = createUser();
+
     return (
         <div className='card card_rounded'>
             <Table className='table table_rounded'>
                 <TableHead className='table__head table__head_primary'>
                     <TableCell className='table__cell'>Пользватели</TableCell>
                     <TableCell className='table__cell table__cell_align-right table__cell_dense'>
-                        <IconButton size='small'>
+                        <IconButton
+                            onClick={() => selectUser(newUser)}
+                            size='small'
+                        >
                             <AddIcon className='icon icon_offset icon_white'/>
                         </IconButton>
                     </TableCell>
@@ -17,6 +22,7 @@ export default function UsersList() {
                 {userList.map(user =>
                     <TableRow className='table__row table__row_hovering'>
                         <TableCell
+                            onClick={() => selectUser(user)}
                             className='table__cell'
                             colSpan={2}
                         >

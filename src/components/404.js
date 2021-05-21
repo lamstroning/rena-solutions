@@ -1,4 +1,4 @@
-import Header from './common/Header';
+import Header from './Common/Header';
 
 export default function NotFound() {
     return <div>

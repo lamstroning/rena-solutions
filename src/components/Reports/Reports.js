@@ -1,5 +1,5 @@
 import {Button} from '@material-ui/core';
-import {Input} from '../common/Inputs';
+import {Input} from '../Common/Inputs';
 
 export default function Reports() {
     return (

@@ -1,12 +1,9 @@
 import {Button} from '@material-ui/core';
-import PhotoCameraIcon from '@material-ui/icons/PhotoCamera'
 
-import {Input} from '../common/Inputs';
-import {getUser} from '../../Services/Auth';
+import {Input} from '../Common/Inputs';
+import FileInput from '../Common/FileInput';
 
-export default function UserSettings() {
-    const user = getUser();
-
+export default function UserSettings({user}) {
     return (
         <div className='container'>
             <div className='row row_offset-2'>
@@ -57,10 +54,7 @@ export default function UserSettings() {
                     </div>
                 </div>
                 <div className='col col_4'>
-                    <div className='file-load'>
-                        <PhotoCameraIcon className='file-load__image'/>
-                        <div className='file-load__label'>Загрузить фото</div>
-                    </div>
+                    <FileInput file={user.avatar}/>
                 </div>
             </div>
             <div className='row row_offset-2'>
@@ -79,36 +73,41 @@ export default function UserSettings() {
             </div>
             <div className='row row_offset-2'>
                 <div className='col col_4'>
-                    <Button
-                        fullWidth
-                        color='primary'
-                        variant='contained'
-                        className='button'
-                    >
-                        Создать пользователя
-                    </Button>
+                    {!user.role &&
+                        <Button
+                            fullWidth
+                            color='primary'
+                            variant='contained'
+                            className='button'
+                        >
+                            Создать пользователя
+                        </Button>
+                    }
+
                 </div>
                 <div className='col col_4'>
-                    <Button
-                        fullWidth
-                        color='primary'
-                        variant='contained'
-                        className='button'
-                        disabled
-                    >
-                        Удалить пользователя
-                    </Button>
+                    {user.role &&
+                        <Button
+                            fullWidth
+                            color='primary'
+                            variant='contained'
+                            className='button'
+                        >
+                            Удалить пользователя
+                        </Button>
+                    }
                 </div>
                 <div className='col col_4'>
-                    <Button
-                        fullWidth
-                        color='primary'
-                        variant='contained'
-                        className='button'
-                        disabled
-                    >
-                        Восстановить пароль
-                    </Button>
+                    {user.role &&
+                        <Button
+                            fullWidth
+                            color='primary'
+                            variant='contained'
+                            className='button'
+                        >
+                            Восстановить пароль
+                        </Button>
+                    }
                 </div>
             </div>
         </div>
