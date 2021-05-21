@@ -3,12 +3,14 @@ import UserSettings from './UserSettings';
 
 export default function Users() {
     return (
-        <div className='container row row_top row_offset-2'>
-            <div className='col col_3'>
-                <UsersList/>
-            </div>
-            <div className='col col_9'>
-                <UserSettings/>
+        <div className='container'>
+            <div className='row row_top row_offset-2'>
+                <div className='col col_3'>
+                    <UsersList/>
+                </div>
+                <div className='col col_9'>
+                    <UserSettings/>
+                </div>
             </div>
         </div>
     );

@@ -65,13 +65,16 @@ function App() {
                         />
                         <CheckList/>
                     </Route>
-                    <Route path='/report'>
+                    <PrivateRoute
+                        success={role == 'admin'}
+                        path='/report'
+                    >
                         <Header
                             backArrow
                             title='Отчеты по чек листам'
                         />
                         <Reports/>
-                    </Route>
+                    </PrivateRoute>
                     <Route path='/profile'>
                         <Header
                             backArrow
