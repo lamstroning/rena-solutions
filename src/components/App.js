@@ -13,8 +13,22 @@ import Profile from './Profile/Profile';
 import CheckListDetail from './CheckList/CheckListDetail';
 import NewTask from './Tasks/NewTask';
 import Reports from './Reports/Reports';
+import {getUser} from '../Services/Auth';
+import Users from './Users/Users';
 
 function App() {
+    const role = getUser().role;
+
+    const PrivateRoute = ({children, success}) => (
+        <Route
+            render={() =>
+                success
+                ? children
+                : <Redirect to='/404'/>
+                }
+        />
+    );
+
     return (
         <Box
             display='flex'
@@ -65,6 +79,16 @@ function App() {
                         />
                         <Profile/>
                     </Route>
+                    <PrivateRoute
+                        success={role == 'admin'}
+                        path='/users'
+                    >
+                        <Header
+                            backArrow
+                            title='Пользователи'
+                        />
+                        <Users/>
+                    </PrivateRoute>
                     <Route path='/404'>
                         <NotFound/>
                     </Route>

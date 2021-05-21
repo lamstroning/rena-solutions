@@ -1,5 +1,6 @@
-import {Box, Button, Drawer, IconButton} from '@material-ui/core';
-import SearchIcon from '@material-ui/icons/Search';
+import {Box, Button, Drawer, IconButton, Typography} from '@material-ui/core';
+import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
+import AssignmentIcon from '@material-ui/icons/Assignment';
 import LibraryBooksIcon from '@material-ui/icons/LibraryBooks';
 import SettingsIcon from '@material-ui/icons/Settings';
 import EqualizerIcon from '@material-ui/icons/Equalizer';
@@ -8,6 +9,7 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
 import {useState} from 'react';
 import {getUser} from '../../Services/Auth';
+import {NavLink} from 'react-router-dom';
 
 export default function Header({backArrow, title}) {
     const [open, setOpen] = useState(false);
@@ -50,23 +52,36 @@ export default function Header({backArrow, title}) {
                     <div className='title'>
                         {title}
                     </div>
-                    <Box
-                        display='flex'
-                        color='white'
-                        fontSize={28}
-                    >
-                        <div>
-                            <IconButton color='inherit'>
-                                <SearchIcon fontSize='inherit'/>
-                            </IconButton >
-                            <IconButton href='/report' color='inherit'>
-                                <EqualizerIcon fontSize='inherit'/>
-                            </IconButton >
-                            <IconButton color='inherit'>
-                                <LibraryBooksIcon fontSize='inherit'/>
+                    <div className='nav-menu'>
+                        <IconButton
+                            to='/tasks'
+                            className='nav-menu__link'
+                            activeClassName='nav-menu__link_active'
+                            component={NavLink}
+                        >
+                            <AssignmentIcon className='nav-menu__icon'/>
+                        </IconButton>
+                        {user.role == 'admin' &&
+                            <IconButton
+                                to='/users'
+                                className='nav-menu__link'
+                                activeClassName='nav-menu__link_active'
+                                component={NavLink}
+                            >
+                                <PeopleAltIcon className='nav-menu__icon'/>
                             </IconButton>
-                        </div>
-                    </Box>
+                        }
+                        {user.role == 'admin' &&
+                            <IconButton
+                                to='/report'
+                                className='nav-menu__link'
+                                activeClassName='nav-menu__link_active'
+                                component={NavLink}
+                            >
+                                <EqualizerIcon className='nav-menu__icon'/>
+                            </IconButton>
+                        }
+                    </div>
                 </div>
             </div>
             <Drawer

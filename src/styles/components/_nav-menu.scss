@@ -1,0 +1,7 @@
+.nav-menu {
+  &__link {
+    &_active {
+      color: var(--color-warning);
+    }
+  }
+}
