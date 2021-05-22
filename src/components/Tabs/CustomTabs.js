@@ -33,8 +33,8 @@ export default function CustomTabs({ table, filter }) {
 
     return (
         <>
-            <div className='tabs-container' >
-                <AppBar className='tabs' position='static'>
+            <div className='tabs-container'>
+                <AppBar className='tabs container' position='static'>
                     <div className='row row_between'>
                         <Tabs
                             centered
