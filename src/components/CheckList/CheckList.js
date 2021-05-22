@@ -17,7 +17,7 @@ import Camera from 'react-html5-camera-photo';
 import 'react-html5-camera-photo/build/css/index.css';
 
 import CloseIcon from '@material-ui/icons/Close';
-import {theme} from '../../theme/theme';
+import { theme } from '../../theme/theme';
 
 const checkList = [
     {
@@ -52,7 +52,7 @@ const checkList = [
 ]
 
 function CameraDialog(props) {
-    const {onClose} = props;
+    const { onClose } = props;
 
     function handleTakePhoto() {
         // Do stuff with the photo...
@@ -83,11 +83,11 @@ function EquipmentInfo({ code, name }) {
 
     const items = [
         {
-            category:  'Шифр',
+            category: 'Шифр оборудования',
             value: code || '000322332'
         },
         {
-            category:  'Наименование',
+            category: 'Наименование',
             value: name || ' PlazMax CNC-2060'
         }
     ];
@@ -104,9 +104,6 @@ function EquipmentInfo({ code, name }) {
 
     return (
         <div className='row row_top'>
-            <div className='col text text_bold'>
-                Оборудование
-            </div>
             <div className='col'>
                 {items.map(renderEquipmentItem)}
             </div>
@@ -304,9 +301,9 @@ export default function CheckList() {
                 <div className='checklist__header'>
                     <div className='row row_offset-2 row_between'>
                         <div className='col row'>
-                           <div className='col'>
-                               <EditIcon className='icon icon_border icon_medium' color='primary' />
-                           </div>
+                            <div className='col'>
+                                <EditIcon className='icon icon_border icon_medium' color='primary' />
+                            </div>
                             <div className='col title title_black'>
                                 Задание на ремонт №{location.state.number}
                             </div>
@@ -321,7 +318,7 @@ export default function CheckList() {
                             {lock ? 'Заполнен' : 'Заполнить'}
                         </Button>
                     </div>
-                    <div className='col row row_offset-2 text text_bold'>
+                    <div className='col row row_offset-2 text'>
                         Отказ системы позиционирования обрабатываемых заготовок
                     </div>
                     <div className='row row_offset-2 row_between text text_bold'>
@@ -333,7 +330,7 @@ export default function CheckList() {
                         </div>
                     </div>
                 </div>
-                <Box display='flex' alignItems='center'>
+                {/* <Box display='flex' alignItems='center'>
                     <IconButton
                         color='primary'
                         onClick={event => setOpen(event.currentTarget)}
@@ -341,7 +338,7 @@ export default function CheckList() {
                         <AttachFileIcon className='icon icon_medium icon_deg45' />
                     </IconButton>
                     Нет вложений
-                </Box>
+                </Box> */}
                 <Box
                     flex={1}
                     overflow='auto'
@@ -390,7 +387,7 @@ export default function CheckList() {
                                                 className='icon-button icon-button_warning'
                                                 size='small'
                                             >
-                                                <InfoIcon/>
+                                                <InfoIcon />
                                             </IconButton>
                                         </div>
                                     </TableCell>

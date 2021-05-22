@@ -4,6 +4,23 @@
   background-color: white;
 
   &_rounded {
-    border-radius: 16px;
+    th {
+      &:first-child {
+        border-top-left-radius: 12px;
+      }
+      &:last-child {
+        border-top-right-radius: 12px;
+      }
+    }
   }
+
+  &__head {
+    &_primary {
+      th {
+        color: white;
+        background-color: #30504F;
+      }
+    }
+  }
+
 }

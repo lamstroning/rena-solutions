@@ -1,7 +1,7 @@
-import {useState} from 'react';
+import { useState } from 'react';
 import { useHistory } from 'react-router';
 
-import {Box, Button, Table, TableBody, TableCell, TableHead, TableRow} from '@material-ui/core';
+import { Box, Button, Table, TableBody, TableCell, TableHead, TableRow } from '@material-ui/core';
 
 import TodayIcon from '@material-ui/icons/Today';
 import FlashOnIcon from '@material-ui/icons/FlashOn';
@@ -9,14 +9,14 @@ import SchoolIcon from '@material-ui/icons/School';
 import PriorityHighIcon from '@material-ui/icons/PriorityHigh';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 
-function RenderRow ({task}) {
+function RenderRow({ task }) {
     const history = useHistory();
 
     const iconList = {
-        error: <PriorityHighIcon/>,
-        warning: <FlashOnIcon/>,
-        date: <TodayIcon/>,
-        study: <SchoolIcon/>
+        error: <PriorityHighIcon />,
+        warning: <FlashOnIcon />,
+        date: <TodayIcon />,
+        study: <SchoolIcon />
     }
 
 
@@ -28,38 +28,38 @@ function RenderRow ({task}) {
     }
 
     return (
-    <TableRow className='table__row table__row_hovering' onClick={navigate}>
-        <TableCell className='table__cell table__cell_left-offset table__cell_icon'>
-            <div className={`tasks__icon tasks__icon_${task.icon}`}>
-                {iconList[task.icon]}
-            </div>
-        </TableCell>
-        <TableCell className='table__cell'>
-            <div className='text text_overflow'>
-                {task.name}
-            </div>
-        </TableCell>
-        <TableCell className='table__cell'>
-            <div className='text text_overflow'>
-                №{task.number}
-            </div>
-        </TableCell>
-        <TableCell className='table__cell'>
-            <Box>
-                {task.auth}
-            </Box>
-        </TableCell>
-        <TableCell className='table__cell table__cell_right-offset'>
-            <div>
-                {task.date}
-            </div>
-        </TableCell>
-    </TableRow>
+        <TableRow className='table__row table__row_hovering' onClick={navigate}>
+            <TableCell className='table__cell table__cell_left-offset table__cell_icon'>
+                <div className={`tasks__icon tasks__icon_${task.icon}`}>
+                    {iconList[task.icon]}
+                </div>
+            </TableCell>
+            <TableCell className='table__cell'>
+                <div className='text text_overflow'>
+                    {task.name}
+                </div>
+            </TableCell>
+            <TableCell className='table__cell'>
+                <div className='text text_overflow'>
+                    №{task.number}
+                </div>
+            </TableCell>
+            <TableCell className='table__cell'>
+                <Box>
+                    {task.auth}
+                </Box>
+            </TableCell>
+            <TableCell className='table__cell table__cell_right-offset'>
+                <div>
+                    {task.date}
+                </div>
+            </TableCell>
+        </TableRow>
     );
 }
 
 
-export default function TasksTable({tasks = []}) {
+export default function TasksTable({ tasks = [] }) {
     const [sortConfig, setSortConfig] = useState({});
     const [sortedTasks, setSortedTasks] = useState(tasks);
 
@@ -84,7 +84,7 @@ export default function TasksTable({tasks = []}) {
     }
 
 
-    const SortButton = ({name, type}) =>
+    const SortButton = ({ name, type }) =>
         <Button
             color='primary'
             className='button button_hover'
@@ -122,19 +122,25 @@ export default function TasksTable({tasks = []}) {
         }
     ]
     return (
-        <Table className='card card_rounded'>
-            <TableHead>
-                <TableRow>
-                    {names.map(({name, key}) =>
-                        <TableCell key={key}>
-                            {name && <SortButton name={name} type={key}/>}
-                        </TableCell>
-                    )}
-                </TableRow>
-            </TableHead>
-            <TableBody>
-                {tasks.map(task => <RenderRow key={task.id} task={task}/>)}
-            </TableBody>
-        </Table>
+        <Box
+            flex={1}
+            overflow='auto'
+            bgcolor='#F2F2F2'
+        >
+            <Table className='card card_rounded'>
+                <TableHead className='card__head card__head_primary'>
+                    <TableRow>
+                        {names.map(({ name, key }) =>
+                            <TableCell key={key}>
+                                {name && <SortButton name={name} type={key} />}
+                            </TableCell>
+                        )}
+                    </TableRow>
+                </TableHead>
+                <TableBody>
+                    {tasks.map(task => <RenderRow key={task.id} task={task} />)}
+                </TableBody>
+            </Table>
+        </Box>
     );
 }

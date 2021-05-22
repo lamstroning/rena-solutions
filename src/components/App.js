@@ -1,7 +1,7 @@
-import {BrowserRouter, Route} from 'react-router-dom';
-import {Redirect, Switch} from 'react-router';
+import { BrowserRouter, Route } from 'react-router-dom';
+import { Redirect, Switch } from 'react-router';
 
-import {Box} from '@material-ui/core';
+import { Box } from '@material-ui/core';
 
 import '../styles/index.scss';
 
@@ -13,19 +13,19 @@ import Profile from './Profile/Profile';
 import CheckListDetail from './CheckList/CheckListDetail';
 import NewTask from './Tasks/NewTask';
 import Reports from './Reports/Reports';
-import {getCurrentUser} from '../Services/AuthService';
+import { getCurrentUser } from '../Services/AuthService';
 import Users from './Users/Users';
 
 function App() {
     const role = getCurrentUser().role;
 
-    const PrivateRoute = ({children, success}) => (
+    const PrivateRoute = ({ children, success }) => (
         <Route
             render={() =>
                 success
-                ? children
-                : <Redirect to='/404'/>
-                }
+                    ? children
+                    : <Redirect to='/404' />
+            }
         />
     );
 
@@ -38,32 +38,32 @@ function App() {
             <BrowserRouter basename={process.env.PUBLIC_URL}>
                 <Switch>
                     <Route exact path='/'>
-                        <Redirect to='/tasks'/>
+                        <Redirect to='/tasks' />
                     </Route>
                     <Route path='/tasks/new'>
                         <Header
                             backArrow
                             title='Создать задание на ремонт'
                         />
-                        <NewTask/>
+                        <NewTask />
                     </Route>
                     <Route path='/tasks'>
-                        <Header title='Задания на ремонт'/>
-                        <Tasks/>
+                        <Header title='Задания на ремонт' />
+                        <Tasks />
                     </Route>
                     <Route path='/checklist/info'>
                         <Header
                             backArrow
-                            title='Информация по действию чек-листа'
+                            title='Информация по действию'
                         />
-                        <CheckListDetail/>
+                        <CheckListDetail />
                     </Route>
                     <Route path='/checklist'>
                         <Header
                             backArrow
                             title='Чек-лист задания'
                         />
-                        <CheckList/>
+                        <CheckList />
                     </Route>
                     <PrivateRoute
                         success={role == 'admin'}
@@ -73,14 +73,14 @@ function App() {
                             backArrow
                             title='Отчеты по чек листам'
                         />
-                        <Reports/>
+                        <Reports />
                     </PrivateRoute>
                     <Route path='/profile'>
                         <Header
                             backArrow
                             title='Профиль'
                         />
-                        <Profile/>
+                        <Profile />
                     </Route>
                     <PrivateRoute
                         success={role == 'admin'}
@@ -90,13 +90,13 @@ function App() {
                             backArrow
                             title='Пользователи'
                         />
-                        <Users/>
+                        <Users />
                     </PrivateRoute>
                     <Route path='/404'>
-                        <NotFound/>
+                        <NotFound />
                     </Route>
                     <Route path='*'>
-                        <Redirect to='/404'/>
+                        <Redirect to='/404' />
                     </Route>
                 </Switch>
             </BrowserRouter>
