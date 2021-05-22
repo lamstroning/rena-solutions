@@ -28,7 +28,7 @@ export default function UserSettings({user}) {
             </div>
             <div className='row row_offset-2'>
                 <div className='col col_4'>
-                    <div className='row row_offset-2'>
+                    <div className='row'>
                         <div className='col col_12'>
                             <Input
                                 placeholder='Введите фамилия'
