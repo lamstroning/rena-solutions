@@ -1,39 +1,11 @@
 import {Button, Table, TableBody, TableCell, TableHead, TableRow, TextField} from '@material-ui/core';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import HeadCell from '../Table/HeadCell';
-
-const rows = [
-    {
-        name: 'Ремонт двигателя',
-        equipment: 'PlazMax CNC-2060'
-    },
-    {
-        name: 'Ремонт двигателя',
-        equipment: 'PlazMax CNC-2060'
-    },
-    {
-        name: 'Ремонт двигателя',
-        equipment: 'PlazMax CNC-2060'
-    },
-    {
-        name: 'Ремонт двигателя',
-        equipment: 'PlazMax CNC-2060'
-    },
-    {
-        name: 'Ремонт двигателя',
-        equipment: 'PlazMax CNC-2060'
-    },
-    {
-        name: 'Ремонт двигателя',
-        equipment: 'PlazMax CNC-2060'
-    },
-    {
-        name: 'Ремонт двигателя',
-        equipment: 'PlazMax CNC-2060'
-    }
-]
+import {getTasks} from '../../Services/TaskService';
 
 export default function NewTaskChoiceCheckList() {
+    const rows = getTasks();
+
     return (
         <>
             <div className='row row_offset-2 col'>
@@ -97,8 +69,8 @@ export default function NewTaskChoiceCheckList() {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {rows.map(({equipment, name}) =>
-                                <TableRow>
+                            {rows.map(({equipment, name}, index) =>
+                                <TableRow key={index}>
                                     <TableCell>{name}</TableCell>
                                     <TableCell>{equipment}</TableCell>
                                 </TableRow>

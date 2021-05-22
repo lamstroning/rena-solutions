@@ -1,8 +1,8 @@
-import {getUser} from '../../Services/AuthService';
+import {getCurrentUser} from '../../Services/AuthService';
 import {Button, TextField} from '@material-ui/core';
 
 export default function Profile() {
-    const user = getUser();
+    const user = getCurrentUser();
 
     return (
         <div className='page container'>

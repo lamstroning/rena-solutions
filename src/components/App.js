@@ -13,11 +13,11 @@ import Profile from './Profile/Profile';
 import CheckListDetail from './CheckList/CheckListDetail';
 import NewTask from './Tasks/NewTask';
 import Reports from './Reports/Reports';
-import {getUser} from '../Services/AuthService';
+import {getCurrentUser} from '../Services/AuthService';
 import Users from './Users/Users';
 
 function App() {
-    const role = getUser().role;
+    const role = getCurrentUser().role;
 
     const PrivateRoute = ({children, success}) => (
         <Route

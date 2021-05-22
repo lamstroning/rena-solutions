@@ -20,7 +20,7 @@ export default function UsersList({userList, selectUser}) {
                     </TableCell>
                 </TableHead>
                 {userList.map(user =>
-                    <TableRow className='table__row table__row_hovering'>
+                    <TableRow key={user.name} className='table__row table__row_hovering'>
                         <TableCell
                             onClick={() => selectUser(user)}
                             className='table__cell'

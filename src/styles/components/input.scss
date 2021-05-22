@@ -1,7 +1,22 @@
+.input-container {
+  position: relative;
+}
+
 .input {
   border-radius: 4px;
 
   &_bg-white {
     background-color: white;
+  }
+}
+
+.input-message {
+  position: absolute;
+  font-size: 10px;
+  top: 5px;
+  right: 5px;
+
+  &_error {
+    color: var(--color-error)
   }
 }

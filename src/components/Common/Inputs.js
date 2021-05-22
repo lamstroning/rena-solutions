@@ -1,13 +1,21 @@
 import {TextField} from '@material-ui/core';
 
-export function Input (props) {
+export function Input ({error, errorMessage, ...props}) {
     return (
-        <TextField
-            className='input input_bg-white'
-            fullWidth
-            variant='outlined'
-            size='small'
-            {...props}
-        />
+        <div className='input-container'>
+            <TextField
+                className='input input_bg-white'
+                error={error}
+                fullWidth
+                variant='outlined'
+                size='small'
+                {...props}
+            />
+            {error &&
+                <div className='input-message input-message_error'>
+                    {errorMessage}
+                </div>
+            }
+        </div>
     )
 }

@@ -2,6 +2,7 @@ import avatarAdmin from '../asetss/images/worker-avatar.png'
 import avatarUser from '../asetss/images/user-avatar.jpg'
 
 const admin = {
+    id: 0,
     name: 'Иванов А. А.',
     role: 'admin',
     email: 'ivanov.a.a@informatique.ru',
@@ -14,6 +15,7 @@ const admin = {
 };
 
 const user = {
+    id: 1,
     name: 'Петров И. Г.',
     role: 'user',
     email: 'petrov.i.g@informatique.ru',
@@ -26,6 +28,7 @@ const user = {
 };
 
 const newUser = {
+    id: '',
     name: '',
     role: '',
     email: '',
@@ -46,7 +49,11 @@ export function createUser() {
     return newUser;
 }
 
-export function getUser() {
+export function getUser(id) {
+    return userList.find(user => user.id == id);
+}
+
+export function getCurrentUser() {
     return JSON.parse(localStorage.getItem('user'));
 }
 

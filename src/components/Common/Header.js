@@ -8,12 +8,12 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
 import {useState} from 'react';
-import {getUser} from '../../Services/AuthService';
+import {getCurrentUser} from '../../Services/AuthService';
 import {NavLink} from 'react-router-dom';
 
 export default function Header({backArrow, title}) {
     const [open, setOpen] = useState(false);
-    const user = getUser();
+    const user = getCurrentUser();
 
     return (
         <div className='header'>
