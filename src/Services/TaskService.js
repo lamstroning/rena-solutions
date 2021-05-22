@@ -21,13 +21,14 @@ function getOffsetDate(day, hour, minutes) {
     return tmpDate.toLocaleString().replace(',', ' ');
 }
 
-const tasks = [
+const tasksDB = [
     {
         id: 1,
         status: 'finish',
         number: '000000000001',
-        auth: 'Петров А.В.',
-        name: 'Иванов А.А.',
+        authorId: 2,
+        name: 'KUKA 5 ARC',
+        workerId: 1,
         code: '35663-KL',
         date: getOffsetDate(1, 2, 27),
         endDate: '',
