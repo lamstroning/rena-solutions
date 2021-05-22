@@ -10,10 +10,11 @@ import Login from './components/Auth/Login';
 import { StylesProvider } from '@material-ui/core/styles';
 
 import * as serviceWorker from './serviceWorker';
+import {getCurrentUser} from './Services/AuthService';
 
 const PrivateRoute = () => {
-    const user = window.localStorage.getItem('auth'); // i will fetch token stored in cookie
-    if (user === 'true')
+    const user = getCurrentUser();
+    if (user)
         return <Route path='/'>
             <App/>
         </Route>;
