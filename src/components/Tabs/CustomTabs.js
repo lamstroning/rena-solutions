@@ -33,36 +33,36 @@ export default function CustomTabs({table, filter}) {
         <>
             <div className='tabs-container'>
                 <AppBar className='tabs' position='static'>
-                    <Tabs
-                        centered
-                        indicatorColor='primary'
-                        className='tabs__container'
-                        value={value}
-                        onChange={changeTab}
-                    >
-                        {filters.map(({type, label}) =>
-                            <Tab
-                                key={type}
-                                value={type}
-                                label={label}
-                                disableRipple
-                                className='tabs__item'
-                            />
-                        )}
-
+                    <div className='row row_between'>
+                        <Tabs
+                            centered
+                            indicatorColor='primary'
+                            className='tabs__container'
+                            value={value}
+                            onChange={changeTab}
+                        >
+                            {filters.map(({type, label}) =>
+                                <Tab
+                                    key={type}
+                                    value={type}
+                                    label={label}
+                                    disableRipple
+                                    className='tabs__item'
+                                />
+                            )}
+                        </Tabs>
                         <Button
                             className='button'
                             color='primary'
                             variant='contained'
                             href='/tasks/new'
-                            title='Создать задание'
                         >
                             <AddIcon/>
                             <div className='button__label'>
                                 Создать задание
                             </div>
                         </Button>
-                    </Tabs>
+                    </div>
                 </AppBar>
             </div>
             <div>

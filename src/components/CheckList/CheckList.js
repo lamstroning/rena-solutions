@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useLocation } from "react-router-dom";
 
 import {
-    Box, Table, TableBody, TableCell, TableHead, TableRow, withStyles, Button, IconButton, Drawer,
+    Box, Table, TableBody, TableCell, TableHead, TableRow, Button, IconButton, Drawer,
     Dialog, DialogTitle, DialogContent, MenuItem, TextField, ListItemIcon, Menu, Link, Select
 } from '@material-ui/core';
 
@@ -52,7 +52,7 @@ const checkList = [
 ]
 
 function CameraDialog(props) {
-    const { onClose, selectedValue } = props;
+    const {onClose} = props;
 
     function handleTakePhoto() {
         // Do stuff with the photo...
@@ -93,7 +93,7 @@ function EquipmentInfo({ code, name }) {
     ];
 
     const renderEquipmentItem = item =>
-        <div className='row row_between'>
+        <div key={item.value} className='row row_between'>
             <div className='col'>
                 {item.category}:
             </div>
@@ -263,7 +263,7 @@ export default function CheckList() {
             >
                 Заявка не выбрана
                 <Box px={2}>
-                    <Link href='/tasks'>Список задач</Link>
+                    <Link href='/'>Список задач</Link>
                 </Box>
             </Box>
         );
