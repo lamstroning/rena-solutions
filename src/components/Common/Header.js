@@ -1,7 +1,6 @@
-import {Box, Button, Drawer, IconButton, Typography} from '@material-ui/core';
+import {Button, Drawer, IconButton} from '@material-ui/core';
 import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
 import AssignmentIcon from '@material-ui/icons/Assignment';
-import LibraryBooksIcon from '@material-ui/icons/LibraryBooks';
 import SettingsIcon from '@material-ui/icons/Settings';
 import EqualizerIcon from '@material-ui/icons/Equalizer';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
@@ -105,7 +104,7 @@ export default function Header({backArrow, title}) {
                 <Button
                     className='button button_white button_left button_square'
                     onClick={() => {
-                        window.localStorage.clear();
+                        window.localStorage.removeItem('user');
                         window.location.reload();
                     }}
                 >
