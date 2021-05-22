@@ -28,6 +28,10 @@
     }
   }
 
+  &__body {
+    background-color: white;
+  }
+
   &__row {
     &_hovering:hover {
       cursor: pointer;

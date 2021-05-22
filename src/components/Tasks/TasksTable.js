@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { useHistory } from 'react-router';
+import {useState} from 'react';
+import {useHistory} from 'react-router';
 
 import { Box, Button, Table, TableBody, TableCell, TableHead, TableRow } from '@material-ui/core';
 
@@ -86,8 +86,7 @@ export default function TasksTable({ tasks = [] }) {
 
     const SortButton = ({ name, type }) =>
         <Button
-            color='primary'
-            className='button button_hover'
+            className='button button_white button_hover'
             onClick={() => requestSort(type)}
         >
             {name}
@@ -122,25 +121,19 @@ export default function TasksTable({ tasks = [] }) {
         }
     ]
     return (
-        <Box
-            flex={1}
-            overflow='auto'
-            bgcolor='#F2F2F2'
-        >
-            <Table className='card card_rounded'>
-                <TableHead className='card__head card__head_primary'>
-                    <TableRow>
-                        {names.map(({ name, key }) =>
-                            <TableCell key={key}>
-                                {name && <SortButton name={name} type={key} />}
-                            </TableCell>
-                        )}
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {tasks.map(task => <RenderRow key={task.id} task={task} />)}
-                </TableBody>
-            </Table>
-        </Box>
+        <Table className='table table_rounded'>
+            <TableHead className='table__head table__head_primary'>
+                <TableRow>
+                    {names.map(({ name, key }) =>
+                        <TableCell key={key}>
+                            {name && <SortButton name={name} type={key} />}
+                        </TableCell>
+                    )}
+                </TableRow>
+            </TableHead>
+            <TableBody className='table__body'>
+                {tasks.map(task => <RenderRow key={task.id} task={task} />)}
+            </TableBody>
+        </Table>
     );
 }
