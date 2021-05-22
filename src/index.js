@@ -18,7 +18,7 @@ const PrivateRoute = () => {
             <App/>
         </Route>;
     else
-        return <Redirect to='login'/>
+        return <Redirect to='/login'/>
 }
 
 ReactDOM.render(
