@@ -1,6 +1,7 @@
-import {AppBar, Button, Tab, Tabs} from '@material-ui/core';
-import {useState} from 'react';
+import { AppBar, Button, Tab, Tabs } from '@material-ui/core';
+import { useState } from 'react';
 import AddIcon from '@material-ui/icons/Add';
+import { getCurrentUser } from '../../Services/AuthService';
 
 const filters = [
     {
@@ -21,8 +22,9 @@ const filters = [
     }
 ]
 
-export default function CustomTabs({table, filter}) {
+export default function CustomTabs({ table, filter }) {
     const [value, setValue] = useState('all');
+    const user = getCurrentUser();
 
     const changeTab = (event, value) => {
         setValue(value);
@@ -31,7 +33,7 @@ export default function CustomTabs({table, filter}) {
 
     return (
         <>
-            <div className='tabs-container'>
+            <div className='tabs-container' >
                 <AppBar className='tabs' position='static'>
                     <div className='row row_between'>
                         <Tabs
@@ -41,7 +43,7 @@ export default function CustomTabs({table, filter}) {
                             value={value}
                             onChange={changeTab}
                         >
-                            {filters.map(({type, label}) =>
+                            {filters.map(({ type, label }) =>
                                 <Tab
                                     key={type}
                                     value={type}
@@ -51,17 +53,19 @@ export default function CustomTabs({table, filter}) {
                                 />
                             )}
                         </Tabs>
-                        <Button
-                            className='button'
-                            color='primary'
-                            variant='contained'
-                            href='/tasks/new'
-                        >
-                            <AddIcon/>
-                            <div className='button__label'>
-                                Создать задание
+                        {user.role == 'admin' &&
+                            <Button
+                                className='button'
+                                color='primary'
+                                variant='contained'
+                                href='/tasks/new'
+                            >
+                                <AddIcon />
+                                <div className='button__label'>
+                                    Создать задание
                             </div>
-                        </Button>
+                            </Button>
+                        }
                     </div>
                 </AppBar>
             </div>
