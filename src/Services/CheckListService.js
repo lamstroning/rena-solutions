@@ -85,6 +85,16 @@ const checkListsDB = [
     }
 ]
 
+export function getCheckListsByName(name) {
+    result = []
+    checkListsDB.forEach((element) => {
+        if (element.name.startsWith(name)) {
+            result.push(element)
+        }
+    })
+    return result
+}
+
 const checkListFields1 = [
     {
         name: 'Проверить питание мотора',
