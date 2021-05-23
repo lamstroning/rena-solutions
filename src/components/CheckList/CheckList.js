@@ -7,7 +7,6 @@ import {
     Dialog, DialogTitle, DialogContent, MenuItem, TextField, ListItemIcon, Menu, Link, Select
 } from '@material-ui/core';
 
-import AttachFileIcon from '@material-ui/icons/AttachFile'
 import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
 import AddPhotoAlternateIcon from '@material-ui/icons/AddPhotoAlternate';
 import EditIcon from '@material-ui/icons/Edit';

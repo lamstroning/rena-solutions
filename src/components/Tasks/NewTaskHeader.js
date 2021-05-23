@@ -6,7 +6,7 @@ import {getUser} from '../../Services/AuthService';
 import Alert from '../Alert/Alert';
 import FilterListIcon from '@material-ui/icons/FilterList';
 
-export default function NewTaskHeader({changeEquipment}) {
+export default function NewTaskHeader({checklistName, changeEquipment}) {
     const [task, setTask] = useState({...emptyTask});
     const [showError, setShowError] = useState(false);
     const [open, setOpen] = useState(false);
@@ -113,6 +113,8 @@ export default function NewTaskHeader({changeEquipment}) {
                 <div className='col col_6'>
                     <TextField
                         fullWidth
+                        disabled
+                        value={checklistName}
                         placeholder='Выбранный чек-лист'
                         className='input input_bg-white'
                         variant='outlined'
