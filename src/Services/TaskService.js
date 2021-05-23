@@ -1,4 +1,4 @@
-import {getOffsetDate} from './Date';
+import { getOffsetDate } from './Date';
 
 export const emptyTask = {
     name: '',
@@ -21,10 +21,49 @@ const tasksDB = [
         date: getOffsetDate(1, 2, 27),
         endDate: '',
         icon: 'warning',
-        actionsState: {
-            "1": "Есть",
-            "2": "270",
-            "3": "Есть"
+        checkList: {
+            id: 1,
+            name: 'Отказ системы управления',
+            equipment: 'KUKA KR 6-2',
+            actions: [
+                {
+                    actionID: 1,
+                    show: true,
+                    value: 'Есть'
+                },
+                {
+                    actionID: 2,
+                    rules: [
+                        {
+                            actionID: 1,
+                            compareType: '=',
+                            targetValue: 'Есть'
+                        }
+                    ],
+                    show: true,
+                    value: 'Есть'
+                },
+                {
+                    actionID: 3,
+                    rules: [
+                        // it isn't mistake
+                        [
+                            {
+                                actionID: 1,
+                                compareType: '=',
+                                targetValue: 'Есть'
+                            },
+                            {
+                                actionID: 2,
+                                compareType: '=',
+                                targetValue: 'Есть'
+                            }
+                        ]
+                    ],
+                    show: true,
+                    value: 220
+                }
+            ]
         }
     }
 ]

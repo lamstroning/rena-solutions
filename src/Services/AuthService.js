@@ -54,6 +54,10 @@ export function getUser(id) {
     return userList.find(user => user.id == id) || {};
 }
 
+export function getUserByName(name) {
+    return userList.find(user => user.name == name) || {};
+}
+
 export function getCurrentUser() {
     return JSON.parse(localStorage.getItem('user'));
 }
