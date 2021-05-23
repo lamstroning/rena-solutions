@@ -22,7 +22,7 @@ const filters = [
     }
 ]
 
-export default function CustomTabs({ table, filter }) {
+export default function CustomTabs({table, filter}) {
     const [value, setValue] = useState('all');
     const user = getCurrentUser();
 
@@ -60,7 +60,7 @@ export default function CustomTabs({ table, filter }) {
                                 variant='contained'
                                 href='/tasks/new'
                             >
-                                <AddIcon />
+                                <AddIcon/>
                                 <div className='button__label'>
                                     Создать задание
                             </div>
