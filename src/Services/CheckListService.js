@@ -87,6 +87,10 @@ const checkListsDB = [
 
 export function getCheckListsByName(name) {
     result = []
+    if (length(name) < 3) {
+        return result
+    }
+
     checkListsDB.forEach((element) => {
         if (element.name.startsWith(name)) {
             result.push(element)
