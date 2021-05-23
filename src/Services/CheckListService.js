@@ -180,12 +180,17 @@ function ruleResult(rule, checkList) {
         case 'select':
             switch (rule.compareType) {
                 case '=':
-                    return action.expected === value
+                    return rule.targetValue === value
                 default:
                     return false
             }
         case 'number':
-            return action.expected.min <= value && value < action.expected.max
+            switch (rule.compareType) {
+                case '...':
+                    return rule.min <= value && value < rule.max
+                default:
+                    return false
+            }
         default:
             return false
     }
