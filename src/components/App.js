@@ -10,7 +10,7 @@ import Header from './Common/Header';
 import NotFound from './404';
 import CheckList from './CheckList/CheckList';
 import Profile from './Profile/Profile';
-import CheckListDetail from './CheckList/CheckListDetail';
+import ActionInfo from './Action/ActionInfo';
 import NewTask from './Tasks/NewTask';
 import Reports from './Reports/Reports';
 import { getCurrentUser } from '../Services/AuthService';
@@ -56,7 +56,7 @@ function App() {
                             backArrow
                             title='Информация по действию'
                         />
-                        <CheckListDetail />
+                        <ActionInfo />
                     </Route>
                     <Route path='/checklist'>
                         <Header

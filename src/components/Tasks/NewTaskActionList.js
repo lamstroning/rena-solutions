@@ -1,5 +1,6 @@
-import {Table, TableBody, TableCell, TableHead, TableRow} from '@material-ui/core';
+import {IconButton, Table, TableBody, TableCell, TableHead, TableRow} from '@material-ui/core';
 import {getActionByID, getExpectedString} from '../../Services/CheckListService';
+import InfoIcon from '@material-ui/icons/Info';
 
 function ActionListRow({id, index}) {
     const action = getActionByID(id);
@@ -11,6 +12,13 @@ function ActionListRow({id, index}) {
             </TableCell>
             <TableCell>
                 {action.desc}
+                <IconButton
+                    href={`/checklist/info?id=${id}`}
+                    className='icon-button icon-button_warning'
+                    size='small'
+                >
+                    <InfoIcon />
+                </IconButton>
             </TableCell>
             <TableCell>
                 {getExpectedString(id)}
@@ -34,9 +42,11 @@ export default function NewTaskActionList({actions = []}) {
                     </TableHead>
                     <TableBody className='table__body'>
                         {!actions.length &&
-                            <TableCell colSpan={3} align='center'>
-                                Выберите чек-лист
-                            </TableCell>
+                            <TableRow>
+                                <TableCell colSpan={3} align='center'>
+                                    Выберите чек-лист
+                                </TableCell>
+                            </TableRow>
                         }
                         {actions.map(({id}, index) =>
                             <ActionListRow id={id} index={index}/>

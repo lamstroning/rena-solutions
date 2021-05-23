@@ -1,3 +1,9 @@
+import imgCheckMotorPower from '../asetss/images/imgCheckMotorPower.png';
+import imgCheckConnection from '../asetss/images/imgCheckConnection.png';
+import imgRemovingCover from '../asetss/images/imgRemovingCover.png';
+import imgTensioning from '../asetss/images/imgTensioning.png';
+import imgMeasuringDevice from '../asetss/images/imgMeasuringDevice.png';
+
 const actionsDB = [
     {
         id: 1,
@@ -6,7 +12,7 @@ const actionsDB = [
         selectItems: ['Есть', 'Нет'],
         expected: 'Есть',
         detail: {
-            img: '../../asetss/images/imgCheckMotorPower.png',
+            img: imgCheckMotorPower,
             name: 'Проверить питание мотора',
             info: [
                 'Визуально проверить исправность кабеля кабеля мотора X20-X30',
@@ -24,7 +30,7 @@ const actionsDB = [
         selectItems: ['Есть', 'Нет'],
         expected: 'Есть',
         detail: {
-            img: '../../asetss/images/imgCheckConnection.png',
+            img: imgCheckConnection,
             name: 'Проверить наличие связи',
             info: [
                 'Визуально проверить исправность кабеля кабеля связи X21-X31',
@@ -50,7 +56,7 @@ const actionsDB = [
         selectItems: ['Снята', 'Нет'],
         expected: 'Снята',
         detail: {
-            img: '../../asetss/images/imgRemovingCover.png',
+            img: imgRemovingCover,
             name: 'Снять крышку',
             info: [
                 'Выкрутите из крышки 7 винтов M3x10-10.9 с полукруглой головкой и снимите крышку'
@@ -64,7 +70,7 @@ const actionsDB = [
         selectItems: ['Ослаблены', 'Нет'],
         expected: 'Ослаблены',
         detail: {
-            img: '../../asetss/images/imgTensioning.png',
+            img: imgTensioning,
             name: 'Ослабить винты на двигателе',
             info: [
                 'Ослабьте 2 винта M4x10-10.9 с цилиндрической головкой на двигателе'
@@ -92,7 +98,6 @@ const actionsDB = [
         selectItems: ['Затянуты', 'Нет'],
         expected: 'Затянуты',
         detail: {
-            img: '',
             name: 'Затяжение винтов',
             info: [
                 'Слегка затяните 2 винта M4x10-10.9 с цилиндрической головкой на двигателе'
@@ -106,7 +111,6 @@ const actionsDB = [
         selectItems: ['Подключено', 'Нет'],
         expected: 'Подключено',
         detail: {
-            img: '',
             name: 'Подключение устройства измерения натяжения',
             info: [
                 'Подключите устройство измерения натяжения ремня.'
@@ -123,7 +127,7 @@ const actionsDB = [
             max: 310
         },
         detail: {
-            img: '../../asetss/images/imgMeasuringDevice.png',
+            img: imgMeasuringDevice,
             name: 'Регулировка натяжения',
             info: [
                 'Отстегнуть зубчатый ремень и удерживать датчик около его центра на расстоянии 2-3 мм от вибрирующего зубчатого ремня',
@@ -295,7 +299,7 @@ export function getCheckListsByEquipment(equipment) {
 export function getActionByID(actionID) {
     let result
     actionsDB.forEach(action => {
-        if (action.id === actionID)
+        if (action.id == actionID)
             result = action
     })
     return result
