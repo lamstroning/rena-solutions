@@ -2,10 +2,9 @@ const actionsDB = [
     {
         id: 1,
         desc: 'Проверить питание мотора',
-        expected: {
-            type: 'selector',
-            value: 'Есть'
-        },
+        field: 'select',
+        selectItems: ['Есть', 'Нет'],
+        expected: 'Есть',
         detail: {
             img: '../../asetss/images/imgCheckMotorPower.png',
             name: 'Проверить питание мотора',
@@ -21,10 +20,9 @@ const actionsDB = [
     {
         id: 2,
         desc: 'Проверить  наличие связи',
-        expected: {
-            type: 'selector',
-            value: 'Есть'
-        },
+        field: 'select',
+        selectItems: ['Есть', 'Нет'],
+        expected: 'Есть',
         detail: {
             img: '../../asetss/images/imgCheckConnection.png',
             name: 'Проверить наличие связи',
@@ -38,11 +36,11 @@ const actionsDB = [
     {
         id: 3,
         desc: 'Проверить питание на выходе РЩ',
+        field: 'number',
+        units: 'В',
         expected: {
-            type: 'input',
             min: 195,
             max: 240,
-            units: 'В'
         }
     }
 ]
@@ -54,7 +52,8 @@ const checkListsDB = [
         equipment: 'KUKA KR 6-2',
         actions: [
             {
-                actionID: 1
+                actionID: 1,
+                show: false
             },
             {
                 actionID: 2,
@@ -64,30 +63,35 @@ const checkListsDB = [
                         compareType: '=',
                         targetValue: 'Есть'
                     }
-                ]
+                ],
+                show: false
             },
             {
                 actionID: 3,
                 rules: [
-                    {
-                        actionID: 1,
-                        compareType: '=',
-                        targetValue: 'Есть'
-                    },
-                    {
-                        actionID: 2,
-                        compareType: '=',
-                        targetValue: 'Есть'
-                    }
-                ]
+                    // it isn't mistake
+                    [
+                        {
+                            actionID: 1,
+                            compareType: '=',
+                            targetValue: 'Есть'
+                        },
+                        {
+                            actionID: 2,
+                            compareType: '=',
+                            targetValue: 'Есть'
+                        }
+                    ]
+                ],
+                show: false
             }
         ]
     }
 ]
 
 export function getCheckListsByName(name) {
-    result = []
-    if (length(name) < 3) {
+    let result = []
+    if (name.length < 3) {
         return result
     }
 
@@ -97,6 +101,89 @@ export function getCheckListsByName(name) {
         }
     })
     return result
+}
+
+export function getCheckListsByEqupment(equpment) {
+    let result = []
+    if (equpment.length < 3) {
+        return result
+    }
+
+    checkListsDB.forEach((element) => {
+        if (element.equipment.startsWith(equpment)) {
+            result.push(element)
+        }
+    })
+    return result
+}
+
+function getActionByID(actionID) {
+    actionsDB.forEach((action) => {
+        if (action.actionID == actionID) {
+            return action
+        }
+    })
+}
+
+export function getActionDetailByActionID(actionID) {
+    let action = getActionByID(actionID)
+    if ('detail' in action) {
+        return action.detail
+    }
+}
+
+export function getCheckListActionDetail(checklistID, actionID) {
+    checkListsDB.forEach((checkList) => {
+        if (checkList.id == checklistID) {
+            checkList.actions.forEach((action) => {
+                if (action.actionID == actionID) {
+                    return getActionDetailByActionID(actionID)
+                }
+            })
+        }
+    })
+}
+
+function getActionValue(checkList, actionID) {
+    checkList.actions.forEach((action) => {
+        if (action.actionID == actionID) {
+            return action.value
+        }
+    })
+}
+
+function ruleResult(rule, checkList) {
+    const action = getActionByID(rule.actionID)
+    const value = getActionValue(checkList, rule.actionID)
+    switch (action.field) {
+        case 'select':
+            return action.expected == value
+        case 'number':
+            return action.expected.min <= value && value < action.expected.max
+        default:
+            return false
+    }
+}
+
+export function updateCurrentCheckList(currentCheckList) {
+    currentCheckList.actions.forEach((action) => {
+        if ('rules' in action) {
+            action.rules.forEach((rule) => {
+                let orResult = false
+                // it's an array, concate subitems via AND
+                if (Array.isArray(rule)) {
+                    andResult = true
+                    rule.forEach((subRule) => {
+                        andResult = andResult & ruleResult(rule, currentCheckList)
+                    })
+                    orResult = orResult | andResult
+                } else {
+                    // other rules concate via OR
+                    orResult = orResult | ruleResult(rule, currentCheckList)
+                }
+            })
+        }
+    })
 }
 
 const checkListFields1 = [
