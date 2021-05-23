@@ -42,6 +42,94 @@ const actionsDB = [
             min: 195,
             max: 240
         }
+    },
+    {
+        id: 4,
+        desc: 'Снять крышку',
+        field: 'select',
+        selectItems: ['Снята', 'Нет'],
+        expected: 'Снята',
+        detail: {
+            img: '../../asetss/images/imgRemovingCover.png',
+            name: 'Снять крышку',
+            info: [
+                'Выкрутите из крышки 7 винтов M3x10-10.9 с полукруглой головкой и снимите крышку'
+            ]
+        }
+    },
+    {
+        id: 5,
+        desc: 'Ослабить винты на двигателе',
+        field: 'select',
+        selectItems: ['Ослаблены', 'Нет'],
+        expected: 'Ослаблены',
+        detail: {
+            img: '../../asetss/images/imgTensioning.png',
+            name: 'Ослабить винты на двигателе',
+            info: [
+                'Ослабьте 2 винта M4x10-10.9 с цилиндрической головкой на двигателе'
+            ]
+        }
+    },
+    {
+        id: 6,
+        desc: 'Натяжение ремня',
+        field: 'select',
+        selectItems: ['Натяжён', 'Нет'],
+        expected: 'Натяжён',
+        detail: {
+            img: '',
+            name: 'Натяжение ремня',
+            info: [
+                'Вставьте подходящий инструмент (например, отвертку) в соответствующее отверстие в креплении двигателя и осторожно нажмите на двигатель влево, чтобы натянуть зубчатый ремень.'
+            ]
+        }
+    },
+    {
+        id: 7,
+        desc: 'Затяжение винтов',
+        field: 'select',
+        selectItems: ['Затянуты', 'Нет'],
+        expected: 'Затянуты',
+        detail: {
+            img: '',
+            name: 'Затяжение винтов',
+            info: [
+                'Слегка затяните 2 винта M4x10-10.9 с цилиндрической головкой на двигателе'
+            ]
+        }
+    },
+    {
+        id: 8,
+        desc: 'Подключение устройства измерения натяжения',
+        field: 'select',
+        selectItems: ['Подключено', 'Нет'],
+        expected: 'Подключено',
+        detail: {
+            img: '',
+            name: 'Подключение устройства измерения натяжения',
+            info: [
+                'Подключите устройство измерения натяжения ремня.'
+            ]
+        }
+    },
+    {
+        id: 9,
+        desc: 'Регулировка натяжения',
+        field: 'number',
+        units: 'Гц',
+        expected: {
+            min: 200,
+            max: 310
+        },
+        detail: {
+            img: '../../asetss/images/imgMeasuringDevice.png',
+            name: 'Регулировка натяжения',
+            info: [
+                'Отстегнуть зубчатый ремень и удерживать датчик около его центра на расстоянии 2-3 мм от вибрирующего зубчатого ремня',
+                'Считайте результат измерения на приборе для измерения натяжения ремня.'
+            ]
+        }
     }
 ]
 
@@ -66,7 +154,7 @@ const checkListsDB = [
             {
                 id: 1,
                 actionID: 1,
-                show: false
+                show: true
             },
             {
                 id: 2,
@@ -97,6 +185,78 @@ const checkListsDB = [
                             targetValue: 'Есть'
                         }
                     ]
+                ],
+                show: false
+            }
+        ]
+    },
+    {
+        id: 2,
+        name: 'Регулировка натяжения зубчатой передачи',
+        equipment: 'KUKA KR 6-2',
+        actions: [
+            {
+                id: 1,
+                actionID: 4,
+                show: true
+            },
+            {
+                id: 2,
+                actionID: 5,
+                rules: [
+                    {
+                        actionID: 4,
+                        compareType: '=',
+                        targetValue: 'Снята'
+                    }
+                ],
+                show: false
+            },
+            {
+                id: 3,
+                actionID: 6,
+                rules: [
+                    {
+                        actionID: 5,
+                        compareType: '=',
+                        targetValue: 'Ослаблены'
+                    }
+                ],
+                show: false
+            },
+            {
+                id: 4,
+                actionID: 7,
+                rules: [
+                    {
+                        actionID: 6,
+                        compareType: '=',
+                        targetValue: 'Натяжён'
+                    }
+                ],
+                show: false
+            },
+            {
+                id: 5,
+                actionID: 8,
+                rules: [
+                    {
+                        actionID: 7,
+                        compareType: '=',
+                        targetValue: 'Затянуты'
+                    }
+                ],
+                show: false
+            },
+            {
+                id: 6,
+                actionID: 9,
+                rules: [
+                    {
+                        actionID: 8,
+                        compareType: '=',
+                        targetValue: 'Подключено'
+                    }
                 ],
                 show: false
             }
