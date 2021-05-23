@@ -18,8 +18,8 @@ const tasksDB = [
         name: 'KUKA 5 ARC',
         workerId: 1,
         code: '35663-KL',
-        date: getOffsetDate(1, 2, 27),
-        endDate: '',
+        date: '2021-05-21 15:12',
+        endDate: '2021-05-21 15:45',
         icon: 'warning',
         checkList: {
             id: 1,
