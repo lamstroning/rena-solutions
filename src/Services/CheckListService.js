@@ -149,7 +149,7 @@ export function getActionDetailByActionID(actionID) {
 }
 
 export function getCheckListActionDetail(checklistID, actionID) {
-    var result
+    let result
     checkListsDB.forEach((checkList) => {
         if (checkList.id === checklistID) {
             checkList.actions.forEach((action) => {
@@ -163,7 +163,7 @@ export function getCheckListActionDetail(checklistID, actionID) {
 }
 
 function getActionValue(checkList, actionID) {
-    var result
+    let result
     checkList.actions.forEach((action) => {
         if ((action.actionID === actionID) && ('value' in action)) {
             result = action.value
@@ -173,7 +173,7 @@ function getActionValue(checkList, actionID) {
 }
 
 function getActionShowed(checkList, actionID) {
-    var result
+    let result
     checkList.actions.forEach((action) => {
         if ((action.actionID === actionID) && ('show' in action)) {
             result = action.show
@@ -207,10 +207,10 @@ function ruleResult(rule, checkList) {
 
 // return flag that checklist filled
 export function updateCurrentCheckList(currentCheckList) {
-    var counter = 0
+    let counter = 0
     currentCheckList.actions.forEach((action) => {
         if ('rules' in action) {
-            var showed = true
+            let showed = true
             let orResult = false
             action.rules.forEach((rule) => {
                 // it's an array, concate subitems via AND
@@ -243,73 +243,4 @@ export function updateCurrentCheckList(currentCheckList) {
     })
 
     return counter === currentCheckList.actions.length
-}
-
-const checkListFields1 = [
-    {
-        name: 'Проверить питание мотора',
-        value: true
-    },
-    {
-        name: 'Проверить наличие связи',
-        value: true
-    },
-    {
-        name: 'Проверить напряжеине на выхоже РЩ',
-        value: '195...240В'
-    }
-]
-const checkListFields2 = [
-    {
-        name: 'Проверить питание мотора',
-        value: true
-    },
-    {
-        name: 'Проверить наличие связи',
-        value: true
-    },
-    {
-        name: 'Проверить напряжеине на выхоже РЩ',
-        value: '195...240В'
-    }
-]
-const checkListFields3 = [
-    {
-        name: 'Проверить питание мотора',
-        value: true
-    },
-    {
-        name: 'Проверить наличие связи',
-        value: true
-    },
-    {
-        name: 'Проверить напряжеине на выхоже РЩ',
-        value: '195...240В'
-    }
-]
-
-const checkList = [
-    {
-        name: 'Проверка системы управления',
-        equipments: ['KUKA KR 6-2'],
-        checkListFields: checkListFields1
-    },
-    {
-        name: 'Проверка системы управления',
-        equipments: ['KUKA KR 6-2'],
-        checkListFields: checkListFields2
-    },
-    {
-        name: 'Регулировка натяжения зубчатых',
-        equipments: ['KUKA KR 6-2'],
-        checkListFields: checkListFields3
-    }
-]
-
-export function getCheckList() {
-    return checkList;
-}
-
-export function filterNameCheckList(filterName) {
-    return checkList.filter(({ name }) => name.indexOf(filterName) != -1);
 }

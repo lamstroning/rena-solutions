@@ -1,5 +1,13 @@
 .input-container {
+  width: 100%;
   position: relative;
+
+  &__icon {
+    position: absolute;
+    z-index: 10;
+    top: 8px;
+    left: 10px;
+  }
 }
 
 .input {
@@ -7,6 +15,10 @@
 
   &_bg-white {
     background-color: white;
+  }
+
+  &_icon-start {
+    padding-left: 40px;
   }
 }
 

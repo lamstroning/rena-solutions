@@ -1,14 +1,12 @@
 import { useState } from 'react';
 import { useHistory } from 'react-router';
 
-import {
-    Box, Button, FormControl, InputAdornment, InputLabel,
-    Link, OutlinedInput, Typography
-} from '@material-ui/core';
+import {Button, Link} from '@material-ui/core';
 import PersonIcon from '@material-ui/icons/Person';
 import LockIcon from '@material-ui/icons/Lock';
 
 import authorization from '../../Services/AuthService';
+import {Input} from '../Common/Inputs';
 
 export default function Login() {
     const [login, setLogin] = useState('');
@@ -25,108 +23,50 @@ export default function Login() {
     }
 
     return (
-        <Box
-            className='login'
-            p={4}
-            height='100vh'
-            display='flex'
-            justifyContent='center'
-            alignItems='center'
-        >
-            <Box
-                display='flex'
-                flexDirection='column'
-                bgcolor='white'
-                p={4}
-                borderRadius={35}
-                width={400}
-            >
-                <Typography
-                    align='center'
-                    variant='subtitle1'
-                    color='primary'
-                >
-                    Авторизация
-                </Typography>
-                <Typography
-                    align='center'
-                    variant='subtitle2'
-                    color='primary'
-                >
-                    Доступ для незарегистрированных пользователей закрыт
-                </Typography>
-                <Box
-                    mx='auto'
-                    mt={4}
-                    width={286}
-                >
-                    <FormControl
-                        fullWidth
-                        variant='outlined'
-                    >
-                        <InputLabel>
-                            Логин
-                        </InputLabel>
-                        <OutlinedInput
-                            value={login}
+        <div className='login'>
+            <form className='login__form card card_rounded'>
+                <div className='container'>
+                    <div className='row row_center'>
+                        <div className='title title_primary title_center'>
+                            Авторизация
+                        </div>
+                    </div>
+                    <div className='row row_offset-4 row_center'>
+                        <Input
                             label='Логин'
+                            value={login}
                             onChange={event => setLogin(event.currentTarget.value)}
-                            startAdornment={
-                                <InputAdornment>
-                                    <PersonIcon color='primary' />
-                                </InputAdornment>
-                            }
+                            startIcon={<PersonIcon color='primary'/>}
                         />
-                    </FormControl>
-                </Box>
-                <Box
-                    mx='auto'
-                    mt={4}
-                    width={286}
-                >
-                    <FormControl
-                        fullWidth
-                        variant='outlined'
-                    >
-                        <InputLabel>Пароль</InputLabel>
-                        <OutlinedInput
+                    </div>
+                    <div className='row row_offset-4 row_center'>
+                        <Input
                             type='password'
                             variant='outlined'
                             label='Пароль'
                             value={password}
                             onChange={event => setPassword(event.currentTarget.value)}
-                            startAdornment={
-                                <InputAdornment>
-                                    <LockIcon color='primary' />
-                                </InputAdornment>
-                            }
+                            startIcon={<LockIcon color='primary'/>}
                         />
-                    </FormControl>
-                </Box>
-                <Box
-                    width={226}
-                    mt={6}
-                    mx='auto'
-                >
-                    <Button
-                        size='large'
-                        fullWidth
-                        variant='contained'
-                        color='primary'
-                        onClick={handleClick}
-                    >
-                        Вход
-                    </Button>
-                </Box>
-                <Box
-                    mt={2}
-                    mx='auto'
-                >
-                    <Link href='#' onClick={() => alert('admin/admin - для создания заданий\nuser/user - для заполнения заданий')}>
-                        Демо пароль здесь!
-                    </Link>
-                </Box>
-            </Box>
-        </Box>
+                    </div>
+                    <div className='row row_offset-4 row_center'>
+                        <Button
+                            className='button'
+                            fullWidth
+                            variant='contained'
+                            color='primary'
+                            onClick={handleClick}
+                        >
+                            Вход
+                        </Button>
+                    </div>
+                    <div className='row row_offset-2 row_center'>
+                        <Link href='#' onClick={() => alert('admin/admin - для создания заданий\nuser/user - для заполнения заданий')}>
+                            Демо пароль здесь!
+                        </Link>
+                    </div>
+                </div>
+            </form>
+        </div>
     );
 }
