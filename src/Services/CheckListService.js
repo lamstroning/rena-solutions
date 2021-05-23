@@ -52,10 +52,12 @@ const checkListsDB = [
         equipment: 'KUKA KR 6-2',
         actions: [
             {
+                id: 1,
                 actionID: 1,
                 show: false
             },
             {
+                id: 2,
                 actionID: 2,
                 rules: [
                     {
@@ -67,6 +69,7 @@ const checkListsDB = [
                 show: false
             },
             {
+                id: 3,
                 actionID: 3,
                 rules: [
                     // it isn't mistake
@@ -118,11 +121,13 @@ export function getCheckListsByEqupment(equpment) {
 }
 
 function getActionByID(actionID) {
+    var result
     actionsDB.forEach((action) => {
-        if (action.actionID == actionID) {
-            return action
+        if (action.id === actionID) {
+            result = action
         }
     })
+    return result
 }
 
 export function getActionDetailByActionID(actionID) {
@@ -133,23 +138,27 @@ export function getActionDetailByActionID(actionID) {
 }
 
 export function getCheckListActionDetail(checklistID, actionID) {
+    var result
     checkListsDB.forEach((checkList) => {
-        if (checkList.id == checklistID) {
+        if (checkList.id === checklistID) {
             checkList.actions.forEach((action) => {
-                if (action.actionID == actionID) {
-                    return getActionDetailByActionID(actionID)
+                if (action.actionID === actionID) {
+                    result = getActionDetailByActionID(actionID)
                 }
             })
         }
     })
+    return result
 }
 
 function getActionValue(checkList, actionID) {
+    var result
     checkList.actions.forEach((action) => {
-        if (action.actionID == actionID) {
-            return action.value
+        if ((action.actionID === actionID) && ('value' in action)) {
+            result = action.value
         }
     })
+    return result
 }
 
 function ruleResult(rule, checkList) {
@@ -157,7 +166,12 @@ function ruleResult(rule, checkList) {
     const value = getActionValue(checkList, rule.actionID)
     switch (action.field) {
         case 'select':
-            return action.expected == value
+            switch (rule.compareType) {
+                case '=':
+                    return action.expected === value
+                default:
+                    return false
+            }
         case 'number':
             return action.expected.min <= value && value < action.expected.max
         default:
@@ -168,20 +182,21 @@ function ruleResult(rule, checkList) {
 export function updateCurrentCheckList(currentCheckList) {
     currentCheckList.actions.forEach((action) => {
         if ('rules' in action) {
+            let orResult = false
             action.rules.forEach((rule) => {
-                let orResult = false
                 // it's an array, concate subitems via AND
                 if (Array.isArray(rule)) {
-                    andResult = true
+                    let andResult = true
                     rule.forEach((subRule) => {
-                        andResult = andResult & ruleResult(rule, currentCheckList)
+                        andResult = andResult && ruleResult(subRule, currentCheckList)
                     })
-                    orResult = orResult | andResult
+                    orResult = orResult || andResult
                 } else {
                     // other rules concate via OR
-                    orResult = orResult | ruleResult(rule, currentCheckList)
+                    orResult = orResult || ruleResult(rule, currentCheckList)
                 }
             })
+            action.show = orResult
         }
     })
 }
