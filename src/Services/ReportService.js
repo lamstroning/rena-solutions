@@ -1,4 +1,5 @@
 import { getUserByName } from './AuthService'
+import { getActionByID } from './CheckListService'
 
 const emptyReport = [
     {
@@ -47,6 +48,18 @@ function isDateBetween(targetDate1, startDate1, endDate1) {
     return true
 }
 
+function isConflict(action) {
+    var actionData = getActionByID(action.actionID)
+    switch (actionData.field) {
+        case 'select':
+            return action.expected === action.value
+        case 'number':
+            return action.expected.min <= value && value < action.expected.max
+        default:
+            return false
+    }
+}
+
 export function getReport(request, tasks) {
     var result = []
     tasks.array.forEach(task => {
@@ -61,7 +74,7 @@ export function getReport(request, tasks) {
                         desc: action.desc,
                         expected: action.expected,
                         value: action.value,
-                        conflict: false
+                        conflict: isConflict(action)
                     },
                     workerName: request.workerName,
                     endDate: task.endDate,

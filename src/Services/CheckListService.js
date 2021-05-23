@@ -132,7 +132,7 @@ export function getCheckListsByEqupment(equpment) {
     return result
 }
 
-function getActionByID(actionID) {
+export function getActionByID(actionID) {
     var result
     actionsDB.forEach((action) => {
         if (action.id === actionID) {
