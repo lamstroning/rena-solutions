@@ -6,7 +6,7 @@ const actionsDB = [
             type: 'selector',
             value: 'Есть'
         },
-        deatail: {
+        detail: {
             img: '../../asetss/images/imgCheckMotorPower.png',
             name: 'Проверить питание мотора',
             info: [
@@ -25,7 +25,7 @@ const actionsDB = [
             type: 'selector',
             value: 'Есть'
         },
-        deatail: {
+        detail: {
             img: '../../asetss/images/imgCheckConnection.png',
             name: 'Проверить наличие связи',
             info: [
@@ -51,7 +51,7 @@ const checkListsDB = [
     {
         id: 1,
         name: 'Отказ системы управления',
-        equpment: 'KUKA KR 6-2',
+        equipment: 'KUKA KR 6-2',
         actions: [
             {
                 actionID: 1
@@ -62,34 +62,24 @@ const checkListsDB = [
                     {
                         actionID: 1,
                         compareType: '=',
-                        targetValue: "Есть",
+                        targetValue: 'Есть'
                     }
-                ],
-            }
-            ,
+                ]
+            },
             {
                 actionID: 3,
                 rules: [
-                    [
-                        // AND rule - array of actions
-                        {
-                            actionID: 1,
-                            compareType: '=',
-                            targetValue: "Есть",
-                        },
-                        {
-                            actionID: 2,
-                            compareType: '=',
-                            targetValue: "Есть",
-                        }
-                    ],
-                    // example OR rule - only one action
-                    // {
-                    //     actionID: N,
-                    //     compareType: '>',
-                    //     targetValue: 240
-                    // }
-                ],
+                    {
+                        actionID: 1,
+                        compareType: '=',
+                        targetValue: 'Есть'
+                    },
+                    {
+                        actionID: 2,
+                        compareType: '=',
+                        targetValue: 'Есть'
+                    }
+                ]
             }
         ]
     }

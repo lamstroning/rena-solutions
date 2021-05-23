@@ -1,17 +1,12 @@
+import {getOffsetDate} from './Date';
+
 export const emptyTask = {
     name: '',
     code: '',
     equipment: '',
-    authorId: 1
-}
-const baseDate = new Date(Date.now())
-
-function getOffsetDate(day, hour, minutes) {
-    const tmpDate = baseDate
-    tmpDate.setDate(tmpDate.getDate() - day);
-    tmpDate.setHours(tmpDate.getHours() - hour);
-    tmpDate.setMinutes(tmpDate.getMinutes() - minutes);
-    return tmpDate.toLocaleString().replace(',', ' ');
+    authorId: 1,
+    date: getOffsetDate(1, 2, 27),
+    icon: 'warning'
 }
 
 const tasksDB = [
@@ -19,13 +14,12 @@ const tasksDB = [
         id: 1,
         status: 'finish',
         number: '000000000001',
-        authorId: 2,
+        authorId: 1,
         name: 'KUKA 5 ARC',
         workerId: 1,
         code: '35663-KL',
         date: getOffsetDate(1, 2, 27),
         endDate: '',
-        color: '#F29545',
         icon: 'warning',
         actionsState: {
             "1": "Есть",
@@ -36,7 +30,8 @@ const tasksDB = [
 ]
 
 export function initStorage() {
-    localStorage.setItem('taskList', JSON.stringify(tasks));
+    if (!localStorage.getItem('taskList'))
+        localStorage.setItem('taskList', JSON.stringify(tasksDB));
 }
 
 function pad(n, width, z) {
@@ -45,8 +40,7 @@ function pad(n, width, z) {
     return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
 }
 
-var taskID = 1
-var taskNumber = '000000000001'
+let taskID = 1
 
 export function createTask(task) {
     const taskList = getTasks();
@@ -54,7 +48,7 @@ export function createTask(task) {
         if (!task[taskField])
             return false;
     }
-    taskID = length(taskList)
+    taskID = taskList.length
     taskID += 1
     task.id = taskID
     task.number = pad(taskID, 12)

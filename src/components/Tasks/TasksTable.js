@@ -8,15 +8,16 @@ import FlashOnIcon from '@material-ui/icons/FlashOn';
 import SchoolIcon from '@material-ui/icons/School';
 import PriorityHighIcon from '@material-ui/icons/PriorityHigh';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
+import {getUser} from '../../Services/AuthService';
 
 function RenderRow({ task }) {
     const history = useHistory();
 
     const iconList = {
-        error: <PriorityHighIcon />,
-        warning: <FlashOnIcon />,
-        date: <TodayIcon />,
-        study: <SchoolIcon />
+        error: <PriorityHighIcon/>,
+        warning: <FlashOnIcon/>,
+        date: <TodayIcon/>,
+        study: <SchoolIcon/>
     }
 
 
@@ -45,9 +46,9 @@ function RenderRow({ task }) {
                 </div>
             </TableCell>
             <TableCell className='table__cell'>
-                <Box>
-                    {task.auth}
-                </Box>
+                <div>
+                    {getUser(task.authorId).name}
+                </div>
             </TableCell>
             <TableCell className='table__cell table__cell_right-offset'>
                 <div>
@@ -59,7 +60,7 @@ function RenderRow({ task }) {
 }
 
 
-export default function TasksTable({ tasks = [] }) {
+export default function TasksTable({tasks = []}) {
     const [sortConfig, setSortConfig] = useState({});
     const [sortedTasks, setSortedTasks] = useState(tasks);
 
@@ -120,6 +121,12 @@ export default function TasksTable({ tasks = [] }) {
             key: 'date'
         }
     ]
+    if (!tasks.length)
+        return (
+            <div className='title title_black title_center'>
+                Заданий нет
+            </div>
+        )
     return (
         <Table className='table table_rounded'>
             <TableHead className='table__head table__head_primary'>
