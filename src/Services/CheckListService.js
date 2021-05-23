@@ -42,6 +42,48 @@ const actionsDB = [
             min: 195,
             max: 240,
         }
+    },
+    {
+        id: 4,
+        desc: 'Снять крышку',
+        field: 'select',
+        selectItems: ['Снята', 'Нет'],
+        expected: 'Снята',
+        detail: {
+            img: '../../asetss/images/imgRemovingCover.png',
+            name: 'Снять крышку',
+            info: [
+                'Выкрутите из крышки 7 винтов M3x10-10.9 с полукруглой головкой и снимите крышку'
+            ]
+        }
+    },
+    {
+        id: 5,
+        desc: 'Ослабить винты на двигателе',
+        field: 'select',
+        selectItems: ['Ослаблены', 'Нет'],
+        expected: 'Ослаблены',
+        detail: {
+            img: '../../asetss/images/imgTensioning.png',
+            name: 'Ослабить винты на двигателе',
+            info: [
+                'Ослабьте 2 винта M4x10-10.9 с цилиндрической головкой на двигателе'
+            ]
+        }
+    },
+    {
+        id: 6,
+        desc: 'Натяжение ремня',
+        field: 'select',
+        selectItems: ['Натяжён', 'Нет'],
+        expected: 'Натяжён',
+        detail: {
+            img: '',
+            name: 'Натяжение ремня',
+            info: [
+                'Вставьте подходящий инструмент (например, отвертку) в соответствующее отверстие в креплении двигателя и осторожно нажмите на двигатель влево, чтобы натянуть зубчатый ремень.'
+            ]
+        }
     }
 ]
 
@@ -66,7 +108,7 @@ const checkListsDB = [
             {
                 id: 1,
                 actionID: 1,
-                show: false
+                show: true
             },
             {
                 id: 2,
@@ -97,6 +139,42 @@ const checkListsDB = [
                             targetValue: 'Есть'
                         }
                     ]
+                ],
+                show: false
+            }
+        ]
+    },
+    {
+        id: 2,
+        name: 'Регулировка натяжения зубчатой передачи',
+        equipment: 'KUKA KR 6-2',
+        actions: [
+            {
+                id: 1,
+                actionID: 4,
+                show: true
+            },
+            {
+                id: 2,
+                actionID: 5,
+                rules: [
+                    {
+                        actionID: 4,
+                        compareType: '=',
+                        targetValue: 'Снята'
+                    }
+                ],
+                show: false
+            },
+            {
+                id: 3,
+                actionID: 6,
+                rules: [
+                    {
+                        actionID: 4,
+                        compareType: '=',
+                        targetValue: 'Ослаблены'
+                    }
                 ],
                 show: false
             }
