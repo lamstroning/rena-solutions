@@ -84,6 +84,52 @@ const actionsDB = [
                 'Вставьте подходящий инструмент (например, отвертку) в соответствующее отверстие в креплении двигателя и осторожно нажмите на двигатель влево, чтобы натянуть зубчатый ремень.'
             ]
         }
+    },
+    {
+        id: 7,
+        desc: 'Затяжение винтов',
+        field: 'select',
+        selectItems: ['Затянуты', 'Нет'],
+        expected: 'Затянуты',
+        detail: {
+            img: '',
+            name: 'Затяжение винтов',
+            info: [
+                'Слегка затяните 2 винта M4x10-10.9 с цилиндрической головкой на двигателе'
+            ]
+        }
+    },
+    {
+        id: 8,
+        desc: 'Подключение устройства измерения натяжения',
+        field: 'select',
+        selectItems: ['Подключено', 'Нет'],
+        expected: 'Подключено',
+        detail: {
+            img: '',
+            name: 'Подключение устройства измерения натяжения',
+            info: [
+                'Подключите устройство измерения натяжения ремня.'
+            ]
+        }
+    },
+    {
+        id: 9,
+        desc: 'Регулировка натяжения',
+        field: 'number',
+        units: 'Гц',
+        expected: {
+            min: 200,
+            max: 310
+        },
+        detail: {
+            img: '../../asetss/images/imgMeasuringDevice.png',
+            name: 'Регулировка натяжения',
+            info: [
+                'Отстегнуть зубчатый ремень и удерживать датчик около его центра на расстоянии 2-3 мм от вибрирующего зубчатого ремня',
+                'Считайте результат измерения на приборе для измерения натяжения ремня.'
+            ]
+        }
     }
 ]
 
@@ -171,9 +217,45 @@ const checkListsDB = [
                 actionID: 6,
                 rules: [
                     {
-                        actionID: 4,
+                        actionID: 5,
                         compareType: '=',
                         targetValue: 'Ослаблены'
+                    }
+                ],
+                show: false
+            },
+            {
+                id: 4,
+                actionID: 7,
+                rules: [
+                    {
+                        actionID: 6,
+                        compareType: '=',
+                        targetValue: 'Натяжён'
+                    }
+                ],
+                show: false
+            },
+            {
+                id: 5,
+                actionID: 8,
+                rules: [
+                    {
+                        actionID: 7,
+                        compareType: '=',
+                        targetValue: 'Затянуты'
+                    }
+                ],
+                show: false
+            },
+            {
+                id: 6,
+                actionID: 9,
+                rules: [
+                    {
+                        actionID: 8,
+                        compareType: '=',
+                        targetValue: 'Подключено'
                     }
                 ],
                 show: false
