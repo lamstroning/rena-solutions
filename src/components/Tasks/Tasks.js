@@ -1,6 +1,6 @@
 import CustomTabs from '../Tabs/CustomTabs';
 import TasksTable from './TasksTable';
-import {useState} from 'react';
+import { useState } from 'react';
 
 const baseDate = new Date(Date.now())
 
@@ -61,7 +61,7 @@ const tasks = [
 
 export default function Tasks() {
     const [tasksFiltered, setTasksFiltered] = useState(tasks)
-    const Table = () => <TasksTable tasks={tasksFiltered}/>;
+    const Table = () => <TasksTable tasks={tasksFiltered} />;
 
     function filterTasks(filter) {
         filter == 'all'
@@ -71,7 +71,7 @@ export default function Tasks() {
 
     return (
         <div className='page page_small'>
-            <CustomTabs filter={filterTasks} table={Table}/>
+            <CustomTabs filter={filterTasks} table={Table} />
         </div>
     );
 }

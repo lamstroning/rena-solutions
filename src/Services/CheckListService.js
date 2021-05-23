@@ -1,3 +1,100 @@
+const actionsDB = [
+    {
+        id: 1,
+        desc: 'Проверить питание мотора',
+        expected: {
+            type: 'selector',
+            value: 'Есть'
+        },
+        deatail: {
+            img: '../../asetss/images/imgCheckMotorPower.png',
+            name: 'Проверить питание мотора',
+            info: [
+                'Визуально проверить исправность кабеля кабеля мотора X20-X30',
+                'Отключить кабель от робота (разъём X30)',
+                'Перевести мультиметр в режим измерения постоянного напряжения',
+                'Проверить наличие напряжения 24В= между клеммами 18 и 24',
+                'Проверить наличие напряжения 24В= между клеммами 19 и 25'
+            ]
+        }
+    },
+    {
+        id: 2,
+        desc: 'Проверить  наличие связи',
+        expected: {
+            type: 'selector',
+            value: 'Есть'
+        },
+        deatail: {
+            img: '../../asetss/images/imgCheckConnection.png',
+            name: 'Проверить наличие связи',
+            info: [
+                'Визуально проверить исправность кабеля кабеля связи X21-X31',
+                'Отключить кабель от робота и станции управления',
+                'Прозвонить линии 1,2,5,6,9,11,10,12'
+            ]
+        }
+    },
+    {
+        id: 3,
+        desc: 'Проверить питание на выходе РЩ',
+        expected: {
+            type: 'input',
+            min: 195,
+            max: 240,
+            units: 'В'
+        }
+    }
+]
+
+const checkListsDB = [
+    {
+        id: 1,
+        name: 'Отказ системы управления',
+        equpment: 'KUKA KR 6-2',
+        actions: [
+            {
+                actionID: 1
+            },
+            {
+                actionID: 2,
+                rules: [
+                    {
+                        actionID: 1,
+                        compareType: '=',
+                        targetValue: "Есть",
+                    }
+                ],
+            }
+            ,
+            {
+                actionID: 3,
+                rules: [
+                    [
+                        // AND rule - array of actions
+                        {
+                            actionID: 1,
+                            compareType: '=',
+                            targetValue: "Есть",
+                        },
+                        {
+                            actionID: 2,
+                            compareType: '=',
+                            targetValue: "Есть",
+                        }
+                    ],
+                    // example OR rule - only one action
+                    // {
+                    //     actionID: N,
+                    //     compareType: '>',
+                    //     targetValue: 240
+                    // }
+                ],
+            }
+        ]
+    }
+]
+
 const checkListFields1 = [
     {
         name: 'Проверить питание мотора',
@@ -64,5 +161,5 @@ export function getCheckList() {
 }
 
 export function filterNameCheckList(filterName) {
-    return checkList.filter(({name}) => name.indexOf(filterName) != -1);
+    return checkList.filter(({ name }) => name.indexOf(filterName) != -1);
 }

@@ -10,16 +10,17 @@ import Login from './components/Auth/Login';
 import { StylesProvider } from '@material-ui/core/styles';
 
 import * as serviceWorker from './serviceWorker';
-import {getCurrentUser} from './Services/AuthService';
+import { getCurrentUser } from './Services/AuthService';
+import { initStorage } from './Services/TaskService';
 
 const PrivateRoute = () => {
     const user = getCurrentUser();
     if (user)
         return <Route path='/'>
-            <App/>
+            <App />
         </Route>;
     else
-        return <Redirect to='/login'/>
+        return <Redirect to='/login' />
 }
 
 ReactDOM.render(
@@ -28,9 +29,9 @@ ReactDOM.render(
             <BrowserRouter basename={process.env.PUBLIC_URL}>
                 <Switch>
                     <Route exact path='/login'>
-                        <Login/>
+                        <Login />
                     </Route>
-                    <PrivateRoute/>
+                    <PrivateRoute />
                 </Switch>
             </BrowserRouter>
         </MuiThemeProvider>
@@ -39,3 +40,4 @@ ReactDOM.render(
 );
 
 serviceWorker.register();
+initStorage();
