@@ -4,7 +4,7 @@ export default function NewTaskCheckListContent() {
     return (
         <div className='container'>
             <div className='row row_offset-2'>
-                <Table className='table table_rounded card card_rounded'>
+                <Table className='table table_rounded'>
                     <TableHead className='table__head table__head_primary'>
                         <TableRow>
                             <TableCell>N/N</TableCell>
@@ -12,7 +12,7 @@ export default function NewTaskCheckListContent() {
                             <TableCell>Ожидаемый результат</TableCell>
                         </TableRow>
                     </TableHead>
-                    <TableBody>
+                    <TableBody className='table__body'>
                         <TableRow>
                             <TableCell>1</TableCell>
                             <TableCell>Проверить питание</TableCell>

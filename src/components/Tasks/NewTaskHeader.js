@@ -6,10 +6,15 @@ import {getUser} from '../../Services/AuthService';
 import Alert from '../Alert/Alert';
 import FilterListIcon from '@material-ui/icons/FilterList';
 
-export default function NewTaskHeader() {
+export default function NewTaskHeader({changeEquipment}) {
     const [task, setTask] = useState({...emptyTask});
     const [showError, setShowError] = useState(false);
     const [open, setOpen] = useState(false);
+
+    function searchEquipment(event) {
+        changeEquipment(event.currentTarget.value);
+        setTask({...task, equipment: event.currentTarget.value});
+    }
 
     function newTask() {
         const successCreateTask = createTask(task);
@@ -57,7 +62,7 @@ export default function NewTaskHeader() {
                         value={task.equipment}
                         error={showError && !task.equipment}
                         errorMessage='Заполните поле'
-                        onChange={event => setTask({...task, equipment: event.currentTarget.value})}
+                        onChange={searchEquipment}
                         placeholder='Введите название оборудования'
                     />
                 </div>
