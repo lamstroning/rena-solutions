@@ -3,6 +3,10 @@
   text-transform: unset;
   height: 40px;
 
+  &_without-hover:hover {
+    background-color: var(--color-primary);
+  }
+
   &_square {
     border-radius: 0;
   }

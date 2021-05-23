@@ -22,20 +22,19 @@ const testRequest = {
 }
 
 function isDateBetween(targetDate1, startDate1, endDate1) {
-    var startDate = Date.parse(startDate1)
-    var endDate = Date.parse(endDate1)
-    var targetDate = Date.parse(targetDate1.replace(' ', ','))
+    const startDate = Date.parse(startDate1)
+    const endDate = Date.parse(endDate1)
+    const targetDate = Date.parse(targetDate1.replace(' ', ','))
     if (targetDate < startDate)
         return false
 
-    if (targetDate > endDate)
-        return false
+    return targetDate <= endDate;
 
-    return true
+
 }
 
 function isConflict(action) {
-    var actionData = getActionByID(action.actionID)
+    const actionData = getActionByID(action.actionID)
     switch (actionData.field) {
         case 'select':
             return !(actionData.expected === action.value)
@@ -47,26 +46,24 @@ function isConflict(action) {
 }
 
 export function getReport(request, tasks) {
-    var result = []
+    const result = []
     tasks.forEach(task => {
         if ((task.code === request.code) &&
             (task.name === request.name) &&
             (getUserByName(request.workerName).id === task.workerId) &&
             isDateBetween(task.endDate, request.startDate, request.endDate)) {
-            task.checkList.actions.forEach((action) => {
-                var actionData = getActionByID(action.actionID)
-                var data = {
+            task.checkList.actions.forEach(action =>
+                result.push({
                     number: task.number,
                     action: {
-                        actionData: actionData,
+                        actionData: getActionByID(action.actionID),
                         value: action.value,
                         conflict: isConflict(action)
                     },
                     workerName: request.workerName,
-                    endDate: task.endDate,
-                }
-                result.push(data)
-            })
+                    endDate: task.endDate
+                })
+            )
         }
     });
 

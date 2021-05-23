@@ -6,7 +6,7 @@ export default function Alert({open, status, children}) {
         return (<></>);
 
     return (
-        <Button className={clsx('button alert', `alert_${status}`)}>
+        <Button className={clsx('button button_without-hover alert', `alert_${status}`)}>
             {children}
         </Button>
     )

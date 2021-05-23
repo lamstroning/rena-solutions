@@ -40,7 +40,7 @@ const actionsDB = [
         units: 'В',
         expected: {
             min: 195,
-            max: 240,
+            max: 240
         }
     },
     {
@@ -196,14 +196,14 @@ export function getCheckListsByName(name) {
     return result
 }
 
-export function getCheckListsByEqupment(equpment) {
+export function getCheckListsByEquipment(equipment) {
     let result = []
-    if (equpment.length < 3) {
+    if (equipment.length < 3) {
         return result
     }
 
     checkListsDB.forEach((element) => {
-        if (element.equipment.startsWith(equpment)) {
+        if (element.equipment.startsWith(equipment)) {
             result.push(element)
         }
     })
@@ -211,11 +211,10 @@ export function getCheckListsByEqupment(equpment) {
 }
 
 export function getActionByID(actionID) {
-    var result
-    actionsDB.forEach((action) => {
-        if (action.id === actionID) {
+    let result
+    actionsDB.forEach(action => {
+        if (action.id === actionID)
             result = action
-        }
     })
     return result
 }

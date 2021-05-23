@@ -3,25 +3,41 @@ import {createTask, emptyTask} from '../../Services/TaskService';
 import {useState} from 'react';
 import {Input} from '../Common/Inputs';
 import {getUser} from '../../Services/AuthService';
+import Alert from '../Alert/Alert';
 import FilterListIcon from '@material-ui/icons/FilterList';
 
-export default function NewTaskHeader() {
+export default function NewTaskHeader({changeEquipment}) {
     const [task, setTask] = useState({...emptyTask});
     const [showError, setShowError] = useState(false);
-    const [finish, setFinish] = useState(false);
+    const [open, setOpen] = useState(false);
 
-    function newTask() {
-        setShowError(!createTask(task));
-        if (!showError)
-            setFinish(true);
+    function searchEquipment(event) {
+        changeEquipment(event.currentTarget.value);
+        setTask({...task, equipment: event.currentTarget.value});
     }
 
+    function newTask() {
+        const successCreateTask = createTask(task);
+        setShowError(!successCreateTask);
+        if (successCreateTask)
+            openAlert();
+    }
+
+    function openAlert() {
+        setOpen(true);
+        setTimeout(() => setOpen(false), 3000);
+        setTask({...emptyTask});
+    }
 
     return (
         <>
+            <Alert open={open} status='success'>
+                Заявка успешно создана
+            </Alert>
             <div className='row row_offset-2'>
                 <div className='col col_10'>
                     <Input
+                        value={task.name}
                         error={showError && !task.name}
                         errorMessage='Заполните поле'
                         onChange={event => setTask({...task, name: event.currentTarget.value})}
@@ -35,7 +51,6 @@ export default function NewTaskHeader() {
                         variant='contained'
                         className='button'
                         color='primary'
-                        disabled={finish}
                     >
                         Создать
                     </Button>
@@ -44,14 +59,16 @@ export default function NewTaskHeader() {
             <div className='row row_offset-2'>
                 <div className='col col_5'>
                     <Input
+                        value={task.equipment}
                         error={showError && !task.equipment}
                         errorMessage='Заполните поле'
-                        onChange={event => setTask({...task, equipment: event.currentTarget.value})}
+                        onChange={searchEquipment}
                         placeholder='Введите название оборудования'
                     />
                 </div>
                 <div className='col col_5'>
                     <Input
+                        value={task.code}
                         error={showError && !task.code}
                         errorMessage='Заполните поле'
                         onChange={event => setTask({...task, code: event.currentTarget.value})}

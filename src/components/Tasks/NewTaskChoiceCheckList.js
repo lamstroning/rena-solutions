@@ -1,20 +1,14 @@
-import {getTasks} from '../../Services/TaskService';
+
 import {TaskList} from './TaskList';
+import {getCheckListsByEquipment} from '../../Services/CheckListService';
 
-export default function NewTaskChoiceCheckList() {
-    const tasks = getTasks();
+export default function NewTaskChoiceCheckList({equipment}) {
+    const checklists = getCheckListsByEquipment(equipment);
 
-    if (!tasks.length)
-        return (
-            <div className='row row_center'>
-                Заданий нет
-            </div>)
     return (
         <>
             <div className='row row_offset-2 col'>
-                <div className='card card_rounded'>
-                    <TaskList tasks={tasks}/>
-                </div>
+                <TaskList checklists={checklists}/>
             </div>
         </>
     );
