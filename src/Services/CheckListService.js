@@ -45,6 +45,18 @@ const actionsDB = [
     }
 ]
 
+export function getExpectedString(actionID) {
+    let action = getActionByID(actionID)
+    switch (action.field) {
+        case 'select':
+            return action.expected
+        case 'number':
+            return action.expected.min.toString() + "..." + action.expected.max.toString() + action.units
+        default:
+            return ''
+    }
+}
+
 const checkListsDB = [
     {
         id: 1,
