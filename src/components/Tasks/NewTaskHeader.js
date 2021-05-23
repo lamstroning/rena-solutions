@@ -1,21 +1,21 @@
-import {Button} from '@material-ui/core';
+import {Button, TextField} from '@material-ui/core';
 import {createTask, emptyTask} from '../../Services/TaskService';
 import {useState} from 'react';
 import {Input} from '../Common/Inputs';
 import {getUser} from '../../Services/AuthService';
+import FilterListIcon from '@material-ui/icons/FilterList';
 
 export default function NewTaskHeader() {
-    const [task, setTask] = useState(emptyTask);
+    const [task, setTask] = useState({...emptyTask});
     const [showError, setShowError] = useState(false);
+    const [finish, setFinish] = useState(false);
 
     function newTask() {
-        setShowError(
-            !createTask(task)
-        );
-        if (!showError) {
-
-        }
+        setShowError(!createTask(task));
+        if (!showError)
+            setFinish(true);
     }
+
 
     return (
         <>
@@ -35,6 +35,7 @@ export default function NewTaskHeader() {
                         variant='contained'
                         className='button'
                         color='primary'
+                        disabled={finish}
                     >
                         Создать
                     </Button>
@@ -66,6 +67,39 @@ export default function NewTaskHeader() {
                         value={getUser(task.authorId).name}
                         placeholder='Исполнитель'
                         disabled
+                    />
+                </div>
+            </div>
+            <div className='row row_offset-2'>
+                <div className='col col_6'>
+                    <div className='row'>
+                        <div className='col col_12'>
+                            <TextField
+                                fullWidth
+                                placeholder='Фильтр по названию'
+                                className='input input_bg-white'
+                                variant='outlined'
+                                size='small'
+                            />
+                        </div>
+                        <div className='col'>
+                            <Button
+                                variant='contained'
+                                color='primary'
+                                className='button'
+                            >
+                                <FilterListIcon/>
+                            </Button>
+                        </div>
+                    </div>
+                </div>
+                <div className='col col_6'>
+                    <TextField
+                        fullWidth
+                        placeholder='Выбранный чек-лист'
+                        className='input input_bg-white'
+                        variant='outlined'
+                        size='small'
                     />
                 </div>
             </div>

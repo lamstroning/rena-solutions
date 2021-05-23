@@ -50,7 +50,6 @@ export function createUser() {
 }
 
 export function getUser(id) {
-    console.log(id);
     return userList.find(user => user.id == id) || {};
 }
 

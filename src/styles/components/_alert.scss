@@ -1,0 +1,27 @@
+.alert {
+  position: fixed;
+  z-index: 100;
+  right: 0;
+  top: calc(var(--page-header-height) + 20px);
+  padding: 20px;
+  background-color: white;
+  border: 1px solid white;
+  animation: showAlert 0.2s;
+
+  &_success {
+    color: white;
+    background-color: var(--color-success);
+    border-color: var(--color-success);
+  }
+}
+
+@keyframes showAlert {
+  from {
+    padding: 20px 0;
+    opacity: 0;
+  }
+  to {
+    padding: 20px;
+    opacity: 1;
+  }
+}

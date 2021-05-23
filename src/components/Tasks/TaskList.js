@@ -3,14 +3,11 @@ import HeadCell from '../Table/HeadCell';
 
 export function TaskList({tasks}) {
     return (
-        <Table className='table'>
-            <TableHead className='table__head'>
+        <Table className='table table_rounded'>
+            <TableHead className='table__head table__head_primary'>
                 <TableRow>
                     <HeadCell sorted>
                         Название
-                    </HeadCell>
-                    <HeadCell sorted>
-                        Оборудование
                     </HeadCell>
                 </TableRow>
             </TableHead>
@@ -18,7 +15,6 @@ export function TaskList({tasks}) {
                 {tasks.map(({equipment, name}, index) =>
                     <TableRow key={index}>
                         <TableCell>{name}</TableCell>
-                        <TableCell>{equipment}</TableCell>
                     </TableRow>
                 )}
             </TableBody>

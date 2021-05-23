@@ -1,5 +1,4 @@
 import {getTasks} from '../../Services/TaskService';
-import {TaskListFilter} from './TaskListFilter';
 import {TaskList} from './TaskList';
 
 export default function NewTaskChoiceCheckList() {
@@ -12,7 +11,6 @@ export default function NewTaskChoiceCheckList() {
             </div>)
     return (
         <>
-            <TaskListFilter/>
             <div className='row row_offset-2 col'>
                 <div className='card card_rounded'>
                     <TaskList tasks={tasks}/>

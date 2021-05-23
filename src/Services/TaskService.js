@@ -18,8 +18,8 @@ const tasksDB = [
         name: 'KUKA 5 ARC',
         workerId: 2,
         code: '35663-KL',
-        date: '2021-05-21 15:12',
-        endDate: '2021-05-21 15:45',
+        date: getOffsetDate(1, 2, 27),
+        endDate: '',
         icon: 'warning',
         checkList: {
             id: 1,
@@ -120,12 +120,12 @@ export function updateActionState(taskID, actionID, value) {
 
     taskList.array.forEach(element => {
         if (element.id == taskID) {
-            if (!element["actionsState"])
-                element["actionsState"] = {}
-            element["actionsState"][actionID] = value
-            if (element["date"] == '') {
+            if (!element['actionsState'])
+                element['actionsState'] = {}
+            element['actionsState'][actionID] = value
+            if (element['date'] == '') {
                 const dateStart = new Date(Date.now())
-                element["date"] = dateStart.toLocaleString().replace(',', ' ')
+                element['date'] = dateStart.toLocaleString().replace(',', ' ')
             }
         }
     });
