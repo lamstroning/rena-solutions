@@ -122,8 +122,8 @@ export default function Login() {
                     mt={2}
                     mx='auto'
                 >
-                    <Link href='#'>
-                        Забыли пароль?
+                    <Link href='#' onClick={() => alert('admin/admin - для создания заданий\nuser/user - для заполнения заданий')}>
+                        Демо пароль здесь!
                     </Link>
                 </Box>
             </Box>

@@ -206,6 +206,7 @@ function ruleResult(rule, checkList) {
     }
 }
 
+// return flag that checklist filled
 export function updateCurrentCheckList(currentCheckList) {
     var counter = 0
     currentCheckList.actions.forEach((action) => {

@@ -14,7 +14,7 @@ const tasksDB = [
         id: 1,
         status: 'finish',
         number: '000000000001',
-        authorId: 1,
+        authorId: 2,
         name: 'KUKA 5 ARC',
         workerId: 1,
         code: '35663-KL',

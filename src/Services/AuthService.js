@@ -1,8 +1,8 @@
-import avatarAdmin from '../asetss/images/worker-avatar.png'
-import avatarUser from '../asetss/images/user-avatar.jpg'
+import avatarAdmin from '../asetss/images/user-avatar.png'
+import avatarUser from '../asetss/images/worker-avatar.png'
 
 const admin = {
-    id: 0,
+    id: 2,
     name: 'Иванов А. А.',
     role: 'admin',
     email: 'ivanov.a.a@informatique.ru',
