@@ -173,6 +173,16 @@ function getActionValue(checkList, actionID) {
     return result
 }
 
+function getActionShowed(checkList, actionID) {
+    var result
+    checkList.actions.forEach((action) => {
+        if ((action.actionID === actionID) && ('show' in action)) {
+            result = action.show
+        }
+    })
+    return result
+}
+
 function ruleResult(rule, checkList) {
     const action = getActionByID(rule.actionID)
     const value = getActionValue(checkList, rule.actionID)
@@ -197,8 +207,10 @@ function ruleResult(rule, checkList) {
 }
 
 export function updateCurrentCheckList(currentCheckList) {
+    var counter = 0
     currentCheckList.actions.forEach((action) => {
         if ('rules' in action) {
+            var showed = true
             let orResult = false
             action.rules.forEach((rule) => {
                 // it's an array, concate subitems via AND
@@ -206,16 +218,31 @@ export function updateCurrentCheckList(currentCheckList) {
                     let andResult = true
                     rule.forEach((subRule) => {
                         andResult = andResult && ruleResult(subRule, currentCheckList)
+                        showed = showed && getActionShowed(currentCheckList, subRule.actionID)
+                        if (getActionValue(currentCheckList, subRule.actionID) === undefined) {
+                            showed = false
+                        }
                     })
                     orResult = orResult || andResult
                 } else {
                     // other rules concate via OR
                     orResult = orResult || ruleResult(rule, currentCheckList)
+                    showed = showed && getActionShowed(currentCheckList, rule.actionID)
+                    if (getActionValue(currentCheckList, rule.actionID) === undefined) {
+                        showed = false
+                    }
                 }
             })
             action.show = orResult
+            if (showed) {
+                counter++
+            }
+        } else {
+            counter++
         }
     })
+
+    return counter === currentCheckList.actions.length
 }
 
 const checkListFields1 = [
