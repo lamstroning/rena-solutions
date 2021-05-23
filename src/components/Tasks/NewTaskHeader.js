@@ -74,7 +74,6 @@ export default function NewTaskHeader() {
             <div className='row row_offset-2'>
                 <div className='col col_3'>
                     <Input
-                        value={task.authorId}
                         error={showError && !task.authorId}
                         errorMessage='Заполните поле'
                         value={getUser(task.authorId).name}
