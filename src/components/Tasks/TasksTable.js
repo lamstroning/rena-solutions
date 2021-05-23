@@ -1,5 +1,5 @@
-import {useState} from 'react';
-import {useHistory} from 'react-router';
+import { useState } from 'react';
+import { useHistory } from 'react-router';
 
 import { Box, Button, Table, TableBody, TableCell, TableHead, TableRow } from '@material-ui/core';
 
@@ -8,16 +8,16 @@ import FlashOnIcon from '@material-ui/icons/FlashOn';
 import SchoolIcon from '@material-ui/icons/School';
 import PriorityHighIcon from '@material-ui/icons/PriorityHigh';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
-import {getUser} from '../../Services/AuthService';
+import { getUser } from '../../Services/AuthService';
 
 function RenderRow({ task }) {
     const history = useHistory();
 
     const iconList = {
-        error: <PriorityHighIcon/>,
-        warning: <FlashOnIcon/>,
-        date: <TodayIcon/>,
-        study: <SchoolIcon/>
+        error: <PriorityHighIcon />,
+        warning: <FlashOnIcon />,
+        date: <TodayIcon />,
+        study: <SchoolIcon />
     }
 
 
@@ -60,7 +60,7 @@ function RenderRow({ task }) {
 }
 
 
-export default function TasksTable({tasks = []}) {
+export default function TasksTable({ tasks = [] }) {
     const [sortConfig, setSortConfig] = useState({});
     const [sortedTasks, setSortedTasks] = useState(tasks);
 
