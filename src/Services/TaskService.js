@@ -14,9 +14,9 @@ const tasksDB = [
         id: 1,
         status: 'finish',
         number: '000000000001',
-        authorId: 1,
+        authorId: 2,
         name: 'KUKA 5 ARC',
-        workerId: 2,
+        workerId: 1,
         code: '35663-KL',
         date: getOffsetDate(1, 2, 27),
         endDate: '',
@@ -91,6 +91,10 @@ export function createTask(task) {
     taskID += 1
     task.id = taskID
     task.number = pad(taskID, 12)
+    task.authorId = 2
+    let timeStamp = Date.now()
+    task.timeStamp = timeStamp
+    task.date = (new Date(timeStamp)).toLocaleString()
     taskList.push(task);
     localStorage.setItem('taskList', JSON.stringify(taskList))
     return true;
@@ -136,5 +140,7 @@ export function updateActionState(taskID, actionID, value) {
 
 
 export function getTasks() {
+    if (!localStorage.getItem('taskList'))
+        initStorage()
     return JSON.parse(localStorage.getItem('taskList') || '[]');
 }

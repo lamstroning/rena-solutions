@@ -22,6 +22,7 @@ function RenderRow({ task }) {
 
 
     function navigate() {
+        window.localStorage.setItem('task', JSON.stringify(task));
         history.push({
             pathname: '/checklist',
             state: {}
@@ -52,7 +53,7 @@ function RenderRow({ task }) {
             </TableCell>
             <TableCell className='table__cell table__cell_right-offset'>
                 <div>
-                    {task.date}
+                    {task.date.toLocaleString()}
                 </div>
             </TableCell>
         </TableRow>

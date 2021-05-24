@@ -7,6 +7,7 @@ import {
     Dialog, DialogTitle, DialogContent, MenuItem, TextField, ListItemIcon, Menu, Link, Select
 } from '@material-ui/core';
 
+import AttachFileIcon from '@material-ui/icons/AttachFile'
 import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
 import AddPhotoAlternateIcon from '@material-ui/icons/AddPhotoAlternate';
 import EditIcon from '@material-ui/icons/Edit';
@@ -241,6 +242,7 @@ export default function CheckList() {
     const [step, setStep] = useState(1);
     const [openDrawer, setOpenDrawer] = useState(false);
     const location = useLocation();
+    const task = JSON.parse(localStorage.getItem('task'))
 
     const handleChange = (task, value) => {
         if (task.field == 'number' && task.result <= +value)
@@ -248,6 +250,8 @@ export default function CheckList() {
         else if (task.result == value)
             setStep(step + 1);
     };
+
+    console.log(task)
 
     if (!location.state)
         return (
@@ -304,7 +308,7 @@ export default function CheckList() {
                                 <EditIcon className='icon icon_border icon_medium' color='primary' />
                             </div>
                             <div className='col title title_black'>
-                                Задание на ремонт №{location.state.number}
+                                Задание на ремонт №{task.number}
                             </div>
                         </div>
                         <Button
@@ -318,14 +322,14 @@ export default function CheckList() {
                         </Button>
                     </div>
                     <div className='col row row_offset-2 text'>
-                        Отказ системы позиционирования обрабатываемых заготовок
+                        Отказ системы управления
                     </div>
                     <div className='row row_offset-2 row_between text text_bold'>
                         <div className='col'>
-                            <EquipmentInfo code={location.state.code} name={location.state.name} />
+                            <EquipmentInfo code={task.code} name={task.name} />
                         </div>
                         <div className='col'>
-                            Работы начаты: {new Date().toLocaleString().replace(',', ' ')}
+                            Работы начаты: {new Date().toLocaleString()}
                         </div>
                     </div>
                 </div>
@@ -370,16 +374,16 @@ export default function CheckList() {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {checkList.map((task, index) =>
+                            {checkList.map((action, index) =>
                                 index < step &&
-                                <TableRow className='table__row table__row_hovering' key={task.id}>
+                                <TableRow className='table__row table__row_hovering' key={action.id}>
                                     <TableCell className='table__cell border border_right border_bottom'>
-                                        {task.id}
+                                        {action.id}
                                     </TableCell>
                                     <TableCell className='table__cell table__cell_overflow border border_right border_bottom'>
                                         <div className='row row_between'>
                                             <div className='col text text_nowrap table-checklist__col_name'>
-                                                {task.action}
+                                                {action.action}
                                             </div>
                                             <IconButton
                                                 href='/checklist/info'
@@ -391,11 +395,11 @@ export default function CheckList() {
                                         </div>
                                     </TableCell>
                                     <TableCell className='table__cell border border_right border_bottom'>
-                                        {task.expected}
+                                        {action.expected}
                                     </TableCell>
                                     <TableCell className='table__cell border border_right border_bottom'>
                                         <RenderField
-                                            task={task}
+                                            task={action}
                                             onChange={handleChange}
                                             disabled={lock}
                                         />
