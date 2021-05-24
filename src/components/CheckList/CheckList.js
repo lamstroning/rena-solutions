@@ -389,6 +389,7 @@ export default function CheckList() {
                                                 href='/checklist/info'
                                                 className='icon-button icon-button_warning'
                                                 size='small'
+                                                onClick={localStorage.setItem('action', JSON.stringify(action))}
                                             >
                                                 <InfoIcon />
                                             </IconButton>

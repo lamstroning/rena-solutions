@@ -4,18 +4,19 @@ import InfoIcon from '@material-ui/icons/Info';
 
 function ActionListRow({ action, index }) {
     const actionData = getActionByID(action.actionID);
-
+    console.log(actionData)
     return (
         <TableRow>
             <TableCell>
                 {index + 1}
             </TableCell>
             <TableCell>
-                {action.desc}
+                {actionData.desc}
                 <IconButton
-                    href={`/checklist/info?id=${action.actionID}`}
+                    href={`/checklist/info?id=${actionData.id}`}
                     className='icon-button icon-button_warning'
                     size='small'
+                    onClick={localStorage.setItem('action', JSON.stringify(actionData))}
                 >
                     <InfoIcon />
                 </IconButton>
